@@ -1,10 +1,27 @@
 import { NextRequest, NextResponse } from "next/server";
-const USERS = [{ phone: "012", email: "", password: "012" }];
+import bcrypt from "bcryptjs";
+import { prisma } from "@/lib/prisma";
+import { signToken, setAuthCookie } from "@/lib/auth";
+
 export async function POST(req: NextRequest) {
-  const { identifier, password } = await req.json();
-  const user = USERS.find((u) => (u.phone === identifier || u.email === identifier) && u.password === password);
-  if (!user) return NextResponse.json({ error: "Invalid phone/email or password." }, { status: 401 });
-  const res = NextResponse.json({ ok: true });
-  res.cookies.set("pantora_auth", "true", { httpOnly: true, path: "/", maxAge: 60 * 60 * 24 * 7, sameSite: "lax" });
-  return res;
+  const { email, password } = await req.json();
+
+  if (!email || !password) {
+    return NextResponse.json({ error: "Email and password are required." }, { status: 400 });
+  }
+
+  const user = await prisma.user.findUnique({ where: { email } });
+  if (!user) {
+    return NextResponse.json({ error: "Invalid email or password." }, { status: 401 });
+  }
+
+  const valid = await bcrypt.compare(password, user.password);
+  if (!valid) {
+    return NextResponse.json({ error: "Invalid email or password." }, { status: 401 });
+  }
+
+  const token = await signToken({ userId: user.id, email: user.email });
+  setAuthCookie(token);
+
+  return NextResponse.json({ ok: true });
 }
