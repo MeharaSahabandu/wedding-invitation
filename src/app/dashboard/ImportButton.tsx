@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 type ImportState =
   | { status: "idle" }
   | { status: "loading" }
-  | { status: "success"; imported: number; skipped: number }
+  | { status: "success"; imported: number; skipped: number; messaged: number }
   | { status: "error"; message: string };
 
 export default function ImportButton() {
