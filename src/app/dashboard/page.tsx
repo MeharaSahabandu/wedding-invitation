@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import ParticipantList from "./ParticipantList";
+import ImportButton from "./ImportButton";
 
 export const dynamic = "force-dynamic";
 
@@ -8,172 +9,202 @@ export default async function Dashboard() {
 
   const confirmed = guests.filter((g) => g.attending === true).length;
   const notComing = guests.filter((g) => g.attending === false).length;
+  const pending = guests.filter((g) => g.attending === null).length;
   const total = guests.length;
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-100">
       {/* ── Navbar ── */}
-      <nav className="bg-white border-b border-gray-100 px-8 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-10">
+      <nav className="bg-white border-b border-gray-100 px-8 py-3.5 flex items-center justify-between">
+        {/* Left: logo + nav links */}
+        <div className="flex items-center gap-8">
           {/* Logo */}
           <div className="leading-tight">
-            <p className="font-black text-sm tracking-widest">PANTORA</p>
-            <p className="text-[10px] text-gray-400 tracking-widest">
-              EVENT PARTNERS
+            <p className="font-black text-[15px] tracking-widest text-gray-900">
+              PANT<span className="font-light">★</span>RA
+            </p>
+            <p className="text-[9px] text-gray-400 tracking-[0.25em] uppercase">
+              Event Partners
             </p>
           </div>
-          {/* Nav links */}
-          <div className="flex items-center gap-1">
+
+          {/* Nav pills */}
+          <div className="flex items-center gap-2">
             <NavLink icon={<HomeIcon />} label="Home" />
             <NavLink icon={<HeartIcon />} label="All Events" />
             <NavLink icon={<SettingsIcon />} label="Settings" />
           </div>
         </div>
-        {/* Right */}
-        <div className="flex items-center gap-5 text-sm text-gray-600">
-          <button className="flex items-center gap-2 hover:text-gray-900 transition-colors">
+
+        {/* Right: Profile | Sign Out */}
+        <div className="flex items-center text-sm text-gray-600">
+          <button className="flex items-center gap-1.5 px-3 py-1.5 hover:text-gray-900 transition-colors">
             <ProfileIcon />
             Profile
           </button>
-          <div className="w-px h-5 bg-gray-200" />
-          <button className="flex items-center gap-2 hover:text-gray-900 transition-colors">
+          <span className="text-gray-300 select-none mx-1">|</span>
+          <button className="flex items-center gap-1.5 px-3 py-1.5 hover:text-gray-900 transition-colors">
             <SignOutIcon />
             Sign Out
           </button>
         </div>
       </nav>
 
-      {/* ── Main content ── */}
-      <div className="flex gap-6 p-6 max-w-screen-xl mx-auto">
-        {/* ── Left panel — event card ── */}
-        <div className="w-80 shrink-0 space-y-0">
+      {/* ── Page body ── */}
+      <div className="flex gap-5 p-6 max-w-screen-xl mx-auto items-start">
+        {/* ── Left panel ── */}
+        <div className="w-[450px] shrink-0">
           <div className="bg-white rounded-2xl overflow-hidden shadow-sm">
-            {/* Poster */}
+            {/* Poster image */}
             <div className="relative">
               <div
-                className="h-64 flex flex-col items-start justify-end p-6"
+                className="h-80 w-full overflow-hidden"
                 style={{
                   background:
                     "linear-gradient(160deg, #7a1212 0%, #1a0505 100%)",
                 }}
               >
-                {/* Decorative circles */}
-                <div className="absolute top-8 right-8 w-28 h-28 rounded-full border border-white/10" />
-                <div className="absolute top-14 right-14 w-16 h-16 rounded-full border border-white/10" />
-                <p className="text-white/30 text-[10px] tracking-widest uppercase mb-1">
-                  Wedding Invitation
-                </p>
-                <p
-                  className="text-white font-black leading-none"
-                  style={{ fontSize: "52px", letterSpacing: "-2px" }}
-                >
-                  wed
-                </p>
-                <p
-                  className="text-white font-black leading-none"
-                  style={{ fontSize: "52px", letterSpacing: "-2px" }}
-                >
-                  ding
-                </p>
+                {/* Replace with <img src={posterUrl} className="w-full h-full object-cover" /> when you have an image */}
+                <div className="relative w-full h-full flex flex-col items-start justify-end p-6">
+                  <div className="absolute top-8 right-8 w-32 h-32 rounded-full border border-white/10" />
+                  <div className="absolute top-16 right-16 w-20 h-20 rounded-full border border-white/10" />
+                  <div className="absolute top-4 right-4 w-48 h-48 rounded-full border border-white/5" />
+                  <p className="text-white/30 text-[10px] tracking-widest uppercase mb-2 z-10">
+                    Wedding Invitation
+                  </p>
+                  <p
+                    className="text-white font-black leading-none z-10"
+                    style={{ fontSize: "60px", letterSpacing: "-3px" }}
+                  >
+                    wed
+                  </p>
+                  <p
+                    className="text-white font-black leading-none z-10"
+                    style={{ fontSize: "60px", letterSpacing: "-3px" }}
+                  >
+                    ding
+                  </p>
+                </div>
               </div>
-              <button className="absolute bottom-4 right-4 bg-white text-gray-800 text-xs font-medium px-4 py-2 rounded-full flex items-center gap-1.5 shadow hover:shadow-md transition-shadow">
-                <PencilIcon size={12} />
+
+              {/* Edit Poster button */}
+              <button className="absolute bottom-4 right-4 bg-white text-gray-800 text-xs font-semibold px-5 py-2.5 rounded-full flex items-center gap-2 shadow-lg hover:shadow-xl transition-shadow">
+                <PencilIcon size={13} />
                 Edit Poster
               </button>
             </div>
 
             {/* Event details */}
-            <div className="p-5">
-              <div className="flex items-start justify-between mb-2">
-                <h2 className="font-bold text-gray-900 text-lg">
+            <div className="px-6 pt-5 pb-6">
+              {/* Title row */}
+              <div className="flex items-start justify-between mb-3">
+                <h2 className="font-bold text-gray-900 text-xl leading-tight">
                   Prathibha &amp; Pathum
                 </h2>
-                <button className="text-gray-300 hover:text-gray-500 transition-colors mt-0.5">
+                <button className="text-gray-300 hover:text-gray-500 transition-colors mt-0.5 shrink-0 ml-3">
+                  <PencilIcon size={15} />
+                </button>
+              </div>
+
+              {/* Description */}
+              <div className="flex items-end justify-between gap-3 mb-4">
+                <p className="text-xs text-gray-400 leading-relaxed">
+                  We joyfully invite you to celebrate the beginning of our new
+                  chapter. Join us for an evening of love, laughter, and
+                  timeless memories as we unite in marriage.
+                </p>
+                <button className="text-gray-300 hover:text-gray-500 transition-colors shrink-0 mb-0.5">
                   <PencilIcon size={14} />
                 </button>
               </div>
-              <p className="text-xs text-gray-400 leading-relaxed mb-4">
-                We joyfully invite you to celebrate the beginning of our new
-                chapter. Join us for an evening of love, laughter, and timeless
-                memories as we unite in marriage.
-              </p>
-              <button className="text-gray-300 hover:text-gray-500 transition-colors">
-                <PencilIcon size={14} />
-              </button>
 
-              <hr className="border-gray-100 my-4" />
+              <hr className="border-gray-100 mb-4" />
 
-              <div className="space-y-3 text-sm text-gray-700">
-                <div className="flex items-center gap-3">
-                  <div className="flex items-center gap-2 bg-gray-50 rounded-lg px-3 py-2 flex-1">
-                    <CalendarIcon />
-                    <span className="text-xs">04 June, 2026</span>
-                  </div>
-                  <div className="flex items-center gap-2 bg-gray-50 rounded-lg px-3 py-2 flex-1">
-                    <ClockIcon />
-                    <span className="text-xs">16.00 – 23.00</span>
-                  </div>
+              {/* Date + Time side by side with divider */}
+              <div className="flex items-center gap-0 mb-3">
+                <div className="flex items-center gap-2 bg-gray-50 rounded-lg px-3 py-2.5 flex-1">
+                  <CalendarIcon />
+                  <span className="text-xs text-gray-700">04 June, 2026</span>
                 </div>
-                <div className="flex items-center gap-2 bg-gray-50 rounded-lg px-3 py-2">
-                  <LocationIcon />
-                  <span className="text-xs">
-                    Grand Ballroom, Cinnamon Grand
-                  </span>
+                <div className="w-px h-8 bg-gray-200 mx-2 shrink-0" />
+                <div className="flex items-center gap-2 bg-gray-50 rounded-lg px-3 py-2.5 flex-1">
+                  <ClockIcon />
+                  <span className="text-xs text-gray-700">16.00 – 23.00</span>
                 </div>
+              </div>
+
+              {/* Location */}
+              <div className="flex items-center gap-2 bg-gray-50 rounded-lg px-3 py-2.5">
+                <LocationIcon />
+                <span className="text-xs text-gray-700">
+                  Grand Ballroom, Cinnamon Grand
+                </span>
               </div>
             </div>
           </div>
         </div>
 
         {/* ── Right panel ── */}
-        <div className="flex-1 space-y-4">
-          {/* Stats row */}
-          <div className="bg-white rounded-2xl shadow-sm p-6 flex items-center gap-0">
-            <div className="flex-1 flex gap-8 items-end">
+        <div className="flex-1 space-y-4 min-w-0">
+          {/* Stats card */}
+          <div className="bg-white rounded-2xl shadow-sm px-8 py-6 flex items-center gap-6">
+            {/* 4 stat blocks */}
+            <div className="flex items-end gap-10 flex-1">
               <StatBlock
                 value={confirmed}
                 label="Confirmed"
-                labelColor="text-green-600 bg-green-50"
+                badgeClass="text-green-600 bg-green-50"
+              />
+              <StatBlock
+                value={pending}
+                label="Pending"
+                badgeClass="text-yellow-600 bg-yellow-50"
               />
               <StatBlock
                 value={notComing}
                 label="Not Coming"
-                labelColor="text-red-600 bg-red-50"
+                badgeClass="text-red-500 bg-red-50"
               />
               <StatBlock
                 value={total}
                 label="Invitees"
-                labelColor="text-gray-500 bg-gray-100"
+                badgeClass="text-gray-500 bg-gray-100"
               />
             </div>
 
-            {/* Send Reminder */}
-            <div className="border border-gray-100 rounded-xl p-4 ml-6 min-w-[180px]">
-              <button className="flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors mb-3">
+            {/* Send Reminder section */}
+            <div
+              className="border border-gray-150 rounded-xl p-4 shrink-0 min-w-[200px]"
+              style={{ borderColor: "#e8e8e8" }}
+            >
+              <button className="flex items-center gap-2 text-sm font-semibold text-gray-700 hover:text-gray-900 transition-colors mb-3 border border-gray-200 rounded-full px-4 py-2 w-full justify-center">
                 <BellIcon />
                 Send Reminder
               </button>
-              <p className="text-[11px] text-gray-400 leading-snug mb-1">
+              <p className="text-[11px] text-gray-400 leading-snug mb-1.5">
                 Automatic reminder set to send:
               </p>
               <div className="flex items-center gap-1">
-                <span className="text-[11px] text-gray-500 underline cursor-pointer">
+                <span className="text-[11px] text-gray-600 underline cursor-pointer hover:text-gray-900 transition-colors">
                   24 Hours before event
                 </span>
-                <PencilIcon size={10} />
+                <button className="text-gray-400 hover:text-gray-600 transition-colors">
+                  <PencilIcon size={10} />
+                </button>
               </div>
             </div>
           </div>
 
-          {/* Participants */}
+          {/* Participants card */}
           <div className="bg-white rounded-2xl shadow-sm p-6">
+            {/* Header */}
             <div className="flex items-center justify-between mb-5">
-              <h2 className="font-bold text-gray-900 text-lg">
+              <h2 className="font-bold text-gray-900 text-xl">
                 Event Participants
               </h2>
               <div className="flex items-center gap-2">
                 <ActionButton icon={<DiamondIcon />} label="Add Manual" />
-                <ActionButton icon={<UploadIcon />} label="Import" />
+                <ImportButton />
                 <ActionButton icon={<LinkIcon />} label="Get Link" />
               </div>
             </div>
@@ -186,24 +217,23 @@ export default async function Dashboard() {
   );
 }
 
-/* ── Small components ── */
-
+/* ── Stat block ── */
 function StatBlock({
   value,
   label,
-  labelColor,
+  badgeClass,
 }: {
   value: number;
   label: string;
-  labelColor: string;
+  badgeClass: string;
 }) {
   return (
-    <div className="text-center">
-      <p className="text-5xl font-bold text-gray-900 tabular-nums">
+    <div className="flex flex-col items-center gap-2">
+      <p className="text-[56px] font-bold text-gray-900 tabular-nums leading-none">
         {String(value).padStart(2, "0")}
       </p>
       <span
-        className={`inline-block mt-2 text-xs font-medium px-2.5 py-0.5 rounded-full ${labelColor}`}
+        className={`text-xs font-medium px-3 py-1 rounded-full ${badgeClass}`}
       >
         {label}
       </span>
@@ -211,15 +241,17 @@ function StatBlock({
   );
 }
 
+/* ── Nav link pill ── */
 function NavLink({ icon, label }: { icon: React.ReactNode; label: string }) {
   return (
-    <button className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors">
+    <button className="flex items-center gap-1.5 px-4 py-2 rounded-full text-sm text-gray-600 border border-gray-200 hover:bg-gray-50 hover:text-gray-900 transition-colors">
       {icon}
       {label}
     </button>
   );
 }
 
+/* ── Action button ── */
 function ActionButton({
   icon,
   label,
@@ -228,15 +260,14 @@ function ActionButton({
   label: string;
 }) {
   return (
-    <button className="flex items-center gap-1.5 border border-gray-200 rounded-xl px-3 py-2 text-xs text-gray-600 hover:bg-gray-50 transition-colors">
+    <button className="flex items-center gap-1.5 border border-gray-200 rounded-xl px-3 py-2 text-xs text-gray-600 hover:bg-gray-50 transition-colors font-medium">
       {icon}
       {label}
     </button>
   );
 }
 
-/* ── SVG Icons ── */
-
+/* ── Icons ── */
 function HomeIcon() {
   return (
     <svg
@@ -302,11 +333,12 @@ function ProfileIcon() {
       stroke="currentColor"
       viewBox="0 0 24 24"
     >
+      <circle cx="12" cy="12" r="9" strokeWidth="1.5" />
+      <circle cx="12" cy="9" r="3" strokeWidth="1.5" />
       <path
         strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={1.8}
-        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+        strokeWidth="1.5"
+        d="M6.168 18.849A4.008 4.008 0 0110 16h4a4.008 4.008 0 013.832 2.849"
       />
     </svg>
   );

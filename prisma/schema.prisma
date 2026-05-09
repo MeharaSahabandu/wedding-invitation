@@ -11,6 +11,6 @@ model Guest {
   id        Int      @id @default(autoincrement())
   name      String
   phone     String   @unique
-  attending Boolean
+  attending Boolean?
   createdAt DateTime @default(now())
 }
