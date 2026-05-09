@@ -87,7 +87,7 @@ export default async function Dashboard() {
             <div className="p-5">
               <div className="flex items-start justify-between mb-2">
                 <h2 className="font-bold text-gray-900 text-lg">
-                  Kumari &amp; Roshan
+                  Prathibha &amp; Pathum
                 </h2>
                 <button className="text-gray-300 hover:text-gray-500 transition-colors mt-0.5">
                   <PencilIcon size={14} />
@@ -112,7 +112,7 @@ export default async function Dashboard() {
                   </div>
                   <div className="flex items-center gap-2 bg-gray-50 rounded-lg px-3 py-2 flex-1">
                     <ClockIcon />
-                    <span className="text-xs">18.00 – 23.00</span>
+                    <span className="text-xs">16.00 – 23.00</span>
                   </div>
                 </div>
                 <div className="flex items-center gap-2 bg-gray-50 rounded-lg px-3 py-2">

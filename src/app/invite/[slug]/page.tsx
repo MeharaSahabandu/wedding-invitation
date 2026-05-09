@@ -73,7 +73,7 @@ export default async function InvitePage({
                 <p className="text-xs text-gray-400 uppercase tracking-wide">
                   Time
                 </p>
-                <p className="font-medium">18.00 – 23.00</p>
+                <p className="font-medium">16.00 – 23.00</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
@@ -114,9 +114,9 @@ export default async function InvitePage({
         >
           <div className="text-center text-white p-8">
             <p className="text-6xl mb-4">💍</p>
-            <p className="font-serif text-2xl mb-1">Kumari</p>
+            <p className="font-serif text-2xl mb-1">Prathibha</p>
             <p className="text-white/50 text-sm mb-1">&amp;</p>
-            <p className="font-serif text-2xl mb-6">Roshan</p>
+            <p className="font-serif text-2xl mb-6">Pathum</p>
             <div className="border-t border-white/20 pt-4 text-white/60 text-xs tracking-widest uppercase">
               June 2026
             </div>
