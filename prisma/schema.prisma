@@ -8,10 +8,9 @@ datasource db {
 }
 
 model Guest {
-  id          Int       @id @default(autoincrement())
-  name        String
-  slug        String    @unique
-  attending   Boolean?
-  respondedAt DateTime?
-  createdAt   DateTime  @default(now())
+  id        Int      @id @default(autoincrement())
+  name      String
+  phone     String   @unique
+  attending Boolean?
+  createdAt DateTime @default(now())
 }
