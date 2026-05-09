@@ -5,18 +5,17 @@ import { useState } from "react";
 type Guest = {
   id: number;
   name: string;
-  slug: string;
-  email: string | null;
-  phone: string | null;
-  attending: boolean | null;
+  phone: string;
+  attending: boolean;
 };
 
 export default function ParticipantList({ guests }: { guests: Guest[] }) {
   const [query, setQuery] = useState("");
 
-  const filtered = guests.filter((g) =>
-    g.name.toLowerCase().includes(query.toLowerCase()) ||
-    (g.email ?? "").toLowerCase().includes(query.toLowerCase())
+  const filtered = guests.filter(
+    (g) =>
+      g.name.toLowerCase().includes(query.toLowerCase()) ||
+      g.phone.includes(query)
   );
 
   return (
@@ -28,7 +27,7 @@ export default function ParticipantList({ guests }: { guests: Guest[] }) {
         </svg>
         <input
           type="text"
-          placeholder="Search Invitee"
+          placeholder="Search by name or phone"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           className="w-full pl-10 pr-4 py-3 text-sm border border-gray-200 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-200"
@@ -41,9 +40,7 @@ export default function ParticipantList({ guests }: { guests: Guest[] }) {
           <div key={g.id} className="flex items-center justify-between py-4 px-1">
             <div>
               <p className="text-sm font-semibold text-gray-900">{g.name}</p>
-              <p className="text-xs text-gray-400 mt-0.5">
-                {g.email ?? "—"}{g.phone ? ` | ${g.phone}` : ""}
-              </p>
+              <p className="text-xs text-gray-400 mt-0.5">{g.phone}</p>
             </div>
             <StatusBadge attending={g.attending} />
           </div>
@@ -56,25 +53,16 @@ export default function ParticipantList({ guests }: { guests: Guest[] }) {
   );
 }
 
-function StatusBadge({ attending }: { attending: boolean | null }) {
-  if (attending === true)
-    return (
-      <span className="flex items-center gap-1.5 text-sm text-gray-700">
-        <span className="w-2.5 h-2.5 rounded-full bg-green-500 inline-block" />
-        Confirmed
-      </span>
-    );
-  if (attending === false)
-    return (
-      <span className="flex items-center gap-1.5 text-sm text-gray-700">
-        <span className="w-2.5 h-2.5 rounded-full bg-red-500 inline-block" />
-        Not Coming
-      </span>
-    );
-  return (
+function StatusBadge({ attending }: { attending: boolean }) {
+  return attending ? (
     <span className="flex items-center gap-1.5 text-sm text-gray-700">
-      <span className="w-2.5 h-2.5 rounded-full bg-yellow-400 inline-block" />
-      Pending
+      <span className="w-2.5 h-2.5 rounded-full bg-green-500" />
+      Confirmed
+    </span>
+  ) : (
+    <span className="flex items-center gap-1.5 text-sm text-gray-700">
+      <span className="w-2.5 h-2.5 rounded-full bg-red-500" />
+      Not Coming
     </span>
   );
 }

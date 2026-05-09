@@ -7,7 +7,6 @@ export default async function Dashboard() {
   const guests = await prisma.guest.findMany({ orderBy: { createdAt: "asc" } });
 
   const confirmed = guests.filter((g) => g.attending === true).length;
-  const pending = guests.filter((g) => g.attending === null).length;
   const notComing = guests.filter((g) => g.attending === false).length;
   const total = guests.length;
 
@@ -135,11 +134,6 @@ export default async function Dashboard() {
                 value={confirmed}
                 label="Confirmed"
                 labelColor="text-green-600 bg-green-50"
-              />
-              <StatBlock
-                value={pending}
-                label="Pending"
-                labelColor="text-yellow-600 bg-yellow-50"
               />
               <StatBlock
                 value={notComing}
