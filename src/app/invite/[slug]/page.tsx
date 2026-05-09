@@ -14,7 +14,10 @@ export default async function InvitePage({
   if (!guest) notFound();
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: "#f8f4f0" }}>
+    <div
+      className="min-h-screen flex flex-col"
+      style={{ background: "#f8f4f0" }}
+    >
       {/* Header — matches the red gradient style from the design */}
       <header
         className="w-full py-6 px-10 flex items-center justify-between"
@@ -27,19 +30,15 @@ export default async function InvitePage({
             Wedding Invitation
           </p>
           <p className="text-white font-serif text-lg tracking-wide">
-            Kumari &amp; Roshan
+            Prathibha &amp; Pathum
           </p>
         </div>
-        <div className="text-white/70 text-sm">
-          {new Date().getFullYear()}
-        </div>
+        <div className="text-white/70 text-sm">{new Date().getFullYear()}</div>
       </header>
 
       {/* Greeting */}
       <div className="px-10 pt-10 pb-4">
-        <h2 className="text-2xl font-serif text-gray-800">
-          Hi {guest.name}!
-        </h2>
+        <h2 className="text-2xl font-serif text-gray-800">Hi {guest.name}!</h2>
       </div>
 
       {/* Invitation Card */}
@@ -62,21 +61,27 @@ export default async function InvitePage({
             <div className="flex items-center gap-3">
               <span className="text-xl">📅</span>
               <div>
-                <p className="text-xs text-gray-400 uppercase tracking-wide">Date</p>
-                <p className="font-medium">15 August, 2026</p>
+                <p className="text-xs text-gray-400 uppercase tracking-wide">
+                  Date
+                </p>
+                <p className="font-medium">04 June, 2026</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
               <span className="text-xl">🕕</span>
               <div>
-                <p className="text-xs text-gray-400 uppercase tracking-wide">Time</p>
+                <p className="text-xs text-gray-400 uppercase tracking-wide">
+                  Time
+                </p>
                 <p className="font-medium">18.00 – 23.00</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
               <span className="text-xl">📍</span>
               <div>
-                <p className="text-xs text-gray-400 uppercase tracking-wide">Venue</p>
+                <p className="text-xs text-gray-400 uppercase tracking-wide">
+                  Venue
+                </p>
                 <p className="font-medium">Grand Ballroom, Cinnamon Grand</p>
               </div>
             </div>
@@ -91,7 +96,9 @@ export default async function InvitePage({
                   : "bg-red-50 text-red-700 border border-red-200"
               }`}
             >
-              {guest.attending ? "✓ You confirmed attendance" : "✗ You declined"}
+              {guest.attending
+                ? "✓ You confirmed attendance"
+                : "✗ You declined"}
             </div>
           ) : (
             <RSVPButtons slug={guest.slug} />
@@ -111,7 +118,7 @@ export default async function InvitePage({
             <p className="text-white/50 text-sm mb-1">&amp;</p>
             <p className="font-serif text-2xl mb-6">Roshan</p>
             <div className="border-t border-white/20 pt-4 text-white/60 text-xs tracking-widest uppercase">
-              August 2026
+              June 2026
             </div>
           </div>
         </div>
