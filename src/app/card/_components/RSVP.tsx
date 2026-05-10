@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function RSVP() {
   const [showModal, setShowModal] = useState(false);
@@ -10,6 +10,19 @@ export default function RSVP() {
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState("");
+  const sectionRef = useRef<HTMLElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } },
+      { threshold: 0.2 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
 
   async function handleConfirm() {
     if (!name.trim() || !phone.trim()) {
@@ -67,9 +80,28 @@ export default function RSVP() {
         </div>
       )}
 
-      <section className="w-full bg-white px-8 py-16 flex flex-col items-center">
-        <h2 className="text-5xl text-amber-800 mb-3" style={{ fontFamily: "var(--font-mea), 'Mea Culpa', cursive" }}>Let's Celebrate</h2>
-        <p className="text-base text-stone-500 mb-10 tracking-wide" style={{ fontFamily: "var(--font-oranienbaum), 'Oranienbaum', serif" }}>Please Confirm your Participation</p>
+      <section
+        ref={sectionRef}
+        className="w-full bg-white px-8 pt-6 pb-16 flex flex-col items-center"
+      >
+        <h2
+          className="text-5xl text-amber-800 mb-3"
+          style={{
+            fontFamily: "var(--font-mea), 'Mea Culpa', cursive",
+            opacity: visible ? 1 : 0,
+            transform: visible ? "translateY(0)" : "translateY(30px)",
+            transition: "opacity 1.2s ease, transform 1.2s ease",
+          }}
+        >Let's Celebrate</h2>
+        <p
+          className="text-base text-stone-500 mb-10 tracking-wide"
+          style={{
+            fontFamily: "var(--font-oranienbaum), 'Oranienbaum', serif",
+            opacity: visible ? 1 : 0,
+            transform: visible ? "translateY(0)" : "translateY(30px)",
+            transition: "opacity 1.2s ease 0.2s, transform 1.2s ease 0.2s",
+          }}
+        >Please Confirm your Participation</p>
         <div className="w-full max-w-xs flex flex-col gap-4">
           <button onClick={() => setShowModal(true)}
             className="w-full flex items-center justify-center gap-3 py-4 rounded-2xl"
