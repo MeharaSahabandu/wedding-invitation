@@ -1,16 +1,30 @@
+import Link from "next/link";
 import { prisma } from "@/lib/prisma";
+import { getSession } from "@/lib/auth";
+import { redirect } from "next/navigation";
 import ParticipantList from "./ParticipantList";
 import ImportButton from "./ImportButton";
+import LogoutButton from "../components/LogoutButton";
+import CopyLinkButton from "./CopyLinkButton";
 
 export const dynamic = "force-dynamic";
 
 export default async function Dashboard() {
-  const guests = await prisma.guest.findMany({ orderBy: { createdAt: "asc" } });
+  const session = await getSession();
+  if (!session) redirect("/login");
+
+  const guests = await prisma.guest.findMany({
+    where: { OR: [{ userId: session.userId }, { userId: null }] },
+    orderBy: { createdAt: "asc" },
+  });
 
   const confirmed = guests.filter((g) => g.attending === true).length;
   const notComing = guests.filter((g) => g.attending === false).length;
   const pending = guests.filter((g) => g.attending === null).length;
   const total = guests.length;
+  const rsvpLink = `${
+    process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
+  }/rsvp`;
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -30,7 +44,7 @@ export default async function Dashboard() {
 
           {/* Nav pills */}
           <div className="flex items-center gap-2">
-            <NavLink icon={<HomeIcon />} label="Home" />
+            <NavLink icon={<HomeIcon />} label="Home" href="/" />
             <NavLink icon={<HeartIcon />} label="All Events" />
             <NavLink icon={<SettingsIcon />} label="Settings" />
           </div>
@@ -43,10 +57,7 @@ export default async function Dashboard() {
             Profile
           </button>
           <span className="text-gray-300 select-none mx-1">|</span>
-          <button className="flex items-center gap-1.5 px-3 py-1.5 hover:text-gray-900 transition-colors">
-            <SignOutIcon />
-            Sign Out
-          </button>
+          <LogoutButton />
         </div>
       </nav>
 
@@ -57,41 +68,13 @@ export default async function Dashboard() {
           <div className="bg-white rounded-2xl overflow-hidden shadow-sm">
             {/* Poster image */}
             <div className="relative">
-              <div
-                className="h-80 w-full overflow-hidden"
-                style={{
-                  background:
-                    "linear-gradient(160deg, #7a1212 0%, #1a0505 100%)",
-                }}
-              >
-                {/* Replace with <img src={posterUrl} className="w-full h-full object-cover" /> when you have an image */}
-                <div className="relative w-full h-full flex flex-col items-start justify-end p-6">
-                  <div className="absolute top-8 right-8 w-32 h-32 rounded-full border border-white/10" />
-                  <div className="absolute top-16 right-16 w-20 h-20 rounded-full border border-white/10" />
-                  <div className="absolute top-4 right-4 w-48 h-48 rounded-full border border-white/5" />
-                  <p className="text-white/30 text-[10px] tracking-widest uppercase mb-2 z-10">
-                    Wedding Invitation
-                  </p>
-                  <p
-                    className="text-white font-black leading-none z-10"
-                    style={{ fontSize: "60px", letterSpacing: "-3px" }}
-                  >
-                    wed
-                  </p>
-                  <p
-                    className="text-white font-black leading-none z-10"
-                    style={{ fontSize: "60px", letterSpacing: "-3px" }}
-                  >
-                    ding
-                  </p>
-                </div>
+              <div className="w-full overflow-hidden">
+                <img
+                  src="/newPic.jpeg"
+                  alt="Event poster"
+                  className="w-full h-auto"
+                />
               </div>
-
-              {/* Edit Poster button */}
-              <button className="absolute bottom-4 right-4 bg-white text-gray-800 text-xs font-semibold px-5 py-2.5 rounded-full flex items-center gap-2 shadow-lg hover:shadow-xl transition-shadow">
-                <PencilIcon size={13} />
-                Edit Poster
-              </button>
             </div>
 
             {/* Event details */}
@@ -137,7 +120,7 @@ export default async function Dashboard() {
               <div className="flex items-center gap-2 bg-gray-50 rounded-lg px-3 py-2.5">
                 <LocationIcon />
                 <span className="text-xs text-gray-700">
-                  Grand Ballroom, Cinnamon Grand
+                  Vinrich Lake Resort, Riverbank Chateau Hall, Piliyandala
                 </span>
               </div>
             </div>
@@ -205,7 +188,7 @@ export default async function Dashboard() {
               <div className="flex items-center gap-2">
                 <ActionButton icon={<DiamondIcon />} label="Add Manual" />
                 <ImportButton />
-                <ActionButton icon={<LinkIcon />} label="Get Link" />
+                <CopyLinkButton rsvpLink={rsvpLink} />
               </div>
             </div>
 
@@ -242,9 +225,26 @@ function StatBlock({
 }
 
 /* ── Nav link pill ── */
-function NavLink({ icon, label }: { icon: React.ReactNode; label: string }) {
+function NavLink({
+  icon,
+  label,
+  href,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  href?: string;
+}) {
+  const cls =
+    "flex items-center gap-1.5 px-4 py-2 rounded-full text-sm text-gray-600 border border-gray-200 hover:bg-gray-50 hover:text-gray-900 transition-colors";
+  if (href)
+    return (
+      <Link href={href} className={cls}>
+        {icon}
+        {label}
+      </Link>
+    );
   return (
-    <button className="flex items-center gap-1.5 px-4 py-2 rounded-full text-sm text-gray-600 border border-gray-200 hover:bg-gray-50 hover:text-gray-900 transition-colors">
+    <button className={cls}>
       {icon}
       {label}
     </button>

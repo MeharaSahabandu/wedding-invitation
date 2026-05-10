@@ -1,4 +1,6 @@
 import { prisma } from "@/lib/prisma";
+import { getSession } from "@/lib/auth";
+import { redirect } from "next/navigation";
 import LogoutButton from "./components/LogoutButton";
 import CalendarWidget from "./components/CalendarWidget";
 import EventCard from "./components/EventCard";
@@ -6,7 +8,10 @@ import EventCard from "./components/EventCard";
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
-  const guests    = await prisma.guest.findMany();
+  const session = await getSession();
+  if (!session) redirect("/login");
+
+  const guests    = await prisma.guest.findMany({ where: { OR: [{ userId: session.userId }, { userId: null }] } });
   const confirmed = guests.filter((g) => g.attending === true).length;
   const notComing = guests.filter((g) => g.attending === false).length;
   const pending   = guests.filter((g) => g.attending === null).length;

@@ -4,27 +4,10 @@ import { useState } from "react";
 
 type Step = "info" | "rsvp" | "done";
 
-interface RSVPFormProps {
-  /** URL of the event poster image shown in the right panel */
-  posterSrc?: string;
-  eventTitle?: string;
-  eventDate?: string;
-  eventTime?: string;
-  eventLocation?: string;
-  eventDescription?: string;
-}
-
-export default function RSVPForm({
-  posterSrc,
-  eventTitle = "Our Wedding",
-  eventDate = "04 June, 2026",
-  eventTime = "16.00 – 23.00",
-  eventLocation = "Grand Ballroom, Cinnamon Grand",
-  eventDescription = "We joyfully invite you to celebrate the beginning of our new chapter. Join us for an exclusive evening that bridges love and togetherness. As the evening unfolds, experience timeless memories designed to complement this beautiful occasion.",
-}: RSVPFormProps) {
+export default function RSVPForm() {
   const [step, setStep] = useState<Step>("info");
-  const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [name, setName] = useState("");
   const [attending, setAttending] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -51,11 +34,6 @@ export default function RSVPForm({
         attending: choice,
       }),
     });
-    if (res.status === 409) {
-      setError("This phone number has already been used to RSVP.");
-      setLoading(false);
-      return;
-    }
     if (!res.ok) {
       setError("Something went wrong. Please try again.");
       setLoading(false);
@@ -65,6 +43,14 @@ export default function RSVPForm({
     setStep("done");
     setLoading(false);
   }
+
+  const eventTitle = "Prathibha & Pathum";
+  const eventDescription =
+    "We joyfully invite you to celebrate the beginning of our new chapter. Join us for an evening of love, laughter, and timeless memories as we unite in marriage.";
+  const eventDate = "04 June, 2026";
+  const eventTime = "16:00 – 23:00";
+  const eventLocation =
+    "Vinrich Lake Resort, Riverbank Chateau Hall, Piliyandala";
 
   return (
     <div
@@ -136,13 +122,14 @@ export default function RSVPForm({
               {formError && <p className="text-red-500 text-xs">{formError}</p>}
               <button
                 onClick={handleContinue}
-                className="w-full rounded-full py-3.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
+                disabled={loading}
+                className="w-full rounded-full py-3.5 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:opacity-60"
                 style={{
                   background:
                     "linear-gradient(135deg, #b91c1c 0%, #7f1d1d 100%)",
                 }}
               >
-                Continue →
+                {loading ? "Looking up…" : "Continue →"}
               </button>
             </div>
           </div>
@@ -151,7 +138,6 @@ export default function RSVPForm({
 
       {/* ── Top bar ── */}
       <div className="flex items-center justify-between px-8 pt-6 pb-2 shrink-0">
-        {/* Logo — stacked vertically like the screenshot */}
         <div className="flex flex-col leading-none">
           <span className="text-white font-black text-xl tracking-widest">
             PANT<span className="font-light mx-0.5">★</span>RA
@@ -160,54 +146,12 @@ export default function RSVPForm({
             Event Partners
           </span>
         </div>
-
-        {/* Nav — icon + label | icon + label */}
-        <div className="flex items-center text-white/85 text-sm">
-          <button className="flex items-center gap-2 hover:text-white transition-colors px-3 py-1">
-            {/* Circle-person icon */}
-            <svg
-              className="w-[18px] h-[18px]"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              viewBox="0 0 24 24"
-            >
-              <circle cx="12" cy="12" r="10" />
-              <circle cx="12" cy="9" r="3" />
-              <path
-                strokeLinecap="round"
-                d="M6.168 18.849A4.008 4.008 0 0110 16h4a4.008 4.008 0 013.832 2.849"
-              />
-            </svg>
-            Profile
-          </button>
-
-          <span className="text-white/35 select-none text-base mx-0.5">|</span>
-
-          <button className="flex items-center gap-2 hover:text-white transition-colors px-3 py-1">
-            {/* Arrow-right-from-bracket icon */}
-            <svg
-              className="w-[18px] h-[18px]"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-              />
-            </svg>
-            Sign Out
-          </button>
-        </div>
       </div>
 
       {/* ── Greeting ── */}
       <div className="px-8 pt-7 pb-8 shrink-0">
         <h2 className="text-white text-2xl font-semibold tracking-tight">
-          {step === "info" ? "\u00A0" : `Hi ${name}!`}
+          {step === "rsvp" || step === "done" ? `Hi ${name}!` : " "}
         </h2>
       </div>
 
@@ -243,10 +187,8 @@ export default function RSVPForm({
 
             <hr className="border-gray-200 mb-8" />
 
-            {/* Date + Time row */}
             <div className="flex items-center gap-10 mb-5">
               <div className="flex items-center gap-2.5 text-gray-700">
-                {/* Calendar icon */}
                 <svg
                   className="w-5 h-5 text-gray-500 shrink-0"
                   fill="none"
@@ -260,7 +202,6 @@ export default function RSVPForm({
                 <span className="text-sm">{eventDate}</span>
               </div>
               <div className="flex items-center gap-2.5 text-gray-700">
-                {/* Clock icon */}
                 <svg
                   className="w-5 h-5 text-gray-500 shrink-0"
                   fill="none"
@@ -275,9 +216,7 @@ export default function RSVPForm({
               </div>
             </div>
 
-            {/* Location row */}
             <div className="flex items-center gap-2.5 text-gray-700">
-              {/* Pin icon */}
               <svg
                 className="w-5 h-5 text-gray-500 shrink-0"
                 fill="none"
@@ -295,7 +234,7 @@ export default function RSVPForm({
               <span className="text-sm">{eventLocation}</span>
             </div>
 
-            {/* Buttons — pushed to bottom */}
+            {/* Buttons */}
             <div className="mt-auto pt-12">
               {step === "rsvp" && (
                 <>
@@ -353,7 +292,7 @@ export default function RSVPForm({
             </div>
           </div>
 
-          {/* ── Dashed divider ── */}
+          {/* Dashed divider */}
           <div
             className="hidden md:block shrink-0 self-stretch"
             style={{
@@ -364,87 +303,18 @@ export default function RSVPForm({
             }}
           />
 
-          {/* ── Right — poster image panel ── */}
+          {/* Right — poster panel */}
           <div
             className="hidden md:flex w-[370px] shrink-0 items-stretch justify-center p-5"
             style={{ backgroundColor: "#efefef" }}
           >
-            {posterSrc ? (
-              <img
-                src={posterSrc}
-                alt="Event poster"
-                className="w-full object-cover rounded-xl shadow-md"
-              />
-            ) : (
-              /* Fallback CSS poster when no image is provided */
-              <div
-                className="w-full rounded-xl overflow-hidden relative flex flex-col shadow-md"
-                style={{
-                  background:
-                    "linear-gradient(170deg, #991b1b 0%, #450a0a 55%, #1a0404 100%)",
-                }}
-              >
-                <div
-                  className="absolute rounded-full border border-white/10"
-                  style={{ width: 220, height: 220, top: 16, right: -50 }}
-                />
-                <div
-                  className="absolute rounded-full border border-white/10"
-                  style={{ width: 140, height: 140, top: 52, right: 0 }}
-                />
-                <div
-                  className="absolute rounded-full border border-white/10"
-                  style={{ width: 70, height: 70, bottom: 90, left: 24 }}
-                />
-
-                <div className="absolute top-6 right-5 text-right z-10">
-                  <p className="text-white/80 text-[10px] tracking-[0.2em] uppercase">
-                    June 04
-                  </p>
-                  <p className="text-white/30 text-xs my-0.5">—</p>
-                  <p className="text-white/80 text-[10px] tracking-[0.2em] uppercase">
-                    June 04
-                  </p>
-                  <p className="text-white/40 text-[9px] mt-1 tracking-wider">
-                    16 : 00 – 23 : 00
-                  </p>
-                </div>
-
-                <div className="flex-1 flex items-end pl-5 pb-3 z-10">
-                  <p
-                    className="text-white font-black leading-none select-none"
-                    style={{
-                      fontSize: "64px",
-                      letterSpacing: "-4px",
-                      writingMode: "vertical-rl",
-                      transform: "rotate(180deg)",
-                      opacity: 0.9,
-                    }}
-                  >
-                    wedding
-                  </p>
-                </div>
-
-                <div className="p-5 z-10 border-t border-white/10">
-                  <p className="text-white/40 text-[8px] tracking-[0.2em] uppercase leading-5">
-                    Grand Ballroom
-                    <br />
-                    Cinnamon Grand
-                    <br />
-                    Colombo, Sri Lanka
-                  </p>
-                  <p className="text-white/25 text-[8px] tracking-[0.2em] uppercase mt-2">
-                    We are waiting for you
-                  </p>
-                  <p className="text-white/20 text-[8px] tracking-wider mt-1">
-                    Prathibha &amp; Pathum
-                  </p>
-                </div>
-              </div>
-            )}
+            <div className="w-full rounded-xl overflow-hidden shadow-md">
+              <img src="/newPic.jpeg" alt="Event poster" className="w-full h-full object-cover" />
+            </div>
           </div>
         </div>
       </div>
     </div>
   );
 }
+

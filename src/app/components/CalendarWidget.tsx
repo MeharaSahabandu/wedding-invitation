@@ -22,7 +22,12 @@ export default function CalendarWidget({ eventDates = [] }: { eventDates?: strin
         <button onClick={next} className="w-7 h-7 flex items-center justify-center rounded-full hover:bg-gray-100 text-gray-500"><svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7"/></svg></button>
       </div>
       <div className="grid grid-cols-7 mb-2">{DAYS.map(d=><div key={d} className="text-center text-[10px] text-gray-400 font-medium py-1">{d}</div>)}</div>
-      <div className="grid grid-cols-7 gap-y-1">{cells.map((day,i)=><div key={i} className="flex items-center justify-center h-8">{day?<button className={`w-8 h-8 rounded-full text-sm flex items-center justify-center transition-colors ${isToday(day)||isEvent(day)?"bg-orange-500 text-white font-semibold":"text-gray-700 hover:bg-gray-100"}`}>{day}</button>:null}</div>)}</div>
+      <div className="grid grid-cols-7 gap-y-1">{cells.map((day,i)=>{
+        const event = day && isEvent(day);
+        const today = day && isToday(day);
+        return <div key={i} className="flex items-center justify-center h-8">{day?<button className={`w-8 h-8 rounded-full text-sm flex items-center justify-center transition-colors font-semibold
+          ${event?"bg-red-700 text-white ring-2 ring-red-300 ring-offset-1":today?"bg-orange-500 text-white":"text-gray-700 hover:bg-gray-100 font-normal"}`}>{day}</button>:null}</div>;
+      })}</div>
     </div>
   );
 }
