@@ -52,7 +52,7 @@ export default function CardOpener({ onOpened }: { onOpened?: () => void }) {
             alt=""
             fill
             className="object-cover"
-            style={{ objectPosition: "left center" }}
+            style={{ objectPosition: "left 35%" }}
             priority
           />
         </div>
@@ -73,7 +73,7 @@ export default function CardOpener({ onOpened }: { onOpened?: () => void }) {
             alt=""
             fill
             className="object-cover"
-            style={{ objectPosition: "left top" }}
+            style={{ objectPosition: "left 35%" }}
             priority
           />
         </div>
