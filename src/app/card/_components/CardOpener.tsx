@@ -53,9 +53,11 @@ export default function CardOpener({ onOpened }: { onOpened?: () => void }) {
             alt=""
             fill
             className="object-cover"
-            style={{ objectPosition: "left 35%" }}
+            style={{ objectPosition: "left 35%", filter: "brightness(0.28) sepia(0.4)" }}
             priority
           />
+          {/* Gold tint overlay */}
+          <div className="absolute inset-0" style={{ background: "rgba(201,169,110,0.06)" }} />
         </div>
 
         {/* Left panel — on top, hinged on left edge, opens first */}
@@ -75,9 +77,11 @@ export default function CardOpener({ onOpened }: { onOpened?: () => void }) {
             alt=""
             fill
             className="object-cover"
-            style={{ objectPosition: "left 35%" }}
+            style={{ objectPosition: "left 35%", filter: "brightness(0.28) sepia(0.4)" }}
             priority
           />
+          {/* Gold tint overlay */}
+          <div className="absolute inset-0" style={{ background: "rgba(201,169,110,0.06)" }} />
         </div>
 
         {/* Tap hint */}
@@ -89,10 +93,10 @@ export default function CardOpener({ onOpened }: { onOpened?: () => void }) {
           }}
         >
           <p
-            className="text-xs tracking-[0.28em] uppercase"
+            className="text-xs tracking-[0.35em] uppercase"
             style={{
               fontFamily: "var(--font-oranienbaum), 'Oranienbaum', serif",
-              color: "rgba(100,55,10,0.45)",
+              color: "rgba(201,169,110,0.6)",
             }}
           >
             tap to open
