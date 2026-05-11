@@ -146,7 +146,7 @@ export default function RSVP() {
 
       <section
         ref={sectionRef}
-        className="w-full bg-white px-8 pt-6 pb-16 flex flex-col items-center"
+        className="w-full bg-white px-8 pt-2 pb-16 flex flex-col items-center"
       >
         <h2
           className="text-5xl text-amber-800 mb-3"
