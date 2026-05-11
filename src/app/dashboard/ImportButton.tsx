@@ -48,6 +48,7 @@ export default function ImportButton() {
         status: "success",
         imported: data.imported,
         skipped: data.skipped,
+        messaged: data.messaged ?? 0,
       });
       // Refresh the server component data
       router.refresh();
