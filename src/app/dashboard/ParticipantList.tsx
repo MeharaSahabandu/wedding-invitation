@@ -1,15 +1,7 @@
 "use client";
 
 import { useState } from "react";
-
-type Guest = {
-  id: number;
-  name: string;
-  phone: string;
-  attending: boolean | null;
-  createdAt: Date;
-  email?: string | null;
-};
+import type { Guest } from "@prisma/client";
 
 export default function ParticipantList({ guests }: { guests: Guest[] }) {
   const [query, setQuery] = useState("");
