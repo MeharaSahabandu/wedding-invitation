@@ -76,7 +76,7 @@ export default function Invitation() {
           alt=""
           fill
           className="object-cover object-center"
-          style={{ opacity: 0.55 }}
+          style={{ opacity: 0.28 }}
           onError={(e) => {
             (e.target as HTMLImageElement).src = "/images/garden.png";
             (e.target as HTMLImageElement).style.opacity = "0.22";
