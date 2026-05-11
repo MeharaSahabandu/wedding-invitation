@@ -9,6 +9,7 @@ export default function RSVP() {
   const [phone, setPhone] = useState("");
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
+  const [attending, setAttending] = useState(false);
   const [error, setError] = useState("");
   const sectionRef = useRef<HTMLElement>(null);
   const [visible, setVisible] = useState(false);
@@ -47,6 +48,7 @@ export default function RSVP() {
       return;
     }
     setShowModal(null);
+    setAttending(attending);
     setDone(true);
   }
 
@@ -211,7 +213,9 @@ export default function RSVP() {
               fontFamily: "var(--font-oranienbaum), 'Oranienbaum', serif",
             }}
           >
-            We're so excited to celebrate with you! 🤍
+            {attending
+              ? "We're so excited to celebrate with you! 🤍"
+              : "We're sorry you can't make it. You'll be missed! 🤍"}
           </p>
         )}
       </section>
