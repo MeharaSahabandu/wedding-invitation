@@ -8,147 +8,188 @@ const CREAM = "#f0ebe0";
 const DIM = "#8a8070";
 
 const events = [
-  { time: "10.30", label: "Poruwa Ceremony",  icon: "/icons/ring.svg",   align: "left"  },
-  { time: "11.45", label: "Reception",         icon: "/icons/glass.svg",  align: "right" },
-  { time: "11.50", label: "Photobooth Opens",  icon: "/icons/camera.svg", align: "left"  },
-  { time: "12.00", label: "Buffet Opens",      icon: "/icons/food.svg",   align: "right" },
-  { time: "14.30", label: "Dance Floor",       icon: "/icons/music.svg",  align: "left"  },
+  { time: "3:30", label: "Guest Arrival" },
+  { time: "4:00", label: "Poruwa Ceremony" },
+  { time: "5:30", label: "Cocktail Hour" },
+  { time: "6:30", label: "Dinner & Celebration" },
+  { time: "8:30", label: "Dancing & Party" },
 ];
 
-function TimelineRow({ event }: { event: typeof events[0] }) {
-  const ref = useRef<HTMLDivElement>(null);
+export default function Timeline() {
+  const ref = useRef<HTMLElement>(null);
   const [visible, setVisible] = useState(false);
-  const isLeft = event.align === "left";
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setVisible(true); observer.disconnect(); } },
-      { threshold: 0.3 }
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } },
+      { threshold: 0.1 }
     );
-    observer.observe(el);
-    return () => observer.disconnect();
+    obs.observe(el);
+    return () => obs.disconnect();
   }, []);
 
   return (
-    <div
+    <section
       ref={ref}
-      className={`flex items-center gap-6 ${isLeft ? "flex-row" : "flex-row-reverse"}`}
-      style={{
-        opacity: visible ? 1 : 0,
-        transform: visible ? "translateX(0)" : isLeft ? "translateX(-60px)" : "translateX(60px)",
-        transition: "opacity 1.1s ease, transform 1.1s ease",
-      }}
+      className="relative w-full overflow-hidden"
+      style={{ background: "#0d0d0d", minHeight: "clamp(640px, 105dvh, 860px)" }}
     >
-      {/* Icon */}
-      <div className="flex-1 flex justify-center">
+      {/* Champagne glass — right side, full height */}
+      <div
+        className="absolute right-0 top-0 bottom-0"
+        style={{ width: "58%", zIndex: 0 }}
+      >
         <Image
-          src={event.icon}
-          alt={event.label}
-          width={70}
-          height={70}
-          className="object-contain"
+          src="/images/champagne.jpg"
+          alt=""
+          fill
+          className="object-cover object-top"
+          style={{ opacity: 0.65 }}
+        />
+        {/* Fade from left — blends glass into dark background */}
+        <div
+          className="absolute inset-0"
           style={{
-            width: "clamp(50px, 15vw, 70px)",
-            height: "clamp(50px, 15vw, 70px)",
-            filter: "invert(78%) sepia(28%) saturate(500%) hue-rotate(5deg) brightness(95%)",
-            opacity: 0.85,
+            background: "linear-gradient(to right, #0d0d0d 0%, rgba(13,13,13,0.55) 45%, transparent 100%)",
+          }}
+        />
+        {/* Bottom fade */}
+        <div
+          className="absolute bottom-0 left-0 right-0"
+          style={{
+            height: "120px",
+            background: "linear-gradient(to top, #0d0d0d 0%, transparent 100%)",
           }}
         />
       </div>
 
-      {/* Time + label */}
-      <div className={`flex-1 flex flex-col ${isLeft ? "items-start" : "items-end"}`}>
-        <span
-          className="leading-none"
+      {/* Content */}
+      <div className="relative z-10 flex flex-col px-7 pt-12 pb-14">
+
+        {/* Heading: ORDER / of the / DAY */}
+        <div
+          className="mb-10"
           style={{
-            fontFamily: "var(--font-oranienbaum), 'Oranienbaum', serif",
-            fontSize: "clamp(2rem, 10vw, 2.8rem)",
-            color: GOLD,
+            opacity: visible ? 1 : 0,
+            transform: visible ? "translateY(0)" : "translateY(30px)",
+            transition: "opacity 1.1s ease, transform 1.1s ease",
           }}
         >
-          {event.time}
-        </span>
-        <span
-          className="text-sm mt-1 tracking-widest uppercase"
-          style={{
-            fontFamily: "var(--font-oranienbaum), 'Oranienbaum', serif",
-            color: DIM,
-            fontSize: "0.65rem",
-          }}
-        >
-          {event.label}
-        </span>
-      </div>
-    </div>
-  );
-}
-
-export default function Timeline() {
-  const headingRef = useRef<HTMLDivElement>(null);
-  const [headingVisible, setHeadingVisible] = useState(false);
-
-  useEffect(() => {
-    const el = headingRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setHeadingVisible(true); observer.disconnect(); } },
-      { threshold: 0.4 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <section className="w-full py-16 px-6" style={{ background: "#0d0d0d" }}>
-      {/* Gold top rule */}
-      <div className="max-w-sm mx-auto mb-12">
-        <div style={{ height: "1px", background: `linear-gradient(to right, transparent, ${GOLD}, transparent)` }} />
-      </div>
-
-      {/* Heading */}
-      <div
-        ref={headingRef}
-        className="flex flex-col items-center gap-1 mb-12"
-        style={{
-          opacity: headingVisible ? 1 : 0,
-          transform: headingVisible ? "translateY(0)" : "translateY(40px)",
-          transition: "opacity 1.1s ease, transform 1.1s ease",
-        }}
-      >
-        <p
-          className="tracking-[0.35em] uppercase"
-          style={{
-            fontFamily: "var(--font-oranienbaum), 'Oranienbaum', serif",
-            fontSize: "0.65rem",
-            color: GOLD,
-          }}
-        >
-          Order of the
-        </p>
-        <h2
-          style={{
-            fontFamily: "var(--font-mea), 'Mea Culpa', cursive",
-            fontSize: "clamp(2.8rem, 12vw, 3.5rem)",
+          <p style={{
+            fontFamily: "var(--font-cinzel), 'Cinzel Decorative', serif",
+            fontSize: "clamp(1.9rem, 9vw, 2.6rem)",
             color: CREAM,
+            letterSpacing: "0.15em",
+            textTransform: "uppercase",
+            fontWeight: "normal",
             lineHeight: 1,
-          }}
-        >
-          Day
-        </h2>
-      </div>
+            margin: 0,
+          }}>
+            Order
+          </p>
+          <p style={{
+            fontFamily: "var(--font-mea), 'Mea Culpa', cursive",
+            fontSize: "clamp(2rem, 9vw, 2.8rem)",
+            color: CREAM,
+            lineHeight: 0.9,
+            margin: "0 0 0 1.2rem",
+          }}>
+            of the
+          </p>
+          <p style={{
+            fontFamily: "var(--font-cinzel), 'Cinzel Decorative', serif",
+            fontSize: "clamp(2.2rem, 10vw, 3rem)",
+            color: CREAM,
+            letterSpacing: "0.15em",
+            textTransform: "uppercase",
+            fontWeight: "normal",
+            lineHeight: 1,
+            margin: 0,
+          }}>
+            Day
+          </p>
+        </div>
 
-      {/* Timeline items */}
-      <div className="max-w-sm mx-auto flex flex-col gap-10">
-        {events.map((event, i) => (
-          <TimelineRow key={i} event={event} />
-        ))}
-      </div>
+        {/* Timeline */}
+        <div className="relative" style={{ paddingLeft: "0" }}>
+          {/* Vertical connecting line */}
+          <div
+            style={{
+              position: "absolute",
+              left: "calc(4.5rem + 14px)",
+              top: "8px",
+              bottom: "8px",
+              width: "1px",
+              background: `linear-gradient(to bottom, transparent, rgba(201,169,110,0.4) 10%, rgba(201,169,110,0.4) 90%, transparent)`,
+              zIndex: 0,
+            }}
+          />
 
-      {/* Gold bottom rule */}
-      <div className="max-w-sm mx-auto mt-12">
-        <div style={{ height: "1px", background: `linear-gradient(to right, transparent, ${GOLD}, transparent)` }} />
+          {events.map((event, i) => (
+            <div
+              key={i}
+              className="flex items-center"
+              style={{
+                marginBottom: i < events.length - 1 ? "clamp(1.4rem, 5vw, 2rem)" : 0,
+                opacity: visible ? 1 : 0,
+                transform: visible ? "translateX(0)" : "translateX(-40px)",
+                transition: `opacity 1.1s ease ${0.15 + i * 0.12}s, transform 1.1s ease ${0.15 + i * 0.12}s`,
+              }}
+            >
+              {/* Time column */}
+              <div
+                className="flex flex-col items-end"
+                style={{ width: "4.5rem", marginRight: "0.9rem", flexShrink: 0 }}
+              >
+                <span style={{
+                  fontFamily: "var(--font-oranienbaum), 'Oranienbaum', serif",
+                  fontSize: "clamp(1.6rem, 7vw, 2.2rem)",
+                  color: CREAM,
+                  lineHeight: 1,
+                }}>
+                  {event.time}
+                </span>
+                <span style={{
+                  fontFamily: "var(--font-mea), 'Mea Culpa', cursive",
+                  fontSize: "clamp(0.9rem, 3.5vw, 1.1rem)",
+                  color: GOLD,
+                  lineHeight: 1,
+                  marginTop: "-0.1rem",
+                }}>
+                  pm
+                </span>
+              </div>
+
+              {/* Gold dot */}
+              <div
+                style={{
+                  width: "10px",
+                  height: "10px",
+                  borderRadius: "50%",
+                  background: "rgba(201,169,110,0.5)",
+                  border: "1px solid rgba(201,169,110,0.8)",
+                  flexShrink: 0,
+                  zIndex: 1,
+                  position: "relative",
+                }}
+              />
+
+              {/* Event label */}
+              <span style={{
+                fontFamily: "var(--font-oranienbaum), serif",
+                fontSize: "clamp(0.6rem, 2.5vw, 0.72rem)",
+                letterSpacing: "0.22em",
+                color: DIM,
+                textTransform: "uppercase",
+                marginLeft: "0.9rem",
+              }}>
+                {event.label}
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
