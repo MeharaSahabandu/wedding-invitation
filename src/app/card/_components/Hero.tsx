@@ -57,7 +57,7 @@ export default function Hero({ animate = false }: { animate?: boolean }) {
         className="relative z-10 overflow-hidden shadow-2xl rounded-3xl"
         style={{
           width: "min(360px, calc(100vw - 1.5rem))",
-          minHeight: "min(840px, calc(100vh - 1rem))",
+          minHeight: "min(840px, calc(100dvh - 1rem))",
         }}
       >
         {/* Card background */}
@@ -74,12 +74,12 @@ export default function Hero({ animate = false }: { animate?: boolean }) {
 
           {/* Card content */}
           <div
-            className="relative z-10 flex flex-col items-center px-8 pt-4 pb-0"
-            style={{ minHeight: "min(680px, calc(100vh - 2rem))" }}
+            className="relative z-10 flex flex-col items-center px-8 pt-4 pb-4"
+            style={{ minHeight: "min(680px, calc(100dvh - 2rem))" }}
           >
             {/* Bow at top */}
             <div
-              className="w-24"
+              className="w-20 sm:w-24"
               style={{
                 transformOrigin: "top center",
                 animation: "ribbonWave 5s ease-in-out infinite",

@@ -82,8 +82,8 @@ function TimelineRow({ event }: { event: typeof events[0] }) {
           height={90}
           className="object-contain"
           style={{
-            width: 90,
-            height: 90,
+            width: "clamp(60px, 20vw, 90px)",
+            height: "clamp(60px, 20vw, 90px)",
             filter:
               "invert(57%) sepia(31%) saturate(494%) hue-rotate(340deg) brightness(88%)",
           }}
@@ -95,8 +95,8 @@ function TimelineRow({ event }: { event: typeof events[0] }) {
         className={`flex-1 flex flex-col ${isLeft ? "items-start" : "items-end"}`}
       >
         <span
-          className="text-5xl leading-none"
-          style={{ fontFamily: "'Oranienbaum', serif", color: BRAND }}
+          className="leading-none"
+          style={{ fontFamily: "'Oranienbaum', serif", color: BRAND, fontSize: "clamp(2rem, 10vw, 3rem)" }}
         >
           {event.time}
         </span>

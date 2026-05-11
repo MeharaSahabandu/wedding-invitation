@@ -21,7 +21,7 @@ export default function Invitation() {
   return (
     <section
       className="relative w-full overflow-hidden"
-      style={{ minHeight: "720px" }}
+      style={{ minHeight: "clamp(500px, 100dvh, 720px)" }}
     >
       <style>{`
         @keyframes floatUpDown {
@@ -115,7 +115,7 @@ export default function Invitation() {
       {/* Content */}
       <div
         className="relative z-20 flex flex-col items-center px-8 pt-14"
-        style={{ paddingBottom: "26rem" }}
+        style={{ paddingBottom: "clamp(14rem, 38dvh, 26rem)" }}
       >
         {/* Heart icon */}
         <div
