@@ -72,7 +72,7 @@ export default function Invitation() {
       {/* Background photo */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/couple.jpg"
+          src="/images/couple2.jpg"
           alt=""
           fill
           className="object-cover object-center"
