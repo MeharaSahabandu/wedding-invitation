@@ -185,7 +185,7 @@ export default function RSVP() {
               alt=""
               width={22}
               height={22}
-              className="invert"
+              className=""
             />
             I Will Join
           </button>
