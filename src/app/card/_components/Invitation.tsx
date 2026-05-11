@@ -59,49 +59,63 @@ export default function Invitation() {
         }} />
       </div>
 
+      <style>{`
+        @keyframes ourDrift {
+          0%   { opacity: 0; transform: translateY(-28px) scale(0.85); letter-spacing: 0.4em; }
+          60%  { letter-spacing: 0.05em; }
+          100% { opacity: 1; transform: translateY(0) scale(1); letter-spacing: 0.05em; }
+        }
+        @keyframes wipeUp {
+          from { clip-path: inset(100% 0 0 0); }
+          to   { clip-path: inset(0% 0 0 0); }
+        }
+        @keyframes drawUnderline {
+          from { width: 0; opacity: 0; }
+          to   { width: 3.5rem; opacity: 1; }
+        }
+      `}</style>
+
       {/* Content */}
       <div className="relative z-20 flex flex-col items-center px-8 py-16 text-center w-full"
         style={{ maxWidth: "min(420px, 100vw)" }}>
 
-        {/* "our" script */}
+        {/* "our" — drifts down from above, letters expand into place */}
         <p style={{
           fontFamily: "var(--font-mea), 'Mea Culpa', cursive",
           fontSize: "clamp(2.2rem, 10vw, 3rem)",
           color: GOLD,
           lineHeight: 1,
           marginBottom: 0,
-          opacity: visible ? 1 : 0,
-          transform: visible ? "translateY(0)" : "translateY(30px)",
-          transition: "opacity 1.1s ease, transform 1.1s ease",
+          opacity: visible ? undefined : 0,
+          animation: visible ? "ourDrift 1s cubic-bezier(0.22,1,0.36,1) forwards" : "none",
         }}>
           our
         </p>
 
-        {/* "LOVE STORY" */}
-        <h2 style={{
-          fontFamily: "var(--font-cinzel), 'Cinzel Decorative', serif",
-          fontSize: "clamp(1.8rem, 9vw, 2.4rem)",
-          color: CREAM,
-          letterSpacing: "0.18em",
-          textTransform: "uppercase",
-          fontWeight: "normal",
-          marginTop: 0,
-          marginBottom: "2rem",
-          opacity: visible ? 1 : 0,
-          transform: visible ? "translateY(0)" : "translateY(30px)",
-          transition: "opacity 1.1s ease 0.1s, transform 1.1s ease 0.1s",
-        }}>
-          Love Story
-        </h2>
+        {/* "LOVE STORY" — wipe-up reveal */}
+        <div style={{ overflow: "hidden", marginTop: 0, marginBottom: "0.5rem" }}>
+          <h2 style={{
+            fontFamily: "var(--font-cinzel), 'Cinzel Decorative', serif",
+            fontSize: "clamp(1.8rem, 9vw, 2.4rem)",
+            color: CREAM,
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+            fontWeight: "normal",
+            margin: 0,
+            clipPath: visible ? "inset(0% 0 0 0)" : "inset(100% 0 0 0)",
+            animation: visible ? "wipeUp 0.85s cubic-bezier(0.16,1,0.3,1) 0.18s both" : "none",
+          }}>
+            Love Story
+          </h2>
+        </div>
 
-        {/* Gold rule */}
+        {/* Gold underline draws itself left→right */}
         <div style={{
-          width: "3rem",
           height: "1px",
-          background: `linear-gradient(to right, transparent, ${GOLD}, transparent)`,
+          background: GOLD,
           marginBottom: "2rem",
-          opacity: visible ? 1 : 0,
-          transition: "opacity 1.1s ease 0.2s",
+          width: visible ? undefined : 0,
+          animation: visible ? "drawUnderline 0.7s ease 0.9s both" : "none",
         }} />
 
         {/* Invitation text */}
