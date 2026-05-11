@@ -10,8 +10,7 @@ export default function ParticipantList({ guests }: { guests: Guest[] }) {
     const q = query.toLowerCase();
     return (
       g.name.toLowerCase().includes(q) ||
-      g.phone.toLowerCase().includes(q) ||
-      (g.email ?? "").toLowerCase().includes(q)
+      g.phone.toLowerCase().includes(q)
     );
   });
 
@@ -83,7 +82,6 @@ export default function ParticipantList({ guests }: { guests: Guest[] }) {
                     {guest.name}
                   </p>
                   <p className="text-xs text-gray-400 mt-0.5 truncate">
-                    {guest.email ? `${guest.email} | ` : ""}
                     {guest.phone}
                   </p>
                 </div>
