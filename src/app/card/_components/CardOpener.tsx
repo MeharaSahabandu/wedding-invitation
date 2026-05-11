@@ -32,15 +32,14 @@ export default function CardOpener({ onOpened }: { onOpened?: () => void }) {
       `}</style>
 
       <div
-        className="fixed inset-0 z-[100] cursor-pointer select-none overflow-hidden"
+        className="fixed inset-0 z-[100] cursor-pointer select-none"
         style={{ perspective: "1600px" }}
         onClick={handleOpen}
       >
         {/* Right panel — behind, hinged on right edge */}
         <div
-          className="absolute z-0"
+          className="absolute inset-y-0 right-0 z-0"
           style={{
-            top: "-5%", bottom: "-5%", right: 0,
             width: "60%",
             transformOrigin: "right center",
             animation: opened
@@ -60,9 +59,8 @@ export default function CardOpener({ onOpened }: { onOpened?: () => void }) {
 
         {/* Left panel — on top, hinged on left edge, opens first */}
         <div
-          className="absolute z-10"
+          className="absolute inset-y-0 left-0 z-10"
           style={{
-            top: "-5%", bottom: "-5%", left: 0,
             width: "75%",
             transformOrigin: "left center",
             animation: opened
