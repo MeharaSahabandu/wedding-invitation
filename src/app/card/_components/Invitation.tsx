@@ -21,12 +21,12 @@ export default function Invitation() {
   return (
     <section
       className="relative w-full overflow-hidden"
-      style={{ minHeight: "clamp(500px, 100dvh, 720px)" }}
+      style={{ minHeight: "clamp(500px, 100dvh, 720px)", background: "#0d0d0d" }}
     >
       <style>{`
         @keyframes floatUpDown {
           0%, 100% { transform: translateY(0); }
-          50%       { transform: translateY(-22px); }
+          50%       { transform: translateY(-18px); }
         }
         @keyframes butterflyFly1 {
           0%   { transform: translate(0px, 0px) rotate(0deg) scaleX(1); }
@@ -49,40 +49,34 @@ export default function Invitation() {
           60%  { transform: translate(-20px, -30px) scaleX(1); }
           100% { transform: translate(0px, 0px) scaleX(1); }
         }
-        @keyframes wingFlap {
-          0%, 100% { transform: scaleY(1); }
-          50%       { transform: scaleY(0.6); }
-        }
-
       `}</style>
 
-      {/* Top white fade */}
+      {/* Top dark fade */}
       <div
         className="absolute top-0 left-0 right-0 z-10"
         style={{
-          height: "240px",
-          background:
-            "linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,0.95) 30%, rgba(255,255,255,0.5) 70%, transparent 100%)",
+          height: "200px",
+          background: "linear-gradient(to bottom, #0d0d0d 0%, #0d0d0d 30%, rgba(13,13,13,0.7) 70%, transparent 100%)",
         }}
       />
 
-      {/* Bottom white fade */}
+      {/* Bottom dark fade */}
       <div
         className="absolute bottom-0 left-0 right-0 z-10"
         style={{
           height: "200px",
-          background:
-            "linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,0.9) 50%, transparent 100%)",
+          background: "linear-gradient(to top, #0d0d0d 0%, rgba(13,13,13,0.9) 50%, transparent 100%)",
         }}
       />
 
-      {/* Background garden image + butterflies confined to it */}
+      {/* Background garden image + butterflies */}
       <div className="absolute inset-0 z-0" style={{ overflow: "hidden" }}>
         <Image
           src="/images/garden.png"
           alt=""
           fill
           className="object-cover object-top"
+          style={{ opacity: 0.25 }}
         />
         {[
           { top: "58%", left: "10%", anim: "butterflyFly1", dur: "7s",  delay: "0s" },
@@ -103,8 +97,8 @@ export default function Invitation() {
               userSelect: "none",
               animation: `${b.anim} ${b.dur} ease-in-out ${b.delay} infinite`,
               display: "inline-block",
-              opacity: 0.7,
-              filter: "sepia(1) saturate(1.2) hue-rotate(320deg) brightness(0.75)",
+              opacity: 0.5,
+              filter: "sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.2)",
             }}
           >
             🦋
@@ -119,18 +113,24 @@ export default function Invitation() {
       >
         {/* Heart icon */}
         <div
-          className="w-28 mb-8"
+          className="w-24 mb-8"
           style={{ animation: "floatUpDown 3s ease-in-out infinite" }}
         >
           <Image
             src="/icons/heart.svg"
             alt=""
-            width={112}
+            width={96}
             height={40}
             className="w-full"
-            style={{ filter: "sepia(60%) saturate(60%) hue-rotate(340deg)" }}
+            style={{ filter: "invert(78%) sepia(28%) saturate(500%) hue-rotate(5deg) brightness(95%)" }}
           />
         </div>
+
+        {/* Gold line */}
+        <div
+          className="w-16 mb-6"
+          style={{ height: "1px", background: "linear-gradient(to right, transparent, #c9a96e, transparent)" }}
+        />
 
         {/* Invitation text */}
         <p
@@ -138,7 +138,7 @@ export default function Invitation() {
           className="text-center leading-relaxed text-base"
           style={{
             fontFamily: "var(--font-oranienbaum), 'Oranienbaum', serif",
-            color: "#92593a",
+            color: "#a89880",
             opacity: textVisible ? 1 : 0,
             transform: textVisible ? "translateY(0)" : "translateY(30px)",
             transition: "opacity 1.2s ease 0.2s, transform 1.2s ease 0.2s",

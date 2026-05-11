@@ -16,16 +16,7 @@ export default function CardPage() {
   }, []);
 
   return (
-    <main
-      style={{
-        backgroundImage: "url('/images/bg-pattern.png')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        backgroundAttachment: "fixed",
-        minHeight: "100dvh",
-      }}
-    >
+    <main style={{ background: "#0d0d0d", minHeight: "100dvh" }}>
       <CardOpener onOpened={() => setHeroAnimate(true)} />
       <Hero animate={heroAnimate} />
       <Timeline />
