@@ -121,14 +121,13 @@ export default function Hero({ animate = false }: { animate?: boolean }) {
           and
         </p>
 
-        {/* PATHUM — Cinzel caps */}
+        {/* PATHUM — same Mea Culpa script as Prathiba */}
         <h1
           style={{
-            fontFamily: "var(--font-cinzel), 'Cinzel Decorative', serif",
-            fontSize: "clamp(2rem, 10vw, 2.8rem)",
+            fontFamily: "var(--font-mea), 'Mea Culpa', cursive",
+            fontSize: "clamp(4rem, 22vw, 6rem)",
             color: "#f0ebe0",
-            letterSpacing: "0.22em",
-            textTransform: "uppercase",
+            lineHeight: 0.85,
             fontWeight: "normal",
             margin: 0,
             opacity: animate ? undefined : 0,
