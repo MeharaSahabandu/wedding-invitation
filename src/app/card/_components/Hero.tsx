@@ -29,59 +29,31 @@ export default function Hero({ animate = false }: { animate?: boolean }) {
         }
       `}</style>
 
-      {/* Background couple photo — add /public/images/couple.jpg for full effect */}
-      <div className="absolute inset-0 z-0">
+      {/* Couple photo — top 50% of page only, showing bottom half of photo */}
+      <div
+        className="absolute left-0 right-0 top-0 z-0 overflow-hidden"
+        style={{ height: "50%" }}
+      >
         <Image
           src="/images/couple.jpg"
           alt=""
           fill
-          className="object-cover object-top"
-          style={{ opacity: 0.35 }}
+          className="object-cover"
+          style={{ opacity: 0.45, objectPosition: "center bottom" }}
           priority
           onError={(e) => {
             (e.target as HTMLImageElement).src = "/images/bg-pattern.png";
-            (e.target as HTMLImageElement).style.opacity = "0.07";
+            (e.target as HTMLImageElement).style.opacity = "0.05";
           }}
         />
-        {/* Heavy dark overlay to keep text readable */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(to bottom, rgba(13,13,13,0.5) 0%, rgba(13,13,13,0.3) 40%, rgba(13,13,13,0.6) 100%)",
-          }}
-        />
+        {/* Fade edges so photo blends into dark */}
+        <div className="absolute inset-0" style={{
+          background: "linear-gradient(to bottom, rgba(13,13,13,0.45) 0%, rgba(13,13,13,0.1) 40%, rgba(13,13,13,0.85) 85%, #0d0d0d 100%)",
+        }} />
+        <div className="absolute inset-0" style={{
+          background: "linear-gradient(to right, rgba(13,13,13,0.4) 0%, transparent 25%, transparent 75%, rgba(13,13,13,0.4) 100%)",
+        }} />
       </div>
-
-      {/* Gold corner brackets */}
-      <div
-        className="absolute top-7 left-7 w-10 h-10 opacity-40"
-        style={{
-          borderTop: "1px solid #c9a96e",
-          borderLeft: "1px solid #c9a96e",
-        }}
-      />
-      <div
-        className="absolute top-7 right-7 w-10 h-10 opacity-40"
-        style={{
-          borderTop: "1px solid #c9a96e",
-          borderRight: "1px solid #c9a96e",
-        }}
-      />
-      <div
-        className="absolute bottom-7 left-7 w-10 h-10 opacity-40"
-        style={{
-          borderBottom: "1px solid #c9a96e",
-          borderLeft: "1px solid #c9a96e",
-        }}
-      />
-      <div
-        className="absolute bottom-7 right-7 w-10 h-10 opacity-40"
-        style={{
-          borderBottom: "1px solid #c9a96e",
-          borderRight: "1px solid #c9a96e",
-        }}
-      />
 
       {/* Content */}
       <div
