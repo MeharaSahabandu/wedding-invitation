@@ -106,7 +106,7 @@ export default function Hero({ animate = false }: { animate?: boolean }) {
                   fontFamily: "var(--font-cinzel), 'Cinzel Decorative', serif",
                   fontSize: "clamp(1.8rem, 8vw, 2.4rem)",
                   animation: animate
-                    ? "slideFromLeft 0.9s cubic-bezier(0.25, 0, 0.35, 1) 2.2s both"
+                    ? "slideFromLeft 0.9s cubic-bezier(0.25, 0, 0.35, 1) 0.1s both"
                     : "none",
                 }}
               >
@@ -121,7 +121,7 @@ export default function Hero({ animate = false }: { animate?: boolean }) {
                   fontSize: "clamp(1.8rem, 8vw, 2.4rem)",
                   gap: "0.2em",
                   animation: animate
-                    ? "slideFromRight 0.9s cubic-bezier(0.25, 0, 0.35, 1) 2.3s both"
+                    ? "slideFromRight 0.9s cubic-bezier(0.25, 0, 0.35, 1) 0.2s both"
                     : "none",
                 }}
               >
@@ -144,7 +144,7 @@ export default function Hero({ animate = false }: { animate?: boolean }) {
                 style={{
                   fontFamily: "var(--font-mea), 'Mea Culpa', cursive",
                   fontSize: "clamp(2rem, 9vw, 2.8rem)",
-                  animation: animate ? "fadeIn 1.2s ease-in 2.5s both" : "none",
+                  animation: animate ? "fadeIn 1.2s ease-in 0.4s both" : "none",
                 }}
               >
                 Wedding
