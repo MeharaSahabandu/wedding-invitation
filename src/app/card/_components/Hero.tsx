@@ -95,14 +95,19 @@ export default function Hero({ animate = false }: { animate?: boolean }) {
             </div>
 
             {/* Names block */}
-            <div className="mt-6 text-center" style={{ opacity: animate ? undefined : 0 }}>
+            <div
+              className="mt-6 text-center"
+              style={{ opacity: animate ? undefined : 0 }}
+            >
               {/* PRATHIBA — slides in from left */}
               <h1
                 className="font-normal tracking-widest text-stone-800 leading-tight uppercase"
                 style={{
                   fontFamily: "var(--font-cinzel), 'Cinzel Decorative', serif",
                   fontSize: "clamp(1.8rem, 8vw, 2.4rem)",
-                  animation: animate ? "slideFromLeft 0.9s cubic-bezier(0.25, 0, 0.35, 1) 2.2s both" : "none",
+                  animation: animate
+                    ? "slideFromLeft 0.9s cubic-bezier(0.25, 0, 0.35, 1) 2.2s both"
+                    : "none",
                 }}
               >
                 PRATHIBA
@@ -115,12 +120,15 @@ export default function Hero({ animate = false }: { animate?: boolean }) {
                   fontFamily: "var(--font-cinzel), 'Cinzel Decorative', serif",
                   fontSize: "clamp(1.8rem, 8vw, 2.4rem)",
                   gap: "0.2em",
-                  animation: animate ? "slideFromRight 0.9s cubic-bezier(0.25, 0, 0.35, 1) 2.4s both" : "none",
+                  animation: animate
+                    ? "slideFromRight 0.9s cubic-bezier(0.25, 0, 0.35, 1) 2.3s both"
+                    : "none",
                 }}
               >
                 <span
                   style={{
-                    fontFamily: "var(--font-cinzel), 'Cinzel Decorative', serif",
+                    fontFamily:
+                      "var(--font-cinzel), 'Cinzel Decorative', serif",
                     color: "#A37254",
                     fontSize: "1em",
                   }}
@@ -136,7 +144,7 @@ export default function Hero({ animate = false }: { animate?: boolean }) {
                 style={{
                   fontFamily: "var(--font-mea), 'Mea Culpa', cursive",
                   fontSize: "clamp(2rem, 9vw, 2.8rem)",
-                  animation: animate ? "fadeIn 1.2s ease-in 2.6s both" : "none",
+                  animation: animate ? "fadeIn 1.2s ease-in 2.5s both" : "none",
                 }}
               >
                 Wedding
@@ -147,7 +155,7 @@ export default function Hero({ animate = false }: { animate?: boolean }) {
             <div className="mt-auto w-4/5 self-center relative overflow-hidden">
               {/* Flower petals */}
               {[
-                { left: "8%",  delay: "0s",   dur: "3.2s", size: 8 },
+                { left: "8%", delay: "0s", dur: "3.2s", size: 8 },
                 { left: "22%", delay: "0.7s", dur: "2.8s", size: 7 },
                 { left: "38%", delay: "1.4s", dur: "3.5s", size: 6 },
                 { left: "52%", delay: "0.3s", dur: "3.0s", size: 9 },
