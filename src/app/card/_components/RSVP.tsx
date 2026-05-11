@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 const GOLD = "#c9a96e";
 const CREAM = "#f0ebe0";
+const DIM = "#8a8070";
 
 export default function RSVP() {
   const [showModal, setShowModal] = useState<"join" | "decline" | null>(null);
@@ -52,62 +52,96 @@ export default function RSVP() {
 
   return (
     <>
+      {/* Modal */}
       {showModal && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center"
-          style={{ backdropFilter: "blur(8px)", background: "rgba(0,0,0,0.7)" }}
+          style={{ backdropFilter: "blur(10px)", background: "rgba(0,0,0,0.75)" }}
           onClick={() => setShowModal(null)}
         >
           <div
-            className="relative w-full max-w-xs mx-4 rounded-2xl px-7 py-8 flex flex-col gap-5"
-            style={{ background: "#1a1a1a", border: `1px solid rgba(201,169,110,0.25)`, boxShadow: "0 8px 60px rgba(0,0,0,0.6)" }}
+            className="relative w-full mx-5 rounded-2xl px-7 py-8 flex flex-col gap-5"
+            style={{
+              maxWidth: "360px",
+              background: "#111",
+              border: `1px solid rgba(201,169,110,0.22)`,
+              boxShadow: "0 12px 80px rgba(0,0,0,0.7)",
+            }}
             onClick={(e) => e.stopPropagation()}
           >
+            {/* Close */}
             <button
               onClick={() => setShowModal(null)}
-              className="absolute top-4 right-5 text-xl leading-none"
-              style={{ color: "#6b6458" }}
+              className="absolute top-4 right-5 text-lg leading-none"
+              style={{ color: "#4a4440", background: "none", border: "none", cursor: "pointer" }}
             >
               ✕
             </button>
 
-            {/* Gold line top */}
-            <div style={{ height: "1px", background: `linear-gradient(to right, transparent, ${GOLD}, transparent)`, marginBottom: "-8px" }} />
+            {/* Top gold rule */}
+            <div style={{
+              height: "1px",
+              background: `linear-gradient(to right, transparent, ${GOLD}, transparent)`,
+              marginBottom: "-4px",
+            }} />
 
-            <h3
-              className="text-3xl text-center"
-              style={{ fontFamily: "var(--font-mea), 'Mea Culpa', cursive", color: GOLD }}
-            >
+            {/* Title */}
+            <h3 style={{
+              fontFamily: "var(--font-mea), 'Mea Culpa', cursive",
+              fontSize: "2.5rem",
+              color: GOLD,
+              textAlign: "center",
+              marginBottom: "-8px",
+            }}>
               RSVP
             </h3>
-            <p
-              className="text-sm text-center -mt-3"
-              style={{ fontFamily: "var(--font-oranienbaum), 'Oranienbaum', serif", color: "#8a8070" }}
-            >
-              {showModal === "join" ? "We'd love to know you're coming" : "We're sorry you can't make it"}
+            <p style={{
+              fontFamily: "var(--font-oranienbaum), serif",
+              fontSize: "0.75rem",
+              color: DIM,
+              textAlign: "center",
+              letterSpacing: "0.12em",
+              marginTop: "-4px",
+            }}>
+              Prathiba &amp; Pathum's Wedding
             </p>
 
+            {/* Name */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs tracking-widest uppercase" style={{ fontFamily: "var(--font-oranienbaum), serif", color: GOLD, fontSize: "0.6rem" }}>
-                Name
+              <label style={{
+                fontFamily: "var(--font-oranienbaum), serif",
+                fontSize: "0.58rem",
+                letterSpacing: "0.3em",
+                color: GOLD,
+                textTransform: "uppercase",
+              }}>
+                Your Name *
               </label>
               <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="Your full name"
+                placeholder="Full name"
                 className="w-full px-4 py-3 rounded-xl outline-none text-sm"
                 style={{
-                  background: "#111",
-                  border: "1px solid rgba(201,169,110,0.2)",
+                  background: "#0d0d0d",
+                  border: `1px solid rgba(201,169,110,0.18)`,
                   color: CREAM,
                   fontFamily: "var(--font-oranienbaum), serif",
                 }}
               />
             </div>
+
+            {/* Phone */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs tracking-widest uppercase" style={{ fontFamily: "var(--font-oranienbaum), serif", color: GOLD, fontSize: "0.6rem" }}>
-                Phone Number
+              <label style={{
+                fontFamily: "var(--font-oranienbaum), serif",
+                fontSize: "0.58rem",
+                letterSpacing: "0.3em",
+                color: GOLD,
+                textTransform: "uppercase",
+              }}>
+                Phone Number *
               </label>
               <input
                 type="tel"
@@ -116,26 +150,34 @@ export default function RSVP() {
                 placeholder="+94 77 000 0000"
                 className="w-full px-4 py-3 rounded-xl outline-none text-sm"
                 style={{
-                  background: "#111",
-                  border: "1px solid rgba(201,169,110,0.2)",
+                  background: "#0d0d0d",
+                  border: `1px solid rgba(201,169,110,0.18)`,
                   color: CREAM,
                   fontFamily: "var(--font-oranienbaum), serif",
                 }}
               />
             </div>
-            {error && <p className="text-red-400 text-xs -mt-2">{error}</p>}
+
+            {error && (
+              <p style={{ color: "#e57373", fontSize: "0.75rem", marginTop: "-8px" }}>{error}</p>
+            )}
+
+            {/* Submit */}
             <button
               onClick={() => handleSubmit(showModal === "join")}
               disabled={loading}
-              className="w-full py-3.5 rounded-xl text-sm mt-1 disabled:opacity-50 tracking-widest uppercase"
+              className="w-full py-3.5 rounded-xl mt-1 disabled:opacity-50"
               style={{
                 background: showModal === "join"
                   ? `linear-gradient(135deg, #c9a96e, #a8844f)`
-                  : "#2a2a2a",
-                color: showModal === "join" ? "#0d0d0d" : "#8a8070",
+                  : "transparent",
+                color: showModal === "join" ? "#0d0d0d" : DIM,
                 fontFamily: "var(--font-oranienbaum), serif",
-                border: showModal === "join" ? "none" : "1px solid rgba(201,169,110,0.2)",
-                fontSize: "0.7rem",
+                fontSize: "0.65rem",
+                letterSpacing: "0.3em",
+                textTransform: "uppercase",
+                border: showModal === "join" ? "none" : `1px solid rgba(201,169,110,0.22)`,
+                cursor: "pointer",
               }}
             >
               {loading ? "Saving…" : showModal === "join" ? "Confirm Attendance" : "Confirm"}
@@ -144,78 +186,110 @@ export default function RSVP() {
         </div>
       )}
 
+      {/* Section */}
       <section
         ref={sectionRef}
-        className="w-full px-8 pt-2 pb-16 flex flex-col items-center"
+        className="w-full px-6 pt-4 pb-16 flex flex-col items-center"
         style={{ background: "#0d0d0d" }}
       >
-        {/* Gold line */}
-        <div className="w-24 mb-10" style={{ height: "1px", background: `linear-gradient(to right, transparent, ${GOLD}, transparent)` }} />
+        {/* Gold rule */}
+        <div className="w-full max-w-sm mb-12">
+          <div style={{
+            height: "1px",
+            background: `linear-gradient(to right, transparent, ${GOLD}, transparent)`,
+          }} />
+        </div>
 
-        <h2
-          className="mb-3"
-          style={{
+        {/* Heading */}
+        <div className="flex flex-col items-center mb-3" style={{
+          opacity: visible ? 1 : 0,
+          transform: visible ? "translateY(0)" : "translateY(30px)",
+          transition: "opacity 1.1s ease, transform 1.1s ease",
+        }}>
+          <p style={{
             fontFamily: "var(--font-mea), 'Mea Culpa', cursive",
-            fontSize: "clamp(2.8rem, 12vw, 3.5rem)",
+            fontSize: "clamp(2.2rem, 10vw, 3rem)",
+            color: GOLD,
+            lineHeight: 1,
+            marginBottom: 0,
+          }}>
+            the
+          </p>
+          <h2 style={{
+            fontFamily: "var(--font-cinzel), 'Cinzel Decorative', serif",
+            fontSize: "clamp(1.8rem, 9vw, 2.5rem)",
             color: CREAM,
-            opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(30px)",
-            transition: "opacity 1.2s ease, transform 1.2s ease",
-          }}
-        >
-          Let's Celebrate
-        </h2>
-        <p
-          className="mb-10 tracking-widest uppercase"
-          style={{
-            fontFamily: "var(--font-oranienbaum), 'Oranienbaum', serif",
-            fontSize: "0.65rem",
-            color: "#8a8070",
-            opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(30px)",
-            transition: "opacity 1.2s ease 0.2s, transform 1.2s ease 0.2s",
-          }}
-        >
-          Please Confirm your Participation
+            letterSpacing: "0.2em",
+            textTransform: "uppercase",
+            fontWeight: "normal",
+            marginTop: 0,
+          }}>
+            RSVP
+          </h2>
+        </div>
+
+        <p style={{
+          fontFamily: "var(--font-oranienbaum), serif",
+          fontSize: "0.65rem",
+          letterSpacing: "0.28em",
+          color: DIM,
+          textTransform: "uppercase",
+          marginBottom: "2.5rem",
+          opacity: visible ? 1 : 0,
+          transition: "opacity 1.1s ease 0.15s",
+        }}>
+          Please confirm your participation
         </p>
 
+        {/* Buttons */}
         <div className="w-full max-w-xs flex flex-col gap-4">
           <button
             onClick={() => { setName(""); setPhone(""); setError(""); setShowModal("join"); }}
-            className="w-full flex items-center justify-center gap-3 py-4 rounded-xl tracking-widest uppercase"
+            className="w-full py-4 rounded-xl"
             style={{
               background: `linear-gradient(135deg, #c9a96e, #a8844f)`,
               color: "#0d0d0d",
-              fontFamily: "var(--font-oranienbaum), 'Oranienbaum', serif",
-              fontSize: "0.75rem",
+              fontFamily: "var(--font-oranienbaum), serif",
+              fontSize: "0.72rem",
+              letterSpacing: "0.28em",
+              textTransform: "uppercase",
+              border: "none",
+              cursor: "pointer",
             }}
           >
-            <Image src="/icons/love.svg" alt="" width={20} height={20} className="" style={{ filter: "brightness(0)" }} />
-            I Will Join
+            ♥ &nbsp; I Will Join
           </button>
           <button
             onClick={() => { setName(""); setPhone(""); setError(""); setShowModal("decline"); }}
-            className="w-full flex items-center justify-center py-4 rounded-xl tracking-widest uppercase"
+            className="w-full py-4 rounded-xl"
             style={{
               background: "transparent",
-              color: "#8a8070",
-              fontFamily: "var(--font-oranienbaum), 'Oranienbaum', serif",
-              fontSize: "0.75rem",
-              border: "1px solid rgba(201,169,110,0.25)",
+              color: DIM,
+              fontFamily: "var(--font-oranienbaum), serif",
+              fontSize: "0.72rem",
+              letterSpacing: "0.28em",
+              textTransform: "uppercase",
+              border: `1px solid rgba(201,169,110,0.22)`,
+              cursor: "pointer",
             }}
           >
             Can't Make It
           </button>
         </div>
 
+        {/* Confirmation message */}
         {done && (
-          <p
-            className="mt-8 text-sm text-center"
-            style={{ fontFamily: "var(--font-oranienbaum), 'Oranienbaum', serif", color: GOLD }}
-          >
+          <p style={{
+            fontFamily: "var(--font-oranienbaum), serif",
+            fontSize: "0.9rem",
+            color: GOLD,
+            textAlign: "center",
+            marginTop: "2rem",
+            lineHeight: 1.8,
+          }}>
             {attending
               ? "We're so excited to celebrate with you! 🤍"
-              : "We're sorry you can't make it. You'll be missed! 🤍"}
+              : "We'll miss you dearly. Thank you for letting us know. 🤍"}
           </p>
         )}
       </section>
