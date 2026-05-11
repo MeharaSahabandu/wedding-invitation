@@ -67,7 +67,7 @@ export default function MobileMenu() {
               </svg>
               Profile
             </button>
-            <div className="px-4 py-1">
+            <div className="px-4 py-1" onClick={(e) => e.stopPropagation()}>
               <LogoutButton />
             </div>
           </div>
