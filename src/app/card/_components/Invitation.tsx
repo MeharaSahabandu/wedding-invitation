@@ -114,7 +114,7 @@ export default function Invitation() {
 
       {/* Content */}
       <div
-        className="relative z-20 flex flex-col items-center px-8 pt-14"
+        className="relative z-20 flex flex-col items-center px-8 pt-8"
         style={{ paddingBottom: "clamp(14rem, 38dvh, 26rem)" }}
       >
         {/* Heart icon */}
@@ -135,7 +135,7 @@ export default function Invitation() {
         {/* Invitation text */}
         <p
           ref={textRef}
-          className="text-center leading-relaxed text-lg"
+          className="text-center leading-relaxed text-base"
           style={{
             fontFamily: "var(--font-oranienbaum), 'Oranienbaum', serif",
             color: "#92593a",
