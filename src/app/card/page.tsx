@@ -23,6 +23,7 @@ export default function CardPage() {
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         backgroundAttachment: "fixed",
+        minHeight: "100dvh",
       }}
     >
       <CardOpener onOpened={() => setHeroAnimate(true)} />

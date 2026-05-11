@@ -26,7 +26,8 @@ export const metadata: Metadata = {
 
 export default function CardLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className={`${cinzelDecorative.variable} ${meaCulpa.variable} ${oranienbaum.variable} min-h-full`}>
+    <div className={`${cinzelDecorative.variable} ${meaCulpa.variable} ${oranienbaum.variable}`}
+      style={{ background: "#1a0a00" }}>
       {children}
     </div>
   );
