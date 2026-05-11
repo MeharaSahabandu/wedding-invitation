@@ -8,7 +8,7 @@ export default function Hero({ animate = false }: { animate?: boolean }) {
       className="relative min-h-screen w-full flex items-center justify-center overflow-hidden py-4"
       style={{
         opacity: animate ? undefined : 0,
-        animation: animate ? "heroSlideDown 3s cubic-bezier(0.25, 0, 0.35, 1) forwards" : "none",
+        animation: animate ? "fadeIn 0.6s ease forwards" : "none",
       }}
     >
       <style>{`
@@ -102,7 +102,7 @@ export default function Hero({ animate = false }: { animate?: boolean }) {
                 style={{
                   fontFamily: "var(--font-cinzel), 'Cinzel Decorative', serif",
                   fontSize: "clamp(1.8rem, 8vw, 2.4rem)",
-                  animation: "slideFromLeft 0.9s cubic-bezier(0.25, 0, 0.35, 1) 2s both",
+                  animation: "slideFromLeft 0.9s cubic-bezier(0.25, 0, 0.35, 1) 0.3s both",
                 }}
               >
                 PRATHIBA
@@ -115,7 +115,7 @@ export default function Hero({ animate = false }: { animate?: boolean }) {
                   fontFamily: "var(--font-cinzel), 'Cinzel Decorative', serif",
                   fontSize: "clamp(1.8rem, 8vw, 2.4rem)",
                   gap: "0.2em",
-                  animation: "slideFromRight 0.9s cubic-bezier(0.25, 0, 0.35, 1) 2.2s both",
+                  animation: "slideFromRight 0.9s cubic-bezier(0.25, 0, 0.35, 1) 0.5s both",
                 }}
               >
                 <span
@@ -136,7 +136,7 @@ export default function Hero({ animate = false }: { animate?: boolean }) {
                 style={{
                   fontFamily: "var(--font-mea), 'Mea Culpa', cursive",
                   fontSize: "clamp(2rem, 9vw, 2.8rem)",
-                  animation: "fadeIn 1.2s ease-in 2.5s both",
+                  animation: "fadeIn 1.2s ease-in 0.8s both",
                 }}
               >
                 Wedding
