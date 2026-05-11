@@ -19,6 +19,14 @@ export default function Hero({ animate = false }: { animate?: boolean }) {
           90%  { opacity: 0.2; }
           100% { transform: translateY(180px) rotate(360deg); opacity: 0; }
         }
+        @keyframes lineExpand {
+          from { width: 0; opacity: 0; }
+          to   { width: 100%; opacity: 1; }
+        }
+        @keyframes dateNumIn {
+          from { opacity: 0; transform: scale(0.7); }
+          to   { opacity: 1; transform: scale(1); }
+        }
       `}</style>
 
       {/* Background couple photo — add /public/images/couple.jpg for full effect */}
@@ -36,20 +44,44 @@ export default function Hero({ animate = false }: { animate?: boolean }) {
           }}
         />
         {/* Heavy dark overlay to keep text readable */}
-        <div className="absolute inset-0" style={{
-          background: "linear-gradient(to bottom, rgba(13,13,13,0.5) 0%, rgba(13,13,13,0.3) 40%, rgba(13,13,13,0.6) 100%)",
-        }} />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to bottom, rgba(13,13,13,0.5) 0%, rgba(13,13,13,0.3) 40%, rgba(13,13,13,0.6) 100%)",
+          }}
+        />
       </div>
 
       {/* Gold corner brackets */}
-      <div className="absolute top-7 left-7 w-10 h-10 opacity-40"
-        style={{ borderTop: "1px solid #c9a96e", borderLeft: "1px solid #c9a96e" }} />
-      <div className="absolute top-7 right-7 w-10 h-10 opacity-40"
-        style={{ borderTop: "1px solid #c9a96e", borderRight: "1px solid #c9a96e" }} />
-      <div className="absolute bottom-7 left-7 w-10 h-10 opacity-40"
-        style={{ borderBottom: "1px solid #c9a96e", borderLeft: "1px solid #c9a96e" }} />
-      <div className="absolute bottom-7 right-7 w-10 h-10 opacity-40"
-        style={{ borderBottom: "1px solid #c9a96e", borderRight: "1px solid #c9a96e" }} />
+      <div
+        className="absolute top-7 left-7 w-10 h-10 opacity-40"
+        style={{
+          borderTop: "1px solid #c9a96e",
+          borderLeft: "1px solid #c9a96e",
+        }}
+      />
+      <div
+        className="absolute top-7 right-7 w-10 h-10 opacity-40"
+        style={{
+          borderTop: "1px solid #c9a96e",
+          borderRight: "1px solid #c9a96e",
+        }}
+      />
+      <div
+        className="absolute bottom-7 left-7 w-10 h-10 opacity-40"
+        style={{
+          borderBottom: "1px solid #c9a96e",
+          borderLeft: "1px solid #c9a96e",
+        }}
+      />
+      <div
+        className="absolute bottom-7 right-7 w-10 h-10 opacity-40"
+        style={{
+          borderBottom: "1px solid #c9a96e",
+          borderRight: "1px solid #c9a96e",
+        }}
+      />
 
       {/* Content */}
       <div
@@ -57,189 +89,292 @@ export default function Hero({ animate = false }: { animate?: boolean }) {
         style={{ maxWidth: "min(420px, 100vw)" }}
       >
         {/* YOU HAVE AN INVITATION FROM */}
-        <p style={{
-          fontFamily: "var(--font-oranienbaum), 'Oranienbaum', serif",
-          fontSize: "0.58rem",
-          letterSpacing: "0.32em",
-          color: "#c9a96e",
-          textTransform: "uppercase",
-          marginBottom: "1.2rem",
-          opacity: animate ? undefined : 0,
-          animation: animate ? "fadeUp 1s ease 0.15s both" : "none",
-        }}>
-          You have an invitation from
+        <p
+          style={{
+            fontFamily: "var(--font-oranienbaum), 'Oranienbaum', serif",
+            fontSize: "0.58rem",
+            letterSpacing: "0.32em",
+            color: "#c9a96e",
+            textTransform: "uppercase",
+            marginBottom: "1.2rem",
+            opacity: animate ? undefined : 0,
+            animation: animate ? "fadeUp 1s ease 0.15s both" : "none",
+          }}
+        >
+          Together with their families
         </p>
 
         {/* Top gold rule */}
-        <div style={{
-          width: "4rem",
-          height: "1px",
-          background: "linear-gradient(to right, transparent, #c9a96e, transparent)",
-          marginBottom: "1.2rem",
-          opacity: animate ? undefined : 0,
-          animation: animate ? "fadeIn 1s ease 0.25s both" : "none",
-        }} />
+        <div
+          style={{
+            width: "4rem",
+            height: "1px",
+            background:
+              "linear-gradient(to right, transparent, #c9a96e, transparent)",
+            marginBottom: "1.2rem",
+            opacity: animate ? undefined : 0,
+            animation: animate ? "fadeIn 1s ease 0.25s both" : "none",
+          }}
+        />
 
         {/* PRATHIBA — large Mea Culpa script */}
-        <h1 style={{
-          fontFamily: "var(--font-mea), 'Mea Culpa', cursive",
-          fontSize: "clamp(4rem, 22vw, 6rem)",
-          color: "#f0ebe0",
-          lineHeight: 0.85,
-          fontWeight: "normal",
-          margin: 0,
-          opacity: animate ? undefined : 0,
-          animation: animate ? "slideL 0.95s cubic-bezier(0.25,0,0.35,1) 0.2s both" : "none",
-        }}>
+        <h1
+          style={{
+            fontFamily: "var(--font-mea), 'Mea Culpa', cursive",
+            fontSize: "clamp(4rem, 22vw, 6rem)",
+            color: "#f0ebe0",
+            lineHeight: 0.85,
+            fontWeight: "normal",
+            margin: 0,
+            opacity: animate ? undefined : 0,
+            animation: animate
+              ? "slideL 0.95s cubic-bezier(0.25,0,0.35,1) 0.2s both"
+              : "none",
+          }}
+        >
           Prathiba
         </h1>
 
         {/* and */}
-        <p style={{
-          fontFamily: "var(--font-mea), 'Mea Culpa', cursive",
-          fontSize: "clamp(1.6rem, 7vw, 2.2rem)",
-          color: "#c9a96e",
-          margin: "0.1rem 0",
-          opacity: animate ? undefined : 0,
-          animation: animate ? "fadeIn 1s ease 0.3s both" : "none",
-        }}>
+        <p
+          style={{
+            fontFamily: "var(--font-mea), 'Mea Culpa', cursive",
+            fontSize: "clamp(1.6rem, 7vw, 2.2rem)",
+            color: "#c9a96e",
+            margin: "0.1rem 0",
+            opacity: animate ? undefined : 0,
+            animation: animate ? "fadeIn 1s ease 0.3s both" : "none",
+          }}
+        >
           and
         </p>
 
         {/* PATHUM — Cinzel caps */}
-        <h1 style={{
-          fontFamily: "var(--font-cinzel), 'Cinzel Decorative', serif",
-          fontSize: "clamp(2rem, 10vw, 2.8rem)",
-          color: "#f0ebe0",
-          letterSpacing: "0.22em",
-          textTransform: "uppercase",
-          fontWeight: "normal",
-          margin: 0,
-          opacity: animate ? undefined : 0,
-          animation: animate ? "slideR 0.95s cubic-bezier(0.25,0,0.35,1) 0.28s both" : "none",
-        }}>
+        <h1
+          style={{
+            fontFamily: "var(--font-cinzel), 'Cinzel Decorative', serif",
+            fontSize: "clamp(2rem, 10vw, 2.8rem)",
+            color: "#f0ebe0",
+            letterSpacing: "0.22em",
+            textTransform: "uppercase",
+            fontWeight: "normal",
+            margin: 0,
+            opacity: animate ? undefined : 0,
+            animation: animate
+              ? "slideR 0.95s cubic-bezier(0.25,0,0.35,1) 0.28s both"
+              : "none",
+          }}
+        >
           Pathum
         </h1>
 
         {/* INVITE YOU TO THEIR WEDDING */}
-        <p style={{
-          fontFamily: "var(--font-oranienbaum), serif",
-          fontSize: "0.6rem",
-          letterSpacing: "0.28em",
-          color: "#6b6458",
-          textTransform: "uppercase",
-          marginTop: "1.4rem",
-          opacity: animate ? undefined : 0,
-          animation: animate ? "fadeUp 1s ease 0.45s both" : "none",
-        }}>
+        <p
+          style={{
+            fontFamily: "var(--font-oranienbaum), serif",
+            fontSize: "0.6rem",
+            letterSpacing: "0.28em",
+            color: "#6b6458",
+            textTransform: "uppercase",
+            marginTop: "1.4rem",
+            opacity: animate ? undefined : 0,
+            animation: animate ? "fadeUp 1s ease 0.45s both" : "none",
+          }}
+        >
           Invite you to their wedding
         </p>
 
         {/* Gold rule */}
-        <div style={{
-          width: "5rem",
-          height: "1px",
-          background: "linear-gradient(to right, transparent, #c9a96e, transparent)",
-          margin: "1.4rem 0 1.2rem",
-          opacity: animate ? undefined : 0,
-          animation: animate ? "fadeIn 1s ease 0.55s both" : "none",
-        }} />
+        <div
+          style={{
+            width: "5rem",
+            height: "1px",
+            background:
+              "linear-gradient(to right, transparent, #c9a96e, transparent)",
+            margin: "1.4rem 0 1.2rem",
+            opacity: animate ? undefined : 0,
+            animation: animate ? "fadeIn 1s ease 0.55s both" : "none",
+          }}
+        />
 
-        {/* Venue + Time row */}
-        <p style={{
-          fontFamily: "var(--font-oranienbaum), serif",
-          fontSize: "0.6rem",
-          letterSpacing: "0.18em",
-          color: "#8a8070",
-          textTransform: "uppercase",
-          opacity: animate ? undefined : 0,
-          animation: animate ? "fadeUp 1s ease 0.6s both" : "none",
-        }}>
-          Vinrich Lake Resort &nbsp;|&nbsp; at 4:00 pm
+        {/* Venue name */}
+        <p
+          style={{
+            fontFamily: "var(--font-oranienbaum), serif",
+            fontSize: "0.6rem",
+            letterSpacing: "0.22em",
+            color: "#8a8070",
+            textTransform: "uppercase",
+            opacity: animate ? undefined : 0,
+            animation: animate ? "fadeUp 1s ease 0.6s both" : "none",
+          }}
+        >
+          Vinrich Lake Resort
         </p>
 
         {/* Date block */}
-        <div style={{
-          marginTop: "1.2rem",
-          opacity: animate ? undefined : 0,
-          animation: animate ? "fadeUp 1s ease 0.68s both" : "none",
-        }}>
+        <div
+          style={{
+            width: "100%",
+            maxWidth: "300px",
+            marginTop: "1.4rem",
+          }}
+        >
+          {/* JUNE */}
           <p style={{
             fontFamily: "var(--font-oranienbaum), serif",
-            fontSize: "0.62rem",
-            letterSpacing: "0.45em",
+            fontSize: "0.65rem",
+            letterSpacing: "0.55em",
             color: "#c9a96e",
             textTransform: "uppercase",
-            marginBottom: "0",
+            textAlign: "center",
+            marginBottom: "0.55rem",
+            opacity: animate ? undefined : 0,
+            animation: animate ? "fadeUp 0.8s ease 0.65s both" : "none",
           }}>
             June
           </p>
 
-          {/* Falling petals behind the date */}
-          <div style={{ position: "relative", display: "inline-block" }}>
-            {[
-              { left: "5%",  delay: "0s",   dur: "3.2s" },
-              { left: "25%", delay: "0.8s", dur: "2.9s" },
-              { left: "50%", delay: "1.5s", dur: "3.5s" },
-              { left: "70%", delay: "0.4s", dur: "3.0s" },
-              { left: "88%", delay: "1.1s", dur: "2.7s" },
-            ].map((f, i) => (
-              <span key={i} style={{
-                position: "absolute",
-                top: 0,
-                left: f.left,
-                fontSize: 8,
-                opacity: 0,
-                color: "#c9a96e",
-                animation: `flowerFall ${f.dur} ease-in ${f.delay} infinite`,
-                pointerEvents: "none",
-                userSelect: "none",
-              }}>✿</span>
-            ))}
-            <p style={{
-              fontFamily: "var(--font-cinzel), 'Cinzel Decorative', serif",
-              fontSize: "clamp(4.5rem, 24vw, 7rem)",
-              color: "#f0ebe0",
-              lineHeight: 0.82,
-              margin: "0",
-            }}>
-              4
-            </p>
+          {/* Top border line — expands from center */}
+          <div style={{ overflow: "hidden", display: "flex", justifyContent: "center" }}>
+            <div style={{
+              height: "1px",
+              background: "rgba(201,169,110,0.55)",
+              width: animate ? undefined : "0%",
+              animation: animate ? "lineExpand 0.8s ease 0.75s both" : "none",
+              alignSelf: "stretch",
+              flexShrink: 0,
+              minWidth: "100%",
+            }} />
           </div>
 
+          {/* Day row: THURSDAY | 4 | AT 4:00 PM */}
+          <div style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            padding: "0.3rem 0.8rem",
+            gap: "0.4rem",
+          }}>
+            {/* Day name */}
+            <span style={{
+              fontFamily: "var(--font-oranienbaum), serif",
+              fontSize: "clamp(0.5rem, 2vw, 0.6rem)",
+              letterSpacing: "0.2em",
+              color: "#8a8070",
+              textTransform: "uppercase",
+              opacity: animate ? undefined : 0,
+              animation: animate ? "fadeUp 0.8s ease 0.82s both" : "none",
+              flexShrink: 0,
+            }}>
+              Thursday
+            </span>
+
+            {/* Vertical divider */}
+            <div style={{
+              width: "1px",
+              height: "2.4rem",
+              background: "rgba(201,169,110,0.4)",
+              flexShrink: 0,
+              opacity: animate ? undefined : 0,
+              animation: animate ? "fadeIn 0.6s ease 0.9s both" : "none",
+            }} />
+
+            {/* Large day number */}
+            <span style={{
+              fontFamily: "var(--font-cinzel), 'Cinzel Decorative', serif",
+              fontSize: "clamp(2.8rem, 14vw, 4rem)",
+              color: "#f0ebe0",
+              lineHeight: 1,
+              opacity: animate ? undefined : 0,
+              animation: animate ? "dateNumIn 0.7s cubic-bezier(0.25,0,0.35,1) 0.78s both" : "none",
+              flexShrink: 0,
+            }}>
+              4
+            </span>
+
+            {/* Vertical divider */}
+            <div style={{
+              width: "1px",
+              height: "2.4rem",
+              background: "rgba(201,169,110,0.4)",
+              flexShrink: 0,
+              opacity: animate ? undefined : 0,
+              animation: animate ? "fadeIn 0.6s ease 0.9s both" : "none",
+            }} />
+
+            {/* Time */}
+            <span style={{
+              fontFamily: "var(--font-oranienbaum), serif",
+              fontSize: "clamp(0.5rem, 2vw, 0.6rem)",
+              letterSpacing: "0.2em",
+              color: "#8a8070",
+              textTransform: "uppercase",
+              opacity: animate ? undefined : 0,
+              animation: animate ? "fadeUp 0.8s ease 0.82s both" : "none",
+              flexShrink: 0,
+            }}>
+              At 4:00 pm
+            </span>
+          </div>
+
+          {/* Bottom border line */}
+          <div style={{ overflow: "hidden", display: "flex", justifyContent: "center" }}>
+            <div style={{
+              height: "1px",
+              background: "rgba(201,169,110,0.55)",
+              width: animate ? undefined : "0%",
+              animation: animate ? "lineExpand 0.8s ease 0.75s both" : "none",
+              alignSelf: "stretch",
+              flexShrink: 0,
+              minWidth: "100%",
+            }} />
+          </div>
+
+          {/* 2026 */}
           <p style={{
             fontFamily: "var(--font-oranienbaum), serif",
-            fontSize: "0.62rem",
-            letterSpacing: "0.45em",
+            fontSize: "0.65rem",
+            letterSpacing: "0.55em",
             color: "#c9a96e",
-            marginTop: "0.2rem",
+            textTransform: "uppercase",
+            textAlign: "center",
+            marginTop: "0.55rem",
+            opacity: animate ? undefined : 0,
+            animation: animate ? "fadeUp 0.8s ease 0.9s both" : "none",
           }}>
             2026
           </p>
         </div>
 
         {/* Gold rule */}
-        <div style={{
-          width: "4rem",
-          height: "1px",
-          background: "linear-gradient(to right, transparent, #c9a96e, transparent)",
-          margin: "1.4rem 0 1rem",
-          opacity: animate ? undefined : 0,
-          animation: animate ? "fadeIn 1s ease 0.8s both" : "none",
-        }} />
+        <div
+          style={{
+            width: "4rem",
+            height: "1px",
+            background:
+              "linear-gradient(to right, transparent, #c9a96e, transparent)",
+            margin: "1.4rem 0 1rem",
+            opacity: animate ? undefined : 0,
+            animation: animate ? "fadeIn 1s ease 0.8s both" : "none",
+          }}
+        />
 
         {/* Address */}
-        <p style={{
-          fontFamily: "var(--font-oranienbaum), serif",
-          fontSize: "0.6rem",
-          letterSpacing: "0.15em",
-          color: "#6b6458",
-          textTransform: "uppercase",
-          lineHeight: 2,
-          opacity: animate ? undefined : 0,
-          animation: animate ? "fadeUp 1s ease 0.85s both" : "none",
-        }}>
-          Riverbank Chateau Hall<br />
+        <p
+          style={{
+            fontFamily: "var(--font-oranienbaum), serif",
+            fontSize: "0.6rem",
+            letterSpacing: "0.15em",
+            color: "#6b6458",
+            textTransform: "uppercase",
+            lineHeight: 2,
+            opacity: animate ? undefined : 0,
+            animation: animate ? "fadeUp 1s ease 0.85s both" : "none",
+          }}
+        >
+          Riverbank Chateau Hall
+          <br />
           Piliyandala
         </p>
       </div>
