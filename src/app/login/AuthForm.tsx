@@ -33,16 +33,25 @@ export default function AuthForm() {
     setLoading(true);
     const endpoint = mode === "login" ? "/api/auth/login" : "/api/auth/register";
 
-    const res = await fetch(endpoint, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
+    let res: Response;
+    let data: { error?: string; ok?: boolean } = {};
 
-    const data = await res.json();
+    try {
+      res = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+      const text = await res.text();
+      data = text ? JSON.parse(text) : {};
+    } catch (err) {
+      setError("Network error — please try again.");
+      setLoading(false);
+      return;
+    }
 
     if (!res.ok) {
-      setError(data.error || "Something went wrong.");
+      setError(data.error || `Server error (${res.status}). Please try again.`);
       setLoading(false);
       return;
     }
