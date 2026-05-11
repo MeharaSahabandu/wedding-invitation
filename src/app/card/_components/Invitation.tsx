@@ -108,12 +108,12 @@ export default function Invitation() {
 
         {/* "Love Story" — rises slowly from below with 3-D tilt */}
         <h2 style={{
-          fontFamily: "var(--font-cinzel), 'Cinzel Decorative', serif",
-          fontSize: "clamp(1.8rem, 9vw, 2.4rem)",
+          fontFamily: "var(--font-cormorant), 'Cormorant Garamond', serif",
+          fontSize: "clamp(2.2rem, 11vw, 3rem)",
           color: CREAM,
-          letterSpacing: "0.18em",
+          letterSpacing: "0.22em",
           textTransform: "uppercase",
-          fontWeight: "normal",
+          fontWeight: "300",
           marginTop: 0,
           marginBottom: "0.6rem",
           opacity: visible ? undefined : 0,

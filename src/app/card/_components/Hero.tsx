@@ -47,12 +47,20 @@ export default function Hero({ animate = false }: { animate?: boolean }) {
           }}
         />
         {/* Fade edges so photo blends into dark */}
-        <div className="absolute inset-0" style={{
-          background: "linear-gradient(to bottom, rgba(13,13,13,0.45) 0%, rgba(13,13,13,0.1) 40%, rgba(13,13,13,0.85) 85%, #0d0d0d 100%)",
-        }} />
-        <div className="absolute inset-0" style={{
-          background: "linear-gradient(to right, rgba(13,13,13,0.4) 0%, transparent 25%, transparent 75%, rgba(13,13,13,0.4) 100%)",
-        }} />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to bottom, rgba(13,13,13,0.45) 0%, rgba(13,13,13,0.1) 40%, rgba(13,13,13,0.85) 85%, #0d0d0d 100%)",
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to right, rgba(13,13,13,0.4) 0%, transparent 25%, transparent 75%, rgba(13,13,13,0.4) 100%)",
+          }}
+        />
       </div>
 
       {/* Content */}
@@ -76,19 +84,6 @@ export default function Hero({ animate = false }: { animate?: boolean }) {
           Together with their families
         </p>
 
-        {/* Top gold rule */}
-        <div
-          style={{
-            width: "4rem",
-            height: "1px",
-            background:
-              "linear-gradient(to right, transparent, #c9a96e, transparent)",
-            marginBottom: "1.2rem",
-            opacity: animate ? undefined : 0,
-            animation: animate ? "fadeIn 1s ease 0.25s both" : "none",
-          }}
-        />
-
         {/* PRATHIBA — large Mea Culpa script */}
         <h1
           style={{
@@ -104,7 +99,7 @@ export default function Hero({ animate = false }: { animate?: boolean }) {
               : "none",
           }}
         >
-          Prathiba
+          Prathibha
         </h1>
 
         {/* and */}
@@ -192,128 +187,162 @@ export default function Hero({ animate = false }: { animate?: boolean }) {
           }}
         >
           {/* JUNE */}
-          <p style={{
-            fontFamily: "var(--font-oranienbaum), serif",
-            fontSize: "0.65rem",
-            letterSpacing: "0.55em",
-            color: "#c9a96e",
-            textTransform: "uppercase",
-            textAlign: "center",
-            marginBottom: "0.55rem",
-            opacity: animate ? undefined : 0,
-            animation: animate ? "fadeUp 0.8s ease 0.65s both" : "none",
-          }}>
+          <p
+            style={{
+              fontFamily: "var(--font-oranienbaum), serif",
+              fontSize: "0.65rem",
+              letterSpacing: "0.55em",
+              color: "#c9a96e",
+              textTransform: "uppercase",
+              textAlign: "center",
+              marginBottom: "0.55rem",
+              opacity: animate ? undefined : 0,
+              animation: animate ? "fadeUp 0.8s ease 0.65s both" : "none",
+            }}
+          >
             June
           </p>
 
           {/* Top border line — expands from center */}
-          <div style={{ overflow: "hidden", display: "flex", justifyContent: "center" }}>
-            <div style={{
-              height: "1px",
-              background: "rgba(201,169,110,0.55)",
-              width: animate ? undefined : "0%",
-              animation: animate ? "lineExpand 0.8s ease 0.75s both" : "none",
-              alignSelf: "stretch",
-              flexShrink: 0,
-              minWidth: "100%",
-            }} />
+          <div
+            style={{
+              overflow: "hidden",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <div
+              style={{
+                height: "1px",
+                background: "rgba(201,169,110,0.55)",
+                width: animate ? undefined : "0%",
+                animation: animate ? "lineExpand 0.8s ease 0.75s both" : "none",
+                alignSelf: "stretch",
+                flexShrink: 0,
+                minWidth: "100%",
+              }}
+            />
           </div>
 
           {/* Day row: THURSDAY | 4 | AT 4:00 PM */}
-          <div style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            padding: "0.3rem 0.8rem",
-            gap: "0.4rem",
-          }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              padding: "0.3rem 0.8rem",
+              gap: "0.4rem",
+            }}
+          >
             {/* Day name */}
-            <span style={{
-              fontFamily: "var(--font-oranienbaum), serif",
-              fontSize: "clamp(0.5rem, 2vw, 0.6rem)",
-              letterSpacing: "0.2em",
-              color: "#8a8070",
-              textTransform: "uppercase",
-              opacity: animate ? undefined : 0,
-              animation: animate ? "fadeUp 0.8s ease 0.82s both" : "none",
-              flexShrink: 0,
-            }}>
+            <span
+              style={{
+                fontFamily: "var(--font-oranienbaum), serif",
+                fontSize: "clamp(0.5rem, 2vw, 0.6rem)",
+                letterSpacing: "0.2em",
+                color: "#8a8070",
+                textTransform: "uppercase",
+                opacity: animate ? undefined : 0,
+                animation: animate ? "fadeUp 0.8s ease 0.82s both" : "none",
+                flexShrink: 0,
+              }}
+            >
               Thursday
             </span>
 
             {/* Vertical divider */}
-            <div style={{
-              width: "1px",
-              height: "2.4rem",
-              background: "rgba(201,169,110,0.4)",
-              flexShrink: 0,
-              opacity: animate ? undefined : 0,
-              animation: animate ? "fadeIn 0.6s ease 0.9s both" : "none",
-            }} />
+            <div
+              style={{
+                width: "1px",
+                height: "2.4rem",
+                background: "rgba(201,169,110,0.4)",
+                flexShrink: 0,
+                opacity: animate ? undefined : 0,
+                animation: animate ? "fadeIn 0.6s ease 0.9s both" : "none",
+              }}
+            />
 
             {/* Large day number */}
-            <span style={{
-              fontFamily: "var(--font-cinzel), 'Cinzel Decorative', serif",
-              fontSize: "clamp(2.8rem, 14vw, 4rem)",
-              color: "#f0ebe0",
-              lineHeight: 1,
-              opacity: animate ? undefined : 0,
-              animation: animate ? "dateNumIn 0.7s cubic-bezier(0.25,0,0.35,1) 0.78s both" : "none",
-              flexShrink: 0,
-            }}>
+            <span
+              style={{
+                fontFamily: "var(--font-cinzel), 'Cinzel Decorative', serif",
+                fontSize: "clamp(2.8rem, 14vw, 4rem)",
+                color: "#f0ebe0",
+                lineHeight: 1,
+                opacity: animate ? undefined : 0,
+                animation: animate
+                  ? "dateNumIn 0.7s cubic-bezier(0.25,0,0.35,1) 0.78s both"
+                  : "none",
+                flexShrink: 0,
+              }}
+            >
               4
             </span>
 
             {/* Vertical divider */}
-            <div style={{
-              width: "1px",
-              height: "2.4rem",
-              background: "rgba(201,169,110,0.4)",
-              flexShrink: 0,
-              opacity: animate ? undefined : 0,
-              animation: animate ? "fadeIn 0.6s ease 0.9s both" : "none",
-            }} />
+            <div
+              style={{
+                width: "1px",
+                height: "2.4rem",
+                background: "rgba(201,169,110,0.4)",
+                flexShrink: 0,
+                opacity: animate ? undefined : 0,
+                animation: animate ? "fadeIn 0.6s ease 0.9s both" : "none",
+              }}
+            />
 
             {/* Time */}
-            <span style={{
-              fontFamily: "var(--font-oranienbaum), serif",
-              fontSize: "clamp(0.5rem, 2vw, 0.6rem)",
-              letterSpacing: "0.2em",
-              color: "#8a8070",
-              textTransform: "uppercase",
-              opacity: animate ? undefined : 0,
-              animation: animate ? "fadeUp 0.8s ease 0.82s both" : "none",
-              flexShrink: 0,
-            }}>
+            <span
+              style={{
+                fontFamily: "var(--font-oranienbaum), serif",
+                fontSize: "clamp(0.5rem, 2vw, 0.6rem)",
+                letterSpacing: "0.2em",
+                color: "#8a8070",
+                textTransform: "uppercase",
+                opacity: animate ? undefined : 0,
+                animation: animate ? "fadeUp 0.8s ease 0.82s both" : "none",
+                flexShrink: 0,
+              }}
+            >
               At 4:00 pm
             </span>
           </div>
 
           {/* Bottom border line */}
-          <div style={{ overflow: "hidden", display: "flex", justifyContent: "center" }}>
-            <div style={{
-              height: "1px",
-              background: "rgba(201,169,110,0.55)",
-              width: animate ? undefined : "0%",
-              animation: animate ? "lineExpand 0.8s ease 0.75s both" : "none",
-              alignSelf: "stretch",
-              flexShrink: 0,
-              minWidth: "100%",
-            }} />
+          <div
+            style={{
+              overflow: "hidden",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <div
+              style={{
+                height: "1px",
+                background: "rgba(201,169,110,0.55)",
+                width: animate ? undefined : "0%",
+                animation: animate ? "lineExpand 0.8s ease 0.75s both" : "none",
+                alignSelf: "stretch",
+                flexShrink: 0,
+                minWidth: "100%",
+              }}
+            />
           </div>
 
           {/* 2026 */}
-          <p style={{
-            fontFamily: "var(--font-oranienbaum), serif",
-            fontSize: "0.65rem",
-            letterSpacing: "0.55em",
-            color: "#c9a96e",
-            textTransform: "uppercase",
-            textAlign: "center",
-            marginTop: "0.55rem",
-            opacity: animate ? undefined : 0,
-            animation: animate ? "fadeUp 0.8s ease 0.9s both" : "none",
-          }}>
+          <p
+            style={{
+              fontFamily: "var(--font-oranienbaum), serif",
+              fontSize: "0.65rem",
+              letterSpacing: "0.55em",
+              color: "#c9a96e",
+              textTransform: "uppercase",
+              textAlign: "center",
+              marginTop: "0.55rem",
+              opacity: animate ? undefined : 0,
+              animation: animate ? "fadeUp 0.8s ease 0.9s both" : "none",
+            }}
+          >
             2026
           </p>
         </div>
