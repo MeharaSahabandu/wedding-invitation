@@ -21,9 +21,24 @@ export default function Hero({ animate = false }: { animate?: boolean }) {
         }
       `}</style>
 
-      {/* Subtle dark texture */}
-      <div className="absolute inset-0 z-0 opacity-[0.07]">
-        <Image src="/images/bg-pattern.png" alt="" fill className="object-cover" priority />
+      {/* Background couple photo — add /public/images/couple.jpg for full effect */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/images/couple.jpg"
+          alt=""
+          fill
+          className="object-cover object-top"
+          style={{ opacity: 0.35 }}
+          priority
+          onError={(e) => {
+            (e.target as HTMLImageElement).src = "/images/bg-pattern.png";
+            (e.target as HTMLImageElement).style.opacity = "0.07";
+          }}
+        />
+        {/* Heavy dark overlay to keep text readable */}
+        <div className="absolute inset-0" style={{
+          background: "linear-gradient(to bottom, rgba(13,13,13,0.5) 0%, rgba(13,13,13,0.3) 40%, rgba(13,13,13,0.6) 100%)",
+        }} />
       </div>
 
       {/* Gold corner brackets */}
