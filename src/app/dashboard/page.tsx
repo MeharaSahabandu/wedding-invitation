@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import ParticipantList from "./ParticipantList";
 import ImportButton from "./ImportButton";
 import LogoutButton from "../components/LogoutButton";
+import MobileMenu from "../components/MobileMenu";
 import CopyLinkButton from "./CopyLinkButton";
 
 export const dynamic = "force-dynamic";
@@ -29,9 +30,9 @@ export default async function Dashboard() {
   return (
     <div className="min-h-screen bg-gray-100">
       {/* ── Navbar ── */}
-      <nav className="bg-white border-b border-gray-100 px-8 py-3.5 flex items-center justify-between">
+      <nav className="bg-white border-b border-gray-100 px-4 sm:px-8 py-3.5 flex items-center justify-between relative">
         {/* Left: logo + nav links */}
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-4 sm:gap-8">
           {/* Logo */}
           <div className="leading-tight">
             <p className="font-black text-[15px] tracking-widest text-gray-900">
@@ -42,8 +43,8 @@ export default async function Dashboard() {
             </p>
           </div>
 
-          {/* Nav pills */}
-          <div className="flex items-center gap-2">
+          {/* Nav pills — hidden on mobile */}
+          <div className="hidden md:flex items-center gap-2">
             <NavLink icon={<HomeIcon />} label="Home" href="/" />
             <NavLink icon={<HeartIcon />} label="All Events" />
             <NavLink icon={<SettingsIcon />} label="Settings" />
@@ -51,20 +52,21 @@ export default async function Dashboard() {
         </div>
 
         {/* Right: Profile | Sign Out */}
-        <div className="flex items-center text-sm text-gray-600">
-          <button className="flex items-center gap-1.5 px-3 py-1.5 hover:text-gray-900 transition-colors">
+        <div className="flex items-center gap-2 text-sm text-gray-600">
+          <button className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 hover:text-gray-900 transition-colors">
             <ProfileIcon />
             Profile
           </button>
-          <span className="text-gray-300 select-none mx-1">|</span>
-          <LogoutButton />
+          <span className="hidden sm:block text-gray-300 select-none mx-1">|</span>
+          <div className="hidden sm:block"><LogoutButton /></div>
+          <MobileMenu />
         </div>
       </nav>
 
       {/* ── Page body ── */}
-      <div className="flex gap-5 p-6 max-w-screen-xl mx-auto items-start">
+      <div className="flex flex-col lg:flex-row gap-5 p-4 sm:p-6 max-w-screen-xl mx-auto items-start">
         {/* ── Left panel ── */}
-        <div className="w-[450px] shrink-0">
+        <div className="w-full lg:w-[450px] shrink-0">
           <div className="bg-white rounded-2xl overflow-hidden shadow-sm">
             {/* Poster image */}
             <div className="relative">
@@ -130,9 +132,9 @@ export default async function Dashboard() {
         {/* ── Right panel ── */}
         <div className="flex-1 space-y-4 min-w-0">
           {/* Stats card */}
-          <div className="bg-white rounded-2xl shadow-sm px-8 py-6 flex items-center gap-6">
+          <div className="bg-white rounded-2xl shadow-sm px-4 sm:px-6 py-6 flex flex-col sm:flex-row items-start sm:items-center gap-4 overflow-hidden">
             {/* 4 stat blocks */}
-            <div className="flex items-end gap-10 flex-1">
+            <div className="grid grid-cols-4 sm:flex sm:items-end gap-3 sm:gap-6 flex-1 w-full min-w-0">
               <StatBlock
                 value={confirmed}
                 label="Confirmed"
@@ -157,7 +159,7 @@ export default async function Dashboard() {
 
             {/* Send Reminder section */}
             <div
-              className="border border-gray-150 rounded-xl p-4 shrink-0 min-w-[200px]"
+              className="border rounded-xl p-4 w-full sm:w-[200px] sm:shrink-0"
               style={{ borderColor: "#e8e8e8" }}
             >
               <button className="flex items-center gap-2 text-sm font-semibold text-gray-700 hover:text-gray-900 transition-colors mb-3 border border-gray-200 rounded-full px-4 py-2 w-full justify-center">
@@ -181,11 +183,11 @@ export default async function Dashboard() {
           {/* Participants card */}
           <div className="bg-white rounded-2xl shadow-sm p-6">
             {/* Header */}
-            <div className="flex items-center justify-between mb-5">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
               <h2 className="font-bold text-gray-900 text-xl">
                 Event Participants
               </h2>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 flex-wrap">
                 <ActionButton icon={<DiamondIcon />} label="Add Manual" />
                 <ImportButton />
                 <CopyLinkButton rsvpLink={rsvpLink} />
@@ -212,7 +214,7 @@ function StatBlock({
 }) {
   return (
     <div className="flex flex-col items-center gap-2">
-      <p className="text-[56px] font-bold text-gray-900 tabular-nums leading-none">
+      <p className="text-[36px] sm:text-[56px] font-bold text-gray-900 tabular-nums leading-none">
         {String(value).padStart(2, "0")}
       </p>
       <span

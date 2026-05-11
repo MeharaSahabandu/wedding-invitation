@@ -16,11 +16,11 @@ export default function EventCard({
 }: Props) {
   return (
     <Link href={href} className="block group">
-      <div className="bg-white rounded-2xl overflow-hidden shadow-sm flex hover:shadow-md transition-shadow relative">
-        <div className="w-[240px] shrink-0 overflow-hidden">
+      <div className="bg-white rounded-2xl overflow-hidden shadow-sm flex flex-col sm:flex-row hover:shadow-md transition-shadow relative">
+        <div className="w-full sm:w-[240px] shrink-0 overflow-hidden max-h-48 sm:max-h-none">
           <img src="/newPic.jpeg" alt="Event poster" className="w-full h-full object-cover" />
         </div>
-        <div className="flex-1 px-7 py-6 flex flex-col">
+        <div className="flex-1 px-5 sm:px-7 py-5 sm:py-6 flex flex-col">
           <h2 className="text-xl font-bold text-gray-900 mb-2">
             Prathibha &amp; Pathum
           </h2>
@@ -87,12 +87,10 @@ export default function EventCard({
               Vinrich Lake Resort, Riverbank Chateau Hall, Piliyandala
             </span>
           </div>
-          <div className="flex items-center gap-5 pt-4 mt-4 border-t border-gray-100">
+          <div className="flex flex-wrap items-center gap-3 sm:gap-5 pt-4 mt-4 border-t border-gray-100">
             <div className="flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-green-500" />
-              <span className="text-sm text-gray-600">
-                Confirmed - {confirmed}
-              </span>
+              <span className="text-sm text-gray-600">Confirmed - {confirmed}</span>
             </div>
             <div className="flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-yellow-400" />
@@ -100,9 +98,7 @@ export default function EventCard({
             </div>
             <div className="flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-red-500" />
-              <span className="text-sm text-gray-600">
-                Not Coming - {notComing}
-              </span>
+              <span className="text-sm text-gray-600">Not Coming - {notComing}</span>
             </div>
           </div>
         </div>

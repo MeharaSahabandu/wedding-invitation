@@ -16,6 +16,7 @@ export default function Hero({ animate = false }: { animate?: boolean }) {
           from { transform: translateY(-200vh); opacity: 0; }
           to   { transform: translateY(0);      opacity: 1; }
         }
+
         @keyframes slideFromLeft {
           from { opacity: 0; transform: translateX(-120px); }
           to   { opacity: 1; transform: translateX(0); }

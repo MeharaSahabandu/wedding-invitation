@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import LogoutButton from "./components/LogoutButton";
+import MobileMenu from "./components/MobileMenu";
 import CalendarWidget from "./components/CalendarWidget";
 import EventCard from "./components/EventCard";
 
@@ -19,15 +20,15 @@ export default async function HomePage() {
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Navbar */}
-      <nav className="bg-white border-b border-gray-100 px-8 py-3.5 flex items-center justify-between">
-        <div className="flex items-center gap-8">
+      <nav className="bg-white border-b border-gray-100 px-4 sm:px-8 py-3.5 flex items-center justify-between relative">
+        <div className="flex items-center gap-4 sm:gap-8">
           <div className="leading-tight">
             <p className="font-black text-[15px] tracking-widest text-gray-900">
               PANT<span className="font-light">★</span>RA
             </p>
             <p className="text-[9px] text-gray-400 tracking-[0.25em] uppercase">Event Partners</p>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="hidden md:flex items-center gap-2">
             <span className="flex items-center gap-1.5 px-4 py-2 rounded-full text-sm text-white font-medium bg-gray-900">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8}
@@ -52,8 +53,8 @@ export default async function HomePage() {
             </button>
           </div>
         </div>
-        <div className="flex items-center text-sm text-gray-600">
-          <button className="flex items-center gap-1.5 px-3 py-1.5 hover:text-gray-900 transition-colors">
+        <div className="flex items-center gap-2 text-sm text-gray-600">
+          <button className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 hover:text-gray-900 transition-colors">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <circle cx="12" cy="12" r="9" strokeWidth="1.5"/>
               <circle cx="12" cy="9" r="3" strokeWidth="1.5"/>
@@ -62,16 +63,17 @@ export default async function HomePage() {
             </svg>
             Profile
           </button>
-          <span className="text-gray-300 mx-1">|</span>
-          <LogoutButton />
+          <span className="hidden sm:block text-gray-300 mx-1">|</span>
+          <div className="hidden sm:block"><LogoutButton /></div>
+          <MobileMenu />
         </div>
       </nav>
 
       {/* Body */}
-      <div className="flex gap-6 p-6 max-w-screen-xl mx-auto items-start">
+      <div className="flex flex-col lg:flex-row gap-6 p-4 sm:p-6 max-w-screen-xl mx-auto items-start">
 
         {/* Left sidebar */}
-        <div className="w-[280px] shrink-0 space-y-4">
+        <div className="w-full lg:w-[280px] shrink-0 space-y-4">
           <div className="relative">
             <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
               <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -119,8 +121,8 @@ export default async function HomePage() {
         {/* Right main */}
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between mb-5">
-            <h1 className="text-2xl font-bold text-gray-900">Up Coming Events</h1>
-            <button className="flex items-center gap-2 bg-gray-900 text-white text-sm font-semibold px-5 py-3 rounded-full hover:bg-gray-700 transition-colors">
+            <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Up Coming Events</h1>
+            <button className="flex items-center gap-2 bg-gray-900 text-white text-sm font-semibold px-4 sm:px-5 py-2.5 sm:py-3 rounded-full hover:bg-gray-700 transition-colors">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4"/>
               </svg>
