@@ -95,14 +95,14 @@ export default function Hero({ animate = false }: { animate?: boolean }) {
             </div>
 
             {/* Names block */}
-            <div className="mt-6 text-center">
+            <div className="mt-6 text-center" style={{ opacity: animate ? undefined : 0 }}>
               {/* PRATHIBA — slides in from left */}
               <h1
                 className="font-normal tracking-widest text-stone-800 leading-tight uppercase"
                 style={{
                   fontFamily: "var(--font-cinzel), 'Cinzel Decorative', serif",
                   fontSize: "clamp(1.8rem, 8vw, 2.4rem)",
-                  animation: "slideFromLeft 0.9s cubic-bezier(0.25, 0, 0.35, 1) 0.3s both",
+                  animation: animate ? "slideFromLeft 0.9s cubic-bezier(0.25, 0, 0.35, 1) 2.3s both" : "none",
                 }}
               >
                 PRATHIBA
@@ -115,7 +115,7 @@ export default function Hero({ animate = false }: { animate?: boolean }) {
                   fontFamily: "var(--font-cinzel), 'Cinzel Decorative', serif",
                   fontSize: "clamp(1.8rem, 8vw, 2.4rem)",
                   gap: "0.2em",
-                  animation: "slideFromRight 0.9s cubic-bezier(0.25, 0, 0.35, 1) 0.5s both",
+                  animation: animate ? "slideFromRight 0.9s cubic-bezier(0.25, 0, 0.35, 1) 2.5s both" : "none",
                 }}
               >
                 <span
@@ -136,7 +136,7 @@ export default function Hero({ animate = false }: { animate?: boolean }) {
                 style={{
                   fontFamily: "var(--font-mea), 'Mea Culpa', cursive",
                   fontSize: "clamp(2rem, 9vw, 2.8rem)",
-                  animation: "fadeIn 1.2s ease-in 0.8s both",
+                  animation: animate ? "fadeIn 1.2s ease-in 2.8s both" : "none",
                 }}
               >
                 Wedding
