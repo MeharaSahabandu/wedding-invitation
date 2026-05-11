@@ -40,7 +40,7 @@ export default function CardOpener({ onOpened }: { onOpened?: () => void }) {
         <div
           className="absolute inset-y-0 right-0 z-0"
           style={{
-            width: "50%",
+            width: "60%",
             transformOrigin: "right center",
             animation: opened
               ? "windowRight 1.8s cubic-bezier(0.65, 0, 0.35, 1) 0.01s forwards"
@@ -61,7 +61,7 @@ export default function CardOpener({ onOpened }: { onOpened?: () => void }) {
         <div
           className="absolute inset-y-0 left-0 z-10"
           style={{
-            width: "50%",
+            width: "75%",
             transformOrigin: "left center",
             animation: opened
               ? "windowLeft 1.8s cubic-bezier(0.65, 0, 0.35, 1) forwards"
@@ -73,7 +73,7 @@ export default function CardOpener({ onOpened }: { onOpened?: () => void }) {
             alt=""
             fill
             className="object-cover"
-            style={{ objectPosition: "right top" }}
+            style={{ objectPosition: "left top" }}
             priority
           />
         </div>
