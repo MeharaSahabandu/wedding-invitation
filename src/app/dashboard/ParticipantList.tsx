@@ -3,12 +3,11 @@
 import { useState } from "react";
 
 type Guest = {
-  id: string;
+  id: number;
   name: string;
   phone: string;
   attending: boolean | null;
   createdAt: Date;
-  // add email if your Prisma schema has it
   email?: string | null;
 };
 
