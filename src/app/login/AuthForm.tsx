@@ -3,13 +3,10 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-type Mode = "login" | "register";
 
 export default function AuthForm() {
-  const [mode, setMode]         = useState<Mode>("login");
   const [email, setEmail]       = useState("");
   const [password, setPassword] = useState("");
-  const [confirm, setConfirm]   = useState("");
   const [error, setError]       = useState("");
   const [loading, setLoading]   = useState(false);
   const router = useRouter();
@@ -21,17 +18,9 @@ export default function AuthForm() {
       setError("Please fill in all fields.");
       return;
     }
-    if (mode === "register" && password !== confirm) {
-      setError("Passwords do not match.");
-      return;
-    }
-    if (mode === "register" && password.length < 6) {
-      setError("Password must be at least 6 characters.");
-      return;
-    }
 
     setLoading(true);
-    const endpoint = mode === "login" ? "/api/auth/login" : "/api/auth/register";
+    const endpoint = "/api/auth/login";
 
     let res: Response;
     let data: { error?: string; ok?: boolean } = {};
@@ -60,13 +49,6 @@ export default function AuthForm() {
     router.refresh();
   }
 
-  function switchMode(next: Mode) {
-    setMode(next);
-    setError("");
-    setPassword("");
-    setConfirm("");
-  }
-
   return (
     <div
       className="min-h-screen flex flex-col items-center justify-center px-4"
@@ -89,14 +71,8 @@ export default function AuthForm() {
           className="px-8 py-6"
           style={{ background: "linear-gradient(135deg, #991b1b 0%, #450a0a 100%)" }}
         >
-          <h1 className="text-white text-xl font-bold">
-            {mode === "login" ? "Sign in to your account" : "Create an account"}
-          </h1>
-          <p className="text-white/60 text-xs mt-1">
-            {mode === "login"
-              ? "Manage your wedding invitations"
-              : "Start managing your event today"}
-          </p>
+          <h1 className="text-white text-xl font-bold">Sign in to your account</h1>
+          <p className="text-white/60 text-xs mt-1">Manage your wedding invitations</p>
         </div>
 
         {/* Card body */}
@@ -132,23 +108,6 @@ export default function AuthForm() {
             />
           </div>
 
-          {/* Confirm password — register only */}
-          {mode === "register" && (
-            <div>
-              <label className="block text-xs text-gray-400 uppercase tracking-wider mb-1.5">
-                Confirm Password
-              </label>
-              <input
-                type="password"
-                placeholder="••••••••"
-                value={confirm}
-                onChange={(e) => setConfirm(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
-                className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm bg-gray-50 focus:outline-none focus:ring-2 focus:ring-red-200"
-              />
-            </div>
-          )}
-
           {error && (
             <p className="text-red-500 text-xs bg-red-50 border border-red-100 rounded-lg px-3 py-2">
               {error}
@@ -162,37 +121,8 @@ export default function AuthForm() {
             className="w-full rounded-full py-3.5 text-sm font-semibold text-white disabled:opacity-60 transition-opacity hover:opacity-90"
             style={{ background: "linear-gradient(135deg, #b91c1c 0%, #7f1d1d 100%)" }}
           >
-            {loading
-              ? "Please wait…"
-              : mode === "login"
-              ? "Sign In →"
-              : "Create Account →"}
+            {loading ? "Please wait…" : "Sign In →"}
           </button>
-
-          {/* Toggle */}
-          <p className="text-center text-xs text-gray-400 pt-1">
-            {mode === "login" ? (
-              <>
-                Don&apos;t have an account?{" "}
-                <button
-                  onClick={() => switchMode("register")}
-                  className="text-red-700 font-medium hover:underline"
-                >
-                  Create one
-                </button>
-              </>
-            ) : (
-              <>
-                Already have an account?{" "}
-                <button
-                  onClick={() => switchMode("login")}
-                  className="text-red-700 font-medium hover:underline"
-                >
-                  Sign in
-                </button>
-              </>
-            )}
-          </p>
         </div>
       </div>
 
