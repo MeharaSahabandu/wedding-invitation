@@ -22,12 +22,12 @@ export default function CardOpener({ onOpened }: { onOpened?: () => void }) {
     <>
       <style>{`
         @keyframes windowLeft {
-          0%   { transform: rotateY(0deg); }
-          100% { transform: rotateY(-120deg); }
+          0%   { transform: translateY(-8%) rotateY(0deg); }
+          100% { transform: translateY(-8%) rotateY(-120deg); }
         }
         @keyframes windowRight {
-          0%   { transform: rotateY(0deg); }
-          100% { transform: rotateY(120deg); }
+          0%   { transform: translateY(-8%) rotateY(0deg); }
+          100% { transform: translateY(-8%) rotateY(120deg); }
         }
       `}</style>
 
@@ -42,7 +42,7 @@ export default function CardOpener({ onOpened }: { onOpened?: () => void }) {
           style={{
             width: "60%",
             transformOrigin: "right center",
-            transform: opened ? undefined : "translateY(-8%)",
+            transform: "translateY(-8%)",
             animation: opened
               ? "windowRight 1.8s cubic-bezier(0.65, 0, 0.35, 1) 0.01s forwards"
               : "none",
@@ -64,7 +64,7 @@ export default function CardOpener({ onOpened }: { onOpened?: () => void }) {
           style={{
             width: "75%",
             transformOrigin: "left center",
-            transform: opened ? undefined : "translateY(-8%)",
+            transform: "translateY(-8%)",
             animation: opened
               ? "windowLeft 1.8s cubic-bezier(0.65, 0, 0.35, 1) forwards"
               : "none",
