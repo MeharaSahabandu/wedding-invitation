@@ -24,7 +24,13 @@ const items = [
   },
 ];
 
-function DetailItem({ item, index }: { item: typeof items[0]; index: number }) {
+function DetailItem({
+  item,
+  index,
+}: {
+  item: (typeof items)[0];
+  index: number;
+}) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
@@ -33,7 +39,12 @@ function DetailItem({ item, index }: { item: typeof items[0]; index: number }) {
     const el = ref.current;
     if (!el) return;
     const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } },
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          obs.disconnect();
+        }
+      },
       { threshold: 0.3 }
     );
     obs.observe(el);
@@ -46,58 +57,64 @@ function DetailItem({ item, index }: { item: typeof items[0]; index: number }) {
       style={{
         opacity: visible ? 1 : 0,
         transform: visible ? "translateY(0)" : "translateY(30px)",
-        transition: `opacity 1.1s ease ${index * 0.12}s, transform 1.1s ease ${index * 0.12}s`,
+        transition: `opacity 1.1s ease ${index * 0.12}s, transform 1.1s ease ${
+          index * 0.12
+        }s`,
       }}
     >
       <button
         onClick={() => setOpen(!open)}
         className="w-full flex items-center justify-between py-4"
-        style={{ background: "none", border: "none", cursor: "pointer", textAlign: "left" }}
+        style={{
+          background: "none",
+          border: "none",
+          cursor: "pointer",
+          textAlign: "left",
+        }}
       >
-        <span style={{
-          fontFamily: "var(--font-oranienbaum), serif",
-          fontSize: "0.75rem",
-          letterSpacing: "0.25em",
-          color: open ? GOLD : CREAM,
-          textTransform: "uppercase",
-          transition: "color 0.3s ease",
-        }}>
+        <span
+          style={{
+            fontFamily: "var(--font-oranienbaum), serif",
+            fontSize: "0.75rem",
+            letterSpacing: "0.25em",
+            color: open ? GOLD : CREAM,
+            textTransform: "uppercase",
+            transition: "color 0.3s ease",
+          }}
+        >
           {item.icon} &nbsp; {item.title}
         </span>
-        <span style={{
-          color: GOLD,
-          fontSize: "0.7rem",
-          transform: open ? "rotate(45deg)" : "rotate(0deg)",
-          transition: "transform 0.35s ease",
-          display: "inline-block",
-          lineHeight: 1,
-        }}>
+        <span
+          style={{
+            color: GOLD,
+            fontSize: "0.7rem",
+            transform: open ? "rotate(45deg)" : "rotate(0deg)",
+            transition: "transform 0.35s ease",
+            display: "inline-block",
+            lineHeight: 1,
+          }}
+        >
           ✕
         </span>
       </button>
 
-      {/* Divider */}
-      <div style={{
-        height: "1px",
-        background: open
-          ? `linear-gradient(to right, transparent, ${GOLD}, transparent)`
-          : `linear-gradient(to right, transparent, rgba(201,169,110,0.2), transparent)`,
-        transition: "background 0.3s ease",
-      }} />
-
       {/* Body */}
-      <div style={{
-        overflow: "hidden",
-        maxHeight: open ? "200px" : "0",
-        transition: "max-height 0.45s ease",
-      }}>
-        <p style={{
-          fontFamily: "var(--font-oranienbaum), serif",
-          fontSize: "0.82rem",
-          color: DIM,
-          lineHeight: 1.85,
-          padding: "1rem 0 0.5rem",
-        }}>
+      <div
+        style={{
+          overflow: "hidden",
+          maxHeight: open ? "200px" : "0",
+          transition: "max-height 0.45s ease",
+        }}
+      >
+        <p
+          style={{
+            fontFamily: "var(--font-oranienbaum), serif",
+            fontSize: "0.82rem",
+            color: DIM,
+            lineHeight: 1.85,
+            padding: "1rem 0 0.5rem",
+          }}
+        >
           {item.body}
         </p>
       </div>
@@ -113,7 +130,12 @@ export default function Details() {
     const el = headingRef.current;
     if (!el) return;
     const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setHeadingVisible(true); obs.disconnect(); } },
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setHeadingVisible(true);
+          obs.disconnect();
+        }
+      },
       { threshold: 0.3 }
     );
     obs.observe(el);
@@ -123,14 +145,6 @@ export default function Details() {
   return (
     <section className="w-full py-16 px-6" style={{ background: "#0d0d0d" }}>
       <div className="max-w-sm mx-auto">
-
-        {/* Gold rule top */}
-        <div style={{
-          height: "1px",
-          background: `linear-gradient(to right, transparent, ${GOLD}, transparent)`,
-          marginBottom: "3rem",
-        }} />
-
         {/* Heading */}
         <div
           ref={headingRef}
@@ -141,24 +155,28 @@ export default function Details() {
             transition: "opacity 1.1s ease, transform 1.1s ease",
           }}
         >
-          <p style={{
-            fontFamily: "var(--font-mea), 'Mea Culpa', cursive",
-            fontSize: "clamp(2rem, 9vw, 2.8rem)",
-            color: GOLD,
-            lineHeight: 1,
-            marginBottom: 0,
-          }}>
+          <p
+            style={{
+              fontFamily: "var(--font-mea), 'Mea Culpa', cursive",
+              fontSize: "clamp(2rem, 9vw, 2.8rem)",
+              color: GOLD,
+              lineHeight: 1,
+              marginBottom: 0,
+            }}
+          >
             the
           </p>
-          <h2 style={{
-            fontFamily: "var(--font-cinzel), 'Cinzel Decorative', serif",
-            fontSize: "clamp(1.6rem, 8vw, 2.2rem)",
-            color: CREAM,
-            letterSpacing: "0.2em",
-            textTransform: "uppercase",
-            fontWeight: "normal",
-            marginTop: 0,
-          }}>
+          <h2
+            style={{
+              fontFamily: "var(--font-cinzel), 'Cinzel Decorative', serif",
+              fontSize: "clamp(1.6rem, 8vw, 2.2rem)",
+              color: CREAM,
+              letterSpacing: "0.2em",
+              textTransform: "uppercase",
+              fontWeight: "normal",
+              marginTop: 0,
+            }}
+          >
             Details
           </h2>
         </div>
@@ -167,13 +185,6 @@ export default function Details() {
         {items.map((item, i) => (
           <DetailItem key={i} item={item} index={i} />
         ))}
-
-        {/* Gold rule bottom */}
-        <div style={{
-          height: "1px",
-          background: `linear-gradient(to right, transparent, ${GOLD}, transparent)`,
-          marginTop: "2.5rem",
-        }} />
       </div>
     </section>
   );

@@ -16,6 +16,7 @@ export default function RSVP() {
   const [error, setError] = useState("");
   const sectionRef = useRef<HTMLElement>(null);
   const [visible, setVisible] = useState(false);
+  const [depth, setDepth] = useState({ rx: 0, tz: 0 });
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -31,6 +32,20 @@ export default function RSVP() {
     );
     obs.observe(el);
     return () => obs.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    function onScroll() {
+      const rect = el!.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const progress = (vh / 2 - (rect.top + rect.height / 2)) / vh;
+      setDepth({ rx: progress * 10, tz: Math.abs(progress) * -90 });
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   async function handleSubmit() {
@@ -64,13 +79,43 @@ export default function RSVP() {
       className="w-full px-6 pt-6 pb-16 flex flex-col items-center"
       style={{ background: "#0d0d0d" }}
     >
+      <style>{`
+        @keyframes rsvpHeadingDrop {
+          0%   { opacity: 0; transform: perspective(900px) rotateX(65deg) translateY(-20px); filter: blur(5px); }
+          50%  { opacity: 1; filter: blur(0); }
+          100% { opacity: 1; transform: perspective(900px) rotateX(0deg) translateY(0); }
+        }
+        @keyframes rsvpFloat {
+          0%,100% { transform: translateY(0px); }
+          50%     { transform: translateY(-7px); }
+        }
+        @keyframes rsvpFormFlip {
+          0%   { opacity: 0; transform: perspective(800px) rotateX(-50deg) translateY(25px); filter: blur(3px); }
+          50%  { opacity: 1; filter: blur(0); }
+          100% { opacity: 1; transform: perspective(800px) rotateX(0deg) translateY(0); }
+        }
+        @keyframes rsvpButtonRise {
+          0%   { opacity: 0; transform: perspective(700px) rotateY(45deg) translateX(35px); filter: blur(3px); }
+          50%  { opacity: 1; filter: blur(0); }
+          100% { opacity: 1; transform: perspective(700px) rotateY(0deg) translateX(0); }
+        }
+      `}</style>
+
+      <div style={{
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        transform: `perspective(1100px) rotateX(${depth.rx}deg) translateZ(${depth.tz}px)`,
+        willChange: "transform",
+      }}>
+
       {/* Heading */}
       <div
         className="flex flex-col items-center mb-3 w-full max-w-sm"
         style={{
           opacity: visible ? 1 : 0,
-          transform: visible ? "translateY(0)" : "translateY(30px)",
-          transition: "opacity 1.1s ease, transform 1.1s ease",
+          animation: visible ? "rsvpHeadingDrop 2.2s cubic-bezier(0.16,1,0.3,1) 0.1s both, rsvpFloat 5s ease-in-out 3s infinite" : "none",
         }}
       >
         <p
@@ -82,7 +127,7 @@ export default function RSVP() {
             marginBottom: 0,
           }}
         >
-          Rsvp
+          Let's Celebrate
         </p>
       </div>
 
@@ -96,7 +141,7 @@ export default function RSVP() {
           lineHeight: 1.85,
           opacity: visible ? 1 : 0,
           transform: visible ? "translateY(0)" : "translateY(20px)",
-          transition: "opacity 1.1s ease 0.1s, transform 1.1s ease 0.1s",
+          transition: "opacity 1.1s ease 0.25s, transform 1.1s ease 0.25s",
         }}
       >
         Your presence is the greatest gift of all. Kindly respond by 25th May
@@ -143,8 +188,7 @@ export default function RSVP() {
               className="w-full max-w-xs flex gap-3"
               style={{
                 opacity: visible ? 1 : 0,
-                transform: visible ? "translateY(0)" : "translateY(20px)",
-                transition: "opacity 1.1s ease 0.2s, transform 1.1s ease 0.2s",
+                animation: visible ? "rsvpButtonRise 1.8s cubic-bezier(0.16,1,0.3,1) 0.5s both" : "none",
               }}
             >
               <button
@@ -187,15 +231,9 @@ export default function RSVP() {
             <div
               className="w-full max-w-xs flex flex-col gap-5"
               style={{
-                animation: "formSlideIn 0.4s ease forwards",
+                animation: "rsvpFormFlip 1.1s cubic-bezier(0.16,1,0.3,1) both",
               }}
             >
-              <style>{`
-                @keyframes formSlideIn {
-                  from { opacity: 0; transform: translateY(20px); }
-                  to   { opacity: 1; transform: translateY(0); }
-                }
-              `}</style>
 
               {/* Mode indicator */}
               <p
@@ -327,6 +365,8 @@ export default function RSVP() {
           )}
         </>
       )}
+
+      </div>
     </section>
   );
 }

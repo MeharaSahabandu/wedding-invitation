@@ -8,16 +8,17 @@ const CREAM = "#f0ebe0";
 const DIM = "#8a8070";
 
 const events = [
-  { time: "3:30", label: "Guest Arrival" },
-  { time: "4:00", label: "Poruwa Ceremony" },
-  { time: "5:30", label: "Cocktail Hour" },
-  { time: "6:30", label: "Dinner & Celebration" },
-  { time: "8:30", label: "Dancing & Party" },
+  { time: "4:00", label: "Guest Arrival" },
+  { time: "4:30", label: "Poruwa Ceremony" },
+  { time: "5:30", label: "Registration" },
+  { time: "7:30", label: "Dinner & Celebrations" },
+  { time: "11:30", label: "Send-off" },
 ];
 
 export default function Timeline() {
   const ref = useRef<HTMLElement>(null);
   const [visible, setVisible] = useState(false);
+  const [depth, setDepth] = useState({ rx: 0, tz: 0 });
 
   useEffect(() => {
     const el = ref.current;
@@ -30,12 +31,42 @@ export default function Timeline() {
     return () => obs.disconnect();
   }, []);
 
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    function onScroll() {
+      const rect = el!.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const progress = (vh / 2 - (rect.top + rect.height / 2)) / vh;
+      setDepth({ rx: progress * 10, tz: Math.abs(progress) * -90 });
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
     <section
       ref={ref}
       className="relative w-full overflow-hidden"
       style={{ background: "#0d0d0d" }}
     >
+      <style>{`
+        @keyframes dotPulse {
+          0%,100% { box-shadow: 0 0 0 0 rgba(201,169,110,0); transform: scale(1); }
+          50%     { box-shadow: 0 0 0 5px rgba(201,169,110,0.18); transform: scale(1.2); }
+        }
+        @keyframes timelineHeadDrop {
+          0%   { opacity: 0; transform: perspective(900px) rotateX(60deg) translateY(30px); filter: blur(4px); }
+          50%  { opacity: 1; filter: blur(0); }
+          100% { opacity: 1; transform: perspective(900px) rotateX(0deg) translateY(0); }
+        }
+        @keyframes alignRow {
+          0%   { opacity: 0; transform: perspective(600px) rotateZ(-14deg) translateX(-30px) translateY(20px); filter: blur(3px); }
+          60%  { opacity: 1; filter: blur(0); }
+          100% { opacity: 1; transform: perspective(600px) rotateZ(0deg) translateX(0) translateY(0); filter: blur(0); }
+        }
+      `}</style>
       {/* Champagne glass — right side, full height */}
       <div
         className="absolute right-0 top-0 bottom-0"
@@ -66,15 +97,19 @@ export default function Timeline() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col px-7 pt-12 pb-10">
+      <div className="relative z-10 flex flex-col px-7 pt-12 pb-10"
+        style={{
+          transform: `perspective(1100px) rotateX(${depth.rx}deg) translateZ(${depth.tz}px)`,
+          willChange: "transform",
+        }}
+      >
 
         {/* Heading: ORDER / of the / DAY */}
         <div
           className="mb-10"
           style={{
             opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(30px)",
-            transition: "opacity 1.1s ease, transform 1.1s ease",
+            animation: visible ? "timelineHeadDrop 2s cubic-bezier(0.16,1,0.3,1) 0s both" : "none",
           }}
         >
           <p style={{
@@ -124,6 +159,9 @@ export default function Timeline() {
               width: "1px",
               background: `linear-gradient(to bottom, transparent, rgba(201,169,110,0.4) 10%, rgba(201,169,110,0.4) 90%, transparent)`,
               zIndex: 0,
+              transformOrigin: "top",
+              transform: visible ? "scaleY(1)" : "scaleY(0)",
+              transition: visible ? "transform 2.6s cubic-bezier(0.16,1,0.3,1) 0.8s" : "none",
             }}
           />
 
@@ -134,8 +172,9 @@ export default function Timeline() {
               style={{
                 marginBottom: i < events.length - 1 ? "clamp(1.4rem, 5vw, 2rem)" : 0,
                 opacity: visible ? 1 : 0,
-                transform: visible ? "translateX(0)" : "translateX(-40px)",
-                transition: `opacity 1.1s ease ${0.15 + i * 0.12}s, transform 1.1s ease ${0.15 + i * 0.12}s`,
+                animation: visible
+                  ? `alignRow 1.6s cubic-bezier(0.22,1,0.36,1) ${0.5 + i * 0.28}s both`
+                  : "none",
               }}
             >
               {/* Time column */}
@@ -173,6 +212,7 @@ export default function Timeline() {
                   flexShrink: 0,
                   zIndex: 1,
                   position: "relative",
+                  animation: visible ? `dotPulse 2.5s ease-in-out ${0.8 + i * 0.14}s infinite` : "none",
                 }}
               />
 
