@@ -1,21 +1,14 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
-import { getSession } from "@/lib/auth";
-import { redirect } from "next/navigation";
 import ParticipantList from "./ParticipantList";
 import ImportButton from "./ImportButton";
-import LogoutButton from "../components/LogoutButton";
 import MobileMenu from "../components/MobileMenu";
 import CopyLinkButton from "./CopyLinkButton";
 
 export const dynamic = "force-dynamic";
 
 export default async function Dashboard() {
-  const session = await getSession();
-  if (!session) redirect("/login");
-
   const guests = await prisma.guest.findMany({
-    where: { OR: [{ userId: session.userId }, { userId: null }] },
     orderBy: { createdAt: "asc" },
   });
 
@@ -58,7 +51,6 @@ export default async function Dashboard() {
             Profile
           </button>
           <span className="hidden sm:block text-gray-300 select-none mx-1">|</span>
-          <div className="hidden sm:block"><LogoutButton /></div>
           <MobileMenu />
         </div>
       </nav>
