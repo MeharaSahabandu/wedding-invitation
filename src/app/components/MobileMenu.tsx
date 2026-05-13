@@ -32,7 +32,7 @@ export default function MobileMenu() {
           onClick={() => setOpen(false)}
         >
           <Link
-            href="/dashboard"
+            href="/home"
             className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-white bg-gray-900"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

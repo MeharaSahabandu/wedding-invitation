@@ -38,7 +38,7 @@ export default async function Dashboard() {
 
           {/* Nav pills — hidden on mobile */}
           <div className="hidden md:flex items-center gap-2">
-            <NavLink icon={<HomeIcon />} label="Home" href="/dashboard" />
+            <NavLink icon={<HomeIcon />} label="Home" href="/home" />
             <NavLink icon={<HeartIcon />} label="All Events" />
             <NavLink icon={<SettingsIcon />} label="Settings" />
           </div>
