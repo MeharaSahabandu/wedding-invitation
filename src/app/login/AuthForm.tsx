@@ -45,7 +45,7 @@ export default function AuthForm() {
       return;
     }
 
-    router.push("/");
+    router.push("/home");
     router.refresh();
   }
 
