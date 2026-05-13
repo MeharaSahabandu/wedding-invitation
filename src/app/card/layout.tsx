@@ -43,7 +43,7 @@ export default function CardLayout({
   return (
     <div
       className={`${cinzelDecorative.variable} ${meaCulpa.variable} ${oranienbaum.variable} ${cormorantGaramond.variable}`}
-      style={{ background: "#0d0d0d" }}
+      style={{ background: "#0d0d0d", minHeight: "100dvh" }}
     >
       {children}
     </div>
