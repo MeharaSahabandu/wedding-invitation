@@ -78,24 +78,25 @@ export default function RSVP() {
     <section
       ref={sectionRef}
       className="w-full px-6 pt-6 pb-16 flex flex-col items-center"
-      style={{ background: "#0d0d0d" }}
+      style={{ background: "#0d0d0d", WebkitFontSmoothing: "antialiased", MozOsxFontSmoothing: "grayscale" }}
     >
       <style>{`
+        * { -webkit-backface-visibility: hidden; backface-visibility: hidden; }
         @keyframes rsvpHeadingDrop {
-          0%   { opacity: 0; transform: rotateX(55deg) translateY(-15px); }
-          100% { opacity: 1; transform: rotateX(0deg) translateY(0); }
+          0%   { opacity: 0; transform: translate3d(0, -15px, 0) rotateX(55deg); }
+          100% { opacity: 1; transform: translate3d(0, 0, 0) rotateX(0deg); }
         }
         @keyframes rsvpFloat {
-          0%,100% { transform: translateY(0px); }
-          50%     { transform: translateY(-7px); }
+          0%,100% { transform: translate3d(0, 0px, 0); }
+          50%     { transform: translate3d(0, -7px, 0); }
         }
         @keyframes rsvpFormFlip {
-          0%   { opacity: 0; transform: rotateX(-40deg) translateY(22px); }
-          100% { opacity: 1; transform: rotateX(0deg) translateY(0); }
+          0%   { opacity: 0; transform: translate3d(0, 22px, 0) rotateX(-40deg); }
+          100% { opacity: 1; transform: translate3d(0, 0, 0) rotateX(0deg); }
         }
         @keyframes rsvpButtonRise {
-          0%   { opacity: 0; transform: translateX(32px) rotateY(30deg); }
-          100% { opacity: 1; transform: translateX(0) rotateY(0deg); }
+          0%   { opacity: 0; transform: translate3d(32px, 0, 0) rotateY(30deg); }
+          100% { opacity: 1; transform: translate3d(0, 0, 0) rotateY(0deg); }
         }
       `}</style>
 

@@ -82,20 +82,21 @@ export default function Countdown() {
     <section
       ref={ref}
       className="w-full pt-8 pb-12 px-6 flex flex-col items-center"
-      style={{ background: "#0d0d0d" }}
+      style={{ background: "#0d0d0d", WebkitFontSmoothing: "antialiased", MozOsxFontSmoothing: "grayscale" }}
     >
       <style>{`
+        * { -webkit-backface-visibility: hidden; backface-visibility: hidden; }
         @keyframes flipDown {
-          0%   { transform: rotateX(-80deg) translateY(-20px); opacity: 0; }
-          100% { transform: rotateX(0deg) translateY(0); opacity: 1; }
+          0%   { transform: translate3d(0, -20px, 0) rotateX(-80deg); opacity: 0; }
+          100% { transform: translate3d(0, 0, 0) rotateX(0deg); opacity: 1; }
         }
         @keyframes headingSwing {
-          0%   { opacity: 0; transform: rotateX(50deg) translateY(-20px); }
-          100% { opacity: 1; transform: rotateX(0deg) translateY(0); }
+          0%   { opacity: 0; transform: translate3d(0, -20px, 0) rotateX(50deg); }
+          100% { opacity: 1; transform: translate3d(0, 0, 0) rotateX(0deg); }
         }
         @keyframes unitRise {
-          0%   { opacity: 0; transform: translateX(-30px) rotateY(-30deg); }
-          100% { opacity: 1; transform: translateX(0) rotateY(0deg); }
+          0%   { opacity: 0; transform: translate3d(-30px, 0, 0) rotateY(-30deg); }
+          100% { opacity: 1; transform: translate3d(0, 0, 0) rotateY(0deg); }
         }
         @keyframes cardGlow {
           0%,100% { border-color: rgba(201,169,110,0.15); box-shadow: 0 0 0 rgba(201,169,110,0); }

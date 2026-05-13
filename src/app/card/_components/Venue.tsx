@@ -46,16 +46,17 @@ export default function Venue() {
     <section
       ref={ref}
       className="relative w-full overflow-hidden flex flex-col items-center justify-center"
-      style={{ background: "#0d0d0d" }}
+      style={{ background: "#0d0d0d", WebkitFontSmoothing: "antialiased", MozOsxFontSmoothing: "grayscale" }}
     >
       <style>{`
+        * { -webkit-backface-visibility: hidden; backface-visibility: hidden; }
         @keyframes venueDrop {
-          0%   { opacity: 0; transform: rotateX(55deg) translateY(35px); }
-          100% { opacity: 1; transform: rotateX(0deg) translateY(0); }
+          0%   { opacity: 0; transform: translate3d(0, 35px, 0) rotateX(55deg); }
+          100% { opacity: 1; transform: translate3d(0, 0, 0) rotateX(0deg); }
         }
         @keyframes venueNameReveal {
-          0%   { opacity: 0; transform: rotateX(40deg) translateY(20px); }
-          100% { opacity: 1; transform: rotateX(0deg) translateY(0); }
+          0%   { opacity: 0; transform: translate3d(0, 20px, 0) rotateX(40deg); }
+          100% { opacity: 1; transform: translate3d(0, 0, 0) rotateX(0deg); }
         }
         @keyframes venueGlow {
           0%,100% { text-shadow: 0 0 0 rgba(201,169,110,0); }

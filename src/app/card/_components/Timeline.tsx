@@ -50,20 +50,21 @@ export default function Timeline() {
     <section
       ref={ref}
       className="relative w-full overflow-hidden"
-      style={{ background: "#0d0d0d" }}
+      style={{ background: "#0d0d0d", WebkitFontSmoothing: "antialiased", MozOsxFontSmoothing: "grayscale" }}
     >
       <style>{`
+        * { -webkit-backface-visibility: hidden; backface-visibility: hidden; }
         @keyframes dotPulse {
-          0%,100% { box-shadow: 0 0 0 0 rgba(201,169,110,0); transform: scale(1); }
-          50%     { box-shadow: 0 0 0 5px rgba(201,169,110,0.18); transform: scale(1.2); }
+          0%,100% { box-shadow: 0 0 0 0 rgba(201,169,110,0); transform: translate3d(0,0,0) scale(1); }
+          50%     { box-shadow: 0 0 0 5px rgba(201,169,110,0.18); transform: translate3d(0,0,0) scale(1.2); }
         }
         @keyframes timelineHeadDrop {
-          0%   { opacity: 0; transform: rotateX(50deg) translateY(25px); }
-          100% { opacity: 1; transform: rotateX(0deg) translateY(0); }
+          0%   { opacity: 0; transform: translate3d(0, 25px, 0) rotateX(50deg); }
+          100% { opacity: 1; transform: translate3d(0, 0, 0) rotateX(0deg); }
         }
         @keyframes alignRow {
-          0%   { opacity: 0; transform: rotateZ(-12deg) translateX(-28px) translateY(18px); }
-          100% { opacity: 1; transform: rotateZ(0deg) translateX(0) translateY(0); }
+          0%   { opacity: 0; transform: translate3d(-28px, 18px, 0) rotateZ(-12deg); }
+          100% { opacity: 1; transform: translate3d(0, 0, 0) rotateZ(0deg); }
         }
       `}</style>
       {/* Champagne glass — right side, full height */}
