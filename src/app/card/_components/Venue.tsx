@@ -31,6 +31,7 @@ export default function Venue() {
     const el = ref.current;
     if (!el) return;
     function onScroll() {
+      if (window.innerWidth < 768) return;
       const rect = el!.getBoundingClientRect();
       const vh = window.innerHeight;
       const progress = (vh / 2 - (rect.top + rect.height / 2)) / vh;
@@ -49,14 +50,12 @@ export default function Venue() {
     >
       <style>{`
         @keyframes venueDrop {
-          0%   { opacity: 0; transform: perspective(900px) rotateX(70deg) translateY(40px); filter: blur(6px); }
-          50%  { opacity: 1; filter: blur(0); }
-          100% { opacity: 1; transform: perspective(900px) rotateX(0deg) translateY(0); }
+          0%   { opacity: 0; transform: rotateX(55deg) translateY(35px); }
+          100% { opacity: 1; transform: rotateX(0deg) translateY(0); }
         }
         @keyframes venueNameReveal {
-          0%   { opacity: 0; transform: perspective(700px) rotateX(50deg) translateY(25px); filter: blur(3px); }
-          50%  { opacity: 1; filter: blur(0); }
-          100% { opacity: 1; transform: perspective(700px) rotateX(0deg) translateY(0); }
+          0%   { opacity: 0; transform: rotateX(40deg) translateY(20px); }
+          100% { opacity: 1; transform: rotateX(0deg) translateY(0); }
         }
         @keyframes venueGlow {
           0%,100% { text-shadow: 0 0 0 rgba(201,169,110,0); }

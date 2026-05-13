@@ -35,6 +35,7 @@ export default function Timeline() {
     const el = ref.current;
     if (!el) return;
     function onScroll() {
+      if (window.innerWidth < 768) return;
       const rect = el!.getBoundingClientRect();
       const vh = window.innerHeight;
       const progress = (vh / 2 - (rect.top + rect.height / 2)) / vh;
@@ -57,14 +58,12 @@ export default function Timeline() {
           50%     { box-shadow: 0 0 0 5px rgba(201,169,110,0.18); transform: scale(1.2); }
         }
         @keyframes timelineHeadDrop {
-          0%   { opacity: 0; transform: perspective(900px) rotateX(60deg) translateY(30px); filter: blur(4px); }
-          50%  { opacity: 1; filter: blur(0); }
-          100% { opacity: 1; transform: perspective(900px) rotateX(0deg) translateY(0); }
+          0%   { opacity: 0; transform: rotateX(50deg) translateY(25px); }
+          100% { opacity: 1; transform: rotateX(0deg) translateY(0); }
         }
         @keyframes alignRow {
-          0%   { opacity: 0; transform: perspective(600px) rotateZ(-14deg) translateX(-30px) translateY(20px); filter: blur(3px); }
-          60%  { opacity: 1; filter: blur(0); }
-          100% { opacity: 1; transform: perspective(600px) rotateZ(0deg) translateX(0) translateY(0); filter: blur(0); }
+          0%   { opacity: 0; transform: rotateZ(-12deg) translateX(-28px) translateY(18px); }
+          100% { opacity: 1; transform: rotateZ(0deg) translateX(0) translateY(0); }
         }
       `}</style>
       {/* Champagne glass — right side, full height */}

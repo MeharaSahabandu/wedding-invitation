@@ -38,6 +38,7 @@ export default function RSVP() {
     const el = sectionRef.current;
     if (!el) return;
     function onScroll() {
+      if (window.innerWidth < 768) return;
       const rect = el!.getBoundingClientRect();
       const vh = window.innerHeight;
       const progress = (vh / 2 - (rect.top + rect.height / 2)) / vh;
@@ -81,23 +82,20 @@ export default function RSVP() {
     >
       <style>{`
         @keyframes rsvpHeadingDrop {
-          0%   { opacity: 0; transform: perspective(900px) rotateX(65deg) translateY(-20px); filter: blur(5px); }
-          50%  { opacity: 1; filter: blur(0); }
-          100% { opacity: 1; transform: perspective(900px) rotateX(0deg) translateY(0); }
+          0%   { opacity: 0; transform: rotateX(55deg) translateY(-15px); }
+          100% { opacity: 1; transform: rotateX(0deg) translateY(0); }
         }
         @keyframes rsvpFloat {
           0%,100% { transform: translateY(0px); }
           50%     { transform: translateY(-7px); }
         }
         @keyframes rsvpFormFlip {
-          0%   { opacity: 0; transform: perspective(800px) rotateX(-50deg) translateY(25px); filter: blur(3px); }
-          50%  { opacity: 1; filter: blur(0); }
-          100% { opacity: 1; transform: perspective(800px) rotateX(0deg) translateY(0); }
+          0%   { opacity: 0; transform: rotateX(-40deg) translateY(22px); }
+          100% { opacity: 1; transform: rotateX(0deg) translateY(0); }
         }
         @keyframes rsvpButtonRise {
-          0%   { opacity: 0; transform: perspective(700px) rotateY(45deg) translateX(35px); filter: blur(3px); }
-          50%  { opacity: 1; filter: blur(0); }
-          100% { opacity: 1; transform: perspective(700px) rotateY(0deg) translateX(0); }
+          0%   { opacity: 0; transform: translateX(32px) rotateY(30deg); }
+          100% { opacity: 1; transform: translateX(0) rotateY(0deg); }
         }
       `}</style>
 

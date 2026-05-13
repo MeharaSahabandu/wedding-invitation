@@ -30,6 +30,7 @@ export default function Invitation() {
     const el = ref.current;
     if (!el) return;
     function onScroll() {
+      if (window.innerWidth < 768) return;
       const rect = el!.getBoundingClientRect();
       const vh = window.innerHeight;
       const progress = (vh / 2 - (rect.top + rect.height / 2)) / vh;

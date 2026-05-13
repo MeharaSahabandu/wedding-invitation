@@ -41,6 +41,7 @@ export default function Hero({
     const el = sectionRef.current;
     if (!el) return;
     function onScroll() {
+      if (window.innerWidth < 768) return;
       const rect = el!.getBoundingClientRect();
       const vh = window.innerHeight;
       const progress = (vh / 2 - (rect.top + rect.height / 2)) / vh;
@@ -84,28 +85,24 @@ export default function Hero({
         @keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
         @keyframes fadeUp  { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes heroNameL {
-          0%   { opacity: 0; transform: perspective(900px) rotateY(-70deg) translateX(-40px); filter: blur(6px); }
-          50%  { opacity: 1; filter: blur(0); }
-          100% { opacity: 1; transform: perspective(900px) rotateY(0deg) translateX(0); }
+          0%   { opacity: 0; transform: translateX(-50px) rotateY(-20deg); }
+          100% { opacity: 1; transform: translateX(0) rotateY(0deg); }
         }
         @keyframes heroNameR {
-          0%   { opacity: 0; transform: perspective(900px) rotateY(70deg) translateX(40px); filter: blur(6px); }
-          50%  { opacity: 1; filter: blur(0); }
-          100% { opacity: 1; transform: perspective(900px) rotateY(0deg) translateX(0); }
+          0%   { opacity: 0; transform: translateX(50px) rotateY(20deg); }
+          100% { opacity: 1; transform: translateX(0) rotateY(0deg); }
         }
         @keyframes heroAndDrop {
-          0%   { opacity: 0; transform: perspective(600px) rotateX(70deg); }
-          50%  { opacity: 1; }
-          100% { opacity: 1; transform: perspective(600px) rotateX(0deg); }
+          0%   { opacity: 0; transform: translateY(-20px) rotateX(30deg); }
+          100% { opacity: 1; transform: translateY(0) rotateX(0deg); }
         }
         @keyframes lineExpand {
           from { width: 0; opacity: 0; }
           to   { width: 100%; opacity: 1; }
         }
         @keyframes dateNumIn {
-          0%   { opacity: 0; transform: perspective(500px) rotateX(-60deg) scale(0.6); }
-          50%  { opacity: 1; }
-          100% { opacity: 1; transform: perspective(500px) rotateX(0deg) scale(1); }
+          0%   { opacity: 0; transform: rotateX(-50deg) scale(0.7); }
+          100% { opacity: 1; transform: rotateX(0deg) scale(1); }
         }
         @keyframes dateFloat {
           0%,100% { transform: translateY(0px); }
