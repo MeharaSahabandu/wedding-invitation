@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import LogoutButton from "./LogoutButton";
 
 export default function MobileMenu() {
   const [open, setOpen] = useState(false);
@@ -57,20 +56,6 @@ export default function MobileMenu() {
             </svg>
             Settings
           </button>
-          <div className="border-t border-gray-100 mt-1 pt-1">
-            <button className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-gray-600 hover:bg-gray-50 transition-colors w-full">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="9" strokeWidth="1.5" />
-                <circle cx="12" cy="9" r="3" strokeWidth="1.5" />
-                <path strokeLinecap="round" strokeWidth="1.5"
-                  d="M6.168 18.849A4.008 4.008 0 0110 16h4a4.008 4.008 0 013.832 2.849" />
-              </svg>
-              Profile
-            </button>
-            <div className="px-4 py-1" onClick={(e) => e.stopPropagation()}>
-              <LogoutButton />
-            </div>
-          </div>
         </div>
       )}
     </div>

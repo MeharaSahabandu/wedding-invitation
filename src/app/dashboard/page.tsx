@@ -44,13 +44,7 @@ export default async function Dashboard() {
           </div>
         </div>
 
-        {/* Right: Profile | Sign Out */}
         <div className="flex items-center gap-2 text-sm text-gray-600">
-          <button className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 hover:text-gray-900 transition-colors">
-            <ProfileIcon />
-            Profile
-          </button>
-          <span className="hidden sm:block text-gray-300 select-none mx-1">|</span>
           <MobileMenu />
         </div>
       </nav>
