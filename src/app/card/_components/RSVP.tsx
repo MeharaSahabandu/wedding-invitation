@@ -10,7 +10,6 @@ export default function RSVP() {
   const [mode, setMode] = useState<"idle" | "going" | "declined">("idle");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
   const [attending, setAttending] = useState(false);
@@ -22,7 +21,12 @@ export default function RSVP() {
     const el = sectionRef.current;
     if (!el) return;
     const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } },
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          obs.disconnect();
+        }
+      },
       { threshold: 0.15 }
     );
     obs.observe(el);
@@ -43,7 +47,6 @@ export default function RSVP() {
         name: name.trim(),
         phone: phone.trim(),
         attending: mode === "going",
-        message: message.trim(),
       }),
     });
     setLoading(false);
@@ -58,14 +61,9 @@ export default function RSVP() {
   return (
     <section
       ref={sectionRef}
-      className="w-full px-6 py-16 flex flex-col items-center"
+      className="w-full px-6 pt-6 pb-16 flex flex-col items-center"
       style={{ background: "#0d0d0d" }}
     >
-      {/* Gold top rule */}
-      <div className="w-full max-w-sm mb-12">
-        <div style={{ height: "1px", background: `linear-gradient(to right, transparent, ${GOLD}, transparent)` }} />
-      </div>
-
       {/* Heading */}
       <div
         className="flex flex-col items-center mb-3 w-full max-w-sm"
@@ -75,13 +73,15 @@ export default function RSVP() {
           transition: "opacity 1.1s ease, transform 1.1s ease",
         }}
       >
-        <p style={{
-          fontFamily: "var(--font-mea), 'Mea Culpa', cursive",
-          fontSize: "clamp(2.5rem, 12vw, 3.5rem)",
-          color: GOLD,
-          lineHeight: 1,
-          marginBottom: 0,
-        }}>
+        <p
+          style={{
+            fontFamily: "var(--font-mea), 'Mea Culpa', cursive",
+            fontSize: "clamp(2.5rem, 12vw, 3.5rem)",
+            color: GOLD,
+            lineHeight: 1,
+            marginBottom: 0,
+          }}
+        >
           Rsvp
         </p>
       </div>
@@ -99,8 +99,8 @@ export default function RSVP() {
           transition: "opacity 1.1s ease 0.1s, transform 1.1s ease 0.1s",
         }}
       >
-        Your presence is the greatest gift of all. Kindly respond by 25th May 2026.
-        We look forward to celebrating with you.
+        Your presence is the greatest gift of all. Kindly respond by 25th May
+        2026. We look forward to celebrating with you.
       </p>
 
       {/* Done state */}
@@ -112,20 +112,24 @@ export default function RSVP() {
             transition: "opacity 0.8s ease",
           }}
         >
-          <p style={{
-            fontFamily: "var(--font-mea), serif",
-            fontSize: "clamp(1.8rem, 8vw, 2.4rem)",
-            color: GOLD,
-            marginBottom: "0.8rem",
-          }}>
+          <p
+            style={{
+              fontFamily: "var(--font-mea), serif",
+              fontSize: "clamp(1.8rem, 8vw, 2.4rem)",
+              color: GOLD,
+              marginBottom: "0.8rem",
+            }}
+          >
             {attending ? "We'll see you there!" : "You'll be missed."}
           </p>
-          <p style={{
-            fontFamily: "var(--font-oranienbaum), serif",
-            fontSize: "0.8rem",
-            color: DIM,
-            lineHeight: 1.8,
-          }}>
+          <p
+            style={{
+              fontFamily: "var(--font-oranienbaum), serif",
+              fontSize: "0.8rem",
+              color: DIM,
+              lineHeight: 1.8,
+            }}
+          >
             {attending
               ? "Thank you for confirming! We can't wait to celebrate with you on June 4th. 🤍"
               : "We're sorry you can't make it. Thank you for letting us know. 🤍"}
@@ -194,17 +198,22 @@ export default function RSVP() {
               `}</style>
 
               {/* Mode indicator */}
-              <p style={{
-                fontFamily: "var(--font-oranienbaum), serif",
-                fontSize: "0.62rem",
-                letterSpacing: "0.25em",
-                color: mode === "going" ? GOLD : DIM,
-                textTransform: "uppercase",
-                textAlign: "center",
-              }}>
+              <p
+                style={{
+                  fontFamily: "var(--font-oranienbaum), serif",
+                  fontSize: "0.62rem",
+                  letterSpacing: "0.25em",
+                  color: mode === "going" ? GOLD : DIM,
+                  textTransform: "uppercase",
+                  textAlign: "center",
+                }}
+              >
                 {mode === "going" ? "♥  Yes, I'll be there" : "I can't make it"}
                 <button
-                  onClick={() => { setMode("idle"); setError(""); }}
+                  onClick={() => {
+                    setMode("idle");
+                    setError("");
+                  }}
                   style={{
                     marginLeft: "1rem",
                     color: "#4a4440",
@@ -221,13 +230,15 @@ export default function RSVP() {
 
               {/* Name */}
               <div className="flex flex-col gap-1.5">
-                <label style={{
-                  fontFamily: "var(--font-oranienbaum), serif",
-                  fontSize: "0.58rem",
-                  letterSpacing: "0.28em",
-                  color: GOLD,
-                  textTransform: "uppercase",
-                }}>
+                <label
+                  style={{
+                    fontFamily: "var(--font-oranienbaum), serif",
+                    fontSize: "0.58rem",
+                    letterSpacing: "0.28em",
+                    color: GOLD,
+                    textTransform: "uppercase",
+                  }}
+                >
                   ♥ Your Name *
                 </label>
                 <input
@@ -248,13 +259,15 @@ export default function RSVP() {
 
               {/* Phone */}
               <div className="flex flex-col gap-1.5">
-                <label style={{
-                  fontFamily: "var(--font-oranienbaum), serif",
-                  fontSize: "0.58rem",
-                  letterSpacing: "0.28em",
-                  color: GOLD,
-                  textTransform: "uppercase",
-                }}>
+                <label
+                  style={{
+                    fontFamily: "var(--font-oranienbaum), serif",
+                    fontSize: "0.58rem",
+                    letterSpacing: "0.28em",
+                    color: GOLD,
+                    textTransform: "uppercase",
+                  }}
+                >
                   ♥ Phone Number *
                 </label>
                 <input
@@ -273,36 +286,16 @@ export default function RSVP() {
                 />
               </div>
 
-              {/* Voice / Message */}
-              <div className="flex flex-col gap-1.5">
-                <label style={{
-                  fontFamily: "var(--font-oranienbaum), serif",
-                  fontSize: "0.58rem",
-                  letterSpacing: "0.28em",
-                  color: GOLD,
-                  textTransform: "uppercase",
-                }}>
-                  ♥ Leave a message{" "}
-                  <span style={{ color: DIM, letterSpacing: "0.1em", textTransform: "none" }}>(optional)</span>
-                </label>
-                <textarea
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  placeholder="Write a message for the couple…"
-                  rows={3}
-                  className="w-full px-4 py-3 rounded-xl outline-none resize-none"
-                  style={{
-                    background: "#111",
-                    border: `1px solid rgba(201,169,110,0.18)`,
-                    color: CREAM,
-                    fontFamily: "var(--font-oranienbaum), serif",
-                    fontSize: "0.875rem",
-                  }}
-                />
-              </div>
-
               {error && (
-                <p style={{ color: "#e57373", fontSize: "0.75rem", marginTop: "-8px" }}>{error}</p>
+                <p
+                  style={{
+                    color: "#e57373",
+                    fontSize: "0.75rem",
+                    marginTop: "-8px",
+                  }}
+                >
+                  {error}
+                </p>
               )}
 
               {/* Submit */}
@@ -311,15 +304,19 @@ export default function RSVP() {
                 disabled={loading}
                 className="w-full py-4 rounded-xl disabled:opacity-50"
                 style={{
-                  background: mode === "going"
-                    ? `linear-gradient(135deg, #c9a96e, #a8844f)`
-                    : "transparent",
+                  background:
+                    mode === "going"
+                      ? `linear-gradient(135deg, #c9a96e, #a8844f)`
+                      : "transparent",
                   color: mode === "going" ? "#0d0d0d" : DIM,
                   fontFamily: "var(--font-oranienbaum), serif",
                   fontSize: "0.65rem",
                   letterSpacing: "0.3em",
                   textTransform: "uppercase",
-                  border: mode === "going" ? "none" : `1px solid rgba(201,169,110,0.25)`,
+                  border:
+                    mode === "going"
+                      ? "none"
+                      : `1px solid rgba(201,169,110,0.25)`,
                   cursor: "pointer",
                   marginTop: "0.25rem",
                 }}
@@ -330,11 +327,6 @@ export default function RSVP() {
           )}
         </>
       )}
-
-      {/* Gold bottom rule */}
-      <div className="w-full max-w-sm mt-12">
-        <div style={{ height: "1px", background: `linear-gradient(to right, transparent, ${GOLD}, transparent)` }} />
-      </div>
     </section>
   );
 }

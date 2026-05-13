@@ -34,12 +34,12 @@ export default function Timeline() {
     <section
       ref={ref}
       className="relative w-full overflow-hidden"
-      style={{ background: "#0d0d0d", minHeight: "clamp(640px, 105dvh, 860px)" }}
+      style={{ background: "#0d0d0d" }}
     >
       {/* Champagne glass — right side, full height */}
       <div
         className="absolute right-0 top-0 bottom-0"
-        style={{ width: "58%", zIndex: 0 }}
+        style={{ width: "38%", zIndex: 0 }}
       >
         <Image
           src="/images/champagne.jpg"
@@ -66,7 +66,7 @@ export default function Timeline() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col px-7 pt-12 pb-14">
+      <div className="relative z-10 flex flex-col px-7 pt-12 pb-10">
 
         {/* Heading: ORDER / of the / DAY */}
         <div

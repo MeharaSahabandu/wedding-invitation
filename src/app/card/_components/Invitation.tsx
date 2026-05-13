@@ -28,7 +28,7 @@ export default function Invitation() {
       style={{ minHeight: "100dvh", background: "#0d0d0d" }}
     >
       <style>{`
-        /* "our" — swings in from far left diagonal, slowly */
+        /* our — swings in from far left diagonal, slowly */
         @keyframes swingFromLeft {
           0%   { opacity: 0; transform: translateX(-140px) translateY(-60px) rotate(-18deg); filter: blur(6px); }
           55%  { opacity: 1; filter: blur(0px); }
@@ -36,7 +36,7 @@ export default function Invitation() {
           100% { opacity: 1; transform: translateX(0) translateY(0) rotate(0deg); filter: blur(0); }
         }
 
-        /* "Love Story" — rises slowly from well below, with a 3-D perspective tilt */
+        /* Love Story — rises slowly from well below, with a 3-D perspective tilt */
         @keyframes riseFromDepth {
           0%   { opacity: 0; transform: perspective(700px) rotateX(72deg) translateY(80px); filter: blur(4px); }
           50%  { opacity: 0.8; filter: blur(0px); }
@@ -59,8 +59,8 @@ export default function Invitation() {
 
       {/* Top dark fade */}
       <div className="absolute top-0 left-0 right-0 z-10" style={{
-        height: "220px",
-        background: "linear-gradient(to bottom, #0d0d0d 30%, rgba(13,13,13,0.5) 70%, transparent 100%)",
+        height: "80px",
+        background: "linear-gradient(to bottom, #0d0d0d 20%, transparent 100%)",
       }} />
 
       {/* Bottom dark fade */}
@@ -88,7 +88,7 @@ export default function Invitation() {
       </div>
 
       {/* Content */}
-      <div className="relative z-20 flex flex-col items-center px-8 py-16 text-center w-full"
+      <div className="relative z-20 flex flex-col items-center px-8 pt-6 pb-16 text-center w-full"
         style={{ maxWidth: "min(420px, 100vw)" }}>
 
         {/* "our" — swings in from upper-left, slow */}
