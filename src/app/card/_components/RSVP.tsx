@@ -49,9 +49,18 @@ export default function RSVP() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  function handlePhoneChange(value: string) {
+    const digits = value.replace(/\D/g, "").slice(0, 10);
+    setPhone(digits);
+  }
+
   async function handleSubmit() {
     if (!name.trim() || !phone.trim()) {
       setError("Please fill in your name and phone number.");
+      return;
+    }
+    if (!/^07\d{8}$/.test(phone)) {
+      setError("Phone number must start with 07 and be 10 digits (e.g. 0712345678).");
       return;
     }
     setLoading(true);
@@ -310,8 +319,10 @@ export default function RSVP() {
                 <input
                   type="tel"
                   value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  placeholder="+94 77 000 0000"
+                  onChange={(e) => handlePhoneChange(e.target.value)}
+                  placeholder="07XXXXXXXX"
+                  maxLength={10}
+                  inputMode="numeric"
                   className="w-full px-4 py-3 rounded-xl outline-none"
                   style={{
                     background: "#111",
