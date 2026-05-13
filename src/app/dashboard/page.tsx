@@ -4,6 +4,7 @@ import ParticipantList from "./ParticipantList";
 import ImportButton from "./ImportButton";
 import MobileMenu from "../components/MobileMenu";
 import CopyLinkButton from "./CopyLinkButton";
+import LogoutButton from "../components/LogoutButton";
 
 export const dynamic = "force-dynamic";
 
@@ -45,6 +46,7 @@ export default async function Dashboard() {
         </div>
 
         <div className="flex items-center gap-2 text-sm text-gray-600">
+          <div className="hidden sm:block"><LogoutButton /></div>
           <MobileMenu />
         </div>
       </nav>

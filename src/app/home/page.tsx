@@ -3,6 +3,7 @@ import Link from "next/link";
 import CalendarWidget from "../components/CalendarWidget";
 import EventCard from "../components/EventCard";
 import MobileMenu from "../components/MobileMenu";
+import LogoutButton from "../components/LogoutButton";
 
 export const dynamic = "force-dynamic";
 
@@ -46,7 +47,8 @@ export default async function HomePage() {
             </Link>
           </div>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 text-sm text-gray-600">
+          <div className="hidden sm:block"><LogoutButton /></div>
           <MobileMenu />
         </div>
       </nav>

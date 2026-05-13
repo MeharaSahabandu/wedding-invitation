@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import LogoutButton from "./LogoutButton";
 
 export default function MobileMenu() {
   const [open, setOpen] = useState(false);
@@ -56,6 +57,9 @@ export default function MobileMenu() {
             </svg>
             Settings
           </button>
+          <div className="border-t border-gray-100 mt-1 pt-1" onClick={(e) => e.stopPropagation()}>
+            <LogoutButton />
+          </div>
         </div>
       )}
     </div>
