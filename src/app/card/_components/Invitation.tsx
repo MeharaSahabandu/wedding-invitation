@@ -30,6 +30,7 @@ export default function Invitation() {
     const el = ref.current;
     if (!el) return;
     function onScroll() {
+      if (window.innerWidth < 768) return;
       const rect = el!.getBoundingClientRect();
       const vh = window.innerHeight;
       const progress = (vh / 2 - (rect.top + rect.height / 2)) / vh;
@@ -44,34 +45,17 @@ export default function Invitation() {
     <section
       ref={ref}
       className="relative w-full overflow-hidden flex flex-col items-center justify-center"
-      style={{ background: "#0d0d0d" }}
+      style={{ background: "#0d0d0d", WebkitFontSmoothing: "antialiased", MozOsxFontSmoothing: "grayscale" }}
     >
       <style>{`
-        @keyframes swingFromLeft {
-          0%   { opacity: 0; transform: perspective(900px) rotateY(-60deg) translateX(-60px); filter: blur(6px); }
-          50%  { opacity: 1; filter: blur(0px); }
-          100% { opacity: 1; transform: perspective(900px) rotateY(0deg) translateX(0); filter: blur(0); }
+        * { -webkit-backface-visibility: hidden; backface-visibility: hidden; }
+        @keyframes slideUp {
+          0%   { transform: translate3d(0, 100%, 0); opacity: 0; }
+          100% { transform: translate3d(0, 0, 0); opacity: 1; }
         }
-
-        @keyframes riseFromDepth {
-          0%   { opacity: 0; transform: perspective(800px) rotateX(70deg) translateY(60px); filter: blur(5px); }
-          50%  { opacity: 1; filter: blur(0px); }
-          100% { opacity: 1; transform: perspective(800px) rotateX(0deg) translateY(0); filter: blur(0); }
-        }
-
         @keyframes stretchOpen {
           from { transform: scaleX(0); opacity: 0; }
           to   { transform: scaleX(1); opacity: 1; }
-        }
-
-        @keyframes goldPulse {
-          0%,100% { opacity: 1; box-shadow: 0 0 0 rgba(201,169,110,0); }
-          50%     { opacity: 0.85; box-shadow: 0 0 18px rgba(201,169,110,0.35); }
-        }
-
-        @keyframes slideUp {
-          0%   { transform: translateY(110%); opacity: 0; }
-          100% { transform: translateY(0); opacity: 1; }
         }
       `}</style>
 

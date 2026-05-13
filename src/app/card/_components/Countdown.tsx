@@ -60,6 +60,7 @@ export default function Countdown() {
     const el = ref.current;
     if (!el) return;
     function onScroll() {
+      if (window.innerWidth < 768) return;
       const rect = el!.getBoundingClientRect();
       const vh = window.innerHeight;
       const progress = (vh / 2 - (rect.top + rect.height / 2)) / vh;
@@ -81,24 +82,21 @@ export default function Countdown() {
     <section
       ref={ref}
       className="w-full pt-8 pb-12 px-6 flex flex-col items-center"
-      style={{ background: "#0d0d0d" }}
+      style={{ background: "#0d0d0d", WebkitFontSmoothing: "antialiased", MozOsxFontSmoothing: "grayscale" }}
     >
       <style>{`
+        * { -webkit-backface-visibility: hidden; backface-visibility: hidden; }
         @keyframes flipDown {
-          0%   { transform: perspective(600px) rotateX(-100deg) translateY(-30px) scale(0.8); opacity: 0; filter: blur(2px); }
-          55%  { opacity: 1; filter: blur(0); }
-          80%  { transform: perspective(600px) rotateX(8deg) translateY(2px) scale(1.02); }
-          100% { transform: perspective(600px) rotateX(0deg) translateY(0) scale(1); opacity: 1; }
+          0%   { transform: translate3d(0, -20px, 0) rotateX(-80deg); opacity: 0; }
+          100% { transform: translate3d(0, 0, 0) rotateX(0deg); opacity: 1; }
         }
         @keyframes headingSwing {
-          0%   { opacity: 0; transform: perspective(900px) rotateX(60deg) translateY(-30px); filter: blur(4px); }
-          50%  { opacity: 1; filter: blur(0); }
-          100% { opacity: 1; transform: perspective(900px) rotateX(0deg) translateY(0); }
+          0%   { opacity: 0; transform: translate3d(0, -20px, 0) rotateX(50deg); }
+          100% { opacity: 1; transform: translate3d(0, 0, 0) rotateX(0deg); }
         }
         @keyframes unitRise {
-          0%   { opacity: 0; transform: perspective(700px) rotateY(-50deg) translateX(-30px); filter: blur(3px); }
-          50%  { opacity: 1; filter: blur(0); }
-          100% { opacity: 1; transform: perspective(700px) rotateY(0deg) translateX(0); }
+          0%   { opacity: 0; transform: translate3d(-30px, 0, 0) rotateY(-30deg); }
+          100% { opacity: 1; transform: translate3d(0, 0, 0) rotateY(0deg); }
         }
         @keyframes cardGlow {
           0%,100% { border-color: rgba(201,169,110,0.15); box-shadow: 0 0 0 rgba(201,169,110,0); }

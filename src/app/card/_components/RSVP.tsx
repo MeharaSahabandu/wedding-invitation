@@ -38,6 +38,7 @@ export default function RSVP() {
     const el = sectionRef.current;
     if (!el) return;
     function onScroll() {
+      if (window.innerWidth < 768) return;
       const rect = el!.getBoundingClientRect();
       const vh = window.innerHeight;
       const progress = (vh / 2 - (rect.top + rect.height / 2)) / vh;
@@ -77,27 +78,25 @@ export default function RSVP() {
     <section
       ref={sectionRef}
       className="w-full px-6 pt-6 pb-16 flex flex-col items-center"
-      style={{ background: "#0d0d0d" }}
+      style={{ background: "#0d0d0d", WebkitFontSmoothing: "antialiased", MozOsxFontSmoothing: "grayscale" }}
     >
       <style>{`
+        * { -webkit-backface-visibility: hidden; backface-visibility: hidden; }
         @keyframes rsvpHeadingDrop {
-          0%   { opacity: 0; transform: perspective(900px) rotateX(65deg) translateY(-20px); filter: blur(5px); }
-          50%  { opacity: 1; filter: blur(0); }
-          100% { opacity: 1; transform: perspective(900px) rotateX(0deg) translateY(0); }
+          0%   { opacity: 0; transform: translate3d(0, -15px, 0) rotateX(55deg); }
+          100% { opacity: 1; transform: translate3d(0, 0, 0) rotateX(0deg); }
         }
         @keyframes rsvpFloat {
-          0%,100% { transform: translateY(0px); }
-          50%     { transform: translateY(-7px); }
+          0%,100% { transform: translate3d(0, 0px, 0); }
+          50%     { transform: translate3d(0, -7px, 0); }
         }
         @keyframes rsvpFormFlip {
-          0%   { opacity: 0; transform: perspective(800px) rotateX(-50deg) translateY(25px); filter: blur(3px); }
-          50%  { opacity: 1; filter: blur(0); }
-          100% { opacity: 1; transform: perspective(800px) rotateX(0deg) translateY(0); }
+          0%   { opacity: 0; transform: translate3d(0, 22px, 0) rotateX(-40deg); }
+          100% { opacity: 1; transform: translate3d(0, 0, 0) rotateX(0deg); }
         }
         @keyframes rsvpButtonRise {
-          0%   { opacity: 0; transform: perspective(700px) rotateY(45deg) translateX(35px); filter: blur(3px); }
-          50%  { opacity: 1; filter: blur(0); }
-          100% { opacity: 1; transform: perspective(700px) rotateY(0deg) translateX(0); }
+          0%   { opacity: 0; transform: translate3d(32px, 0, 0) rotateY(30deg); }
+          100% { opacity: 1; transform: translate3d(0, 0, 0) rotateY(0deg); }
         }
       `}</style>
 
