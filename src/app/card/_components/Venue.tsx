@@ -9,6 +9,7 @@ const CREAM = "#f0ebe0";
 export default function Venue() {
   const ref = useRef<HTMLElement>(null);
   const [visible, setVisible] = useState(false);
+  const [depth, setDepth] = useState({ rx: 0, tz: 0 });
 
   useEffect(() => {
     const el = ref.current;
@@ -26,12 +27,46 @@ export default function Venue() {
     return () => obs.disconnect();
   }, []);
 
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    function onScroll() {
+      const rect = el!.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const progress = (vh / 2 - (rect.top + rect.height / 2)) / vh;
+      setDepth({ rx: progress * 10, tz: Math.abs(progress) * -90 });
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
     <section
       ref={ref}
       className="relative w-full overflow-hidden flex flex-col items-center justify-center"
-      style={{ minHeight: "100dvh", background: "#0d0d0d" }}
+      style={{ background: "#0d0d0d" }}
     >
+      <style>{`
+        @keyframes venueDrop {
+          0%   { opacity: 0; transform: perspective(900px) rotateX(70deg) translateY(40px); filter: blur(6px); }
+          50%  { opacity: 1; filter: blur(0); }
+          100% { opacity: 1; transform: perspective(900px) rotateX(0deg) translateY(0); }
+        }
+        @keyframes venueNameReveal {
+          0%   { opacity: 0; transform: perspective(700px) rotateX(50deg) translateY(25px); filter: blur(3px); }
+          50%  { opacity: 1; filter: blur(0); }
+          100% { opacity: 1; transform: perspective(700px) rotateX(0deg) translateY(0); }
+        }
+        @keyframes venueGlow {
+          0%,100% { text-shadow: 0 0 0 rgba(201,169,110,0); }
+          50%     { text-shadow: 0 0 20px rgba(201,169,110,0.4), 0 0 40px rgba(201,169,110,0.15); }
+        }
+        @keyframes ruleGlow {
+          0%,100% { opacity: 0.6; }
+          50%     { opacity: 1; box-shadow: 0 0 12px rgba(201,169,110,0.5); }
+        }
+      `}</style>
       {/* Top dark fade */}
       <div
         className="absolute top-0 left-0 right-0 z-10"
@@ -78,7 +113,11 @@ export default function Venue() {
       {/* Content */}
       <div
         className="relative z-20 flex flex-col items-center px-8 py-16 text-center w-full"
-        style={{ maxWidth: "min(420px, 100vw)" }}
+        style={{
+          maxWidth: "min(420px, 100vw)",
+          transform: `perspective(1100px) rotateX(${depth.rx}deg) translateZ(${depth.tz}px)`,
+          willChange: "transform",
+        }}
       >
         {/* Gold rule */}
         <div
@@ -101,8 +140,7 @@ export default function Venue() {
             lineHeight: 1,
             marginBottom: 0,
             opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(30px)",
-            transition: "opacity 1.1s ease 0.1s, transform 1.1s ease 0.1s",
+            animation: visible ? "venueDrop 2.2s cubic-bezier(0.16,1,0.3,1) 0.1s both" : "none",
           }}
         >
           the
@@ -120,8 +158,7 @@ export default function Venue() {
             marginTop: 0,
             marginBottom: "2rem",
             opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(30px)",
-            transition: "opacity 1.1s ease 0.15s, transform 1.1s ease 0.15s",
+            animation: visible ? "venueDrop 2.2s cubic-bezier(0.16,1,0.3,1) 0.35s both" : "none",
           }}
         >
           Venue
@@ -137,8 +174,9 @@ export default function Venue() {
             textTransform: "uppercase",
             marginBottom: "1rem",
             opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(30px)",
-            transition: "opacity 1.1s ease 0.25s, transform 1.1s ease 0.25s",
+            animation: visible
+              ? "venueNameReveal 2.2s cubic-bezier(0.16,1,0.3,1) 0.6s both, venueGlow 3s ease-in-out 3.5s infinite"
+              : "none",
           }}
         >
           Vinrich Lake Resort
@@ -155,8 +193,8 @@ export default function Venue() {
             gap: "0.5rem",
             marginBottom: "1.6rem",
             opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(20px)",
-            transition: "opacity 1.1s ease 0.35s, transform 1.1s ease 0.35s",
+            transform: visible ? "translateY(0)" : "translateY(30px)",
+            transition: "opacity 1.6s ease 0.9s, transform 1.6s cubic-bezier(0.16,1,0.3,1) 0.9s",
           }}
         >
           <span style={{ color: GOLD, fontSize: "0.8rem", marginTop: "1px" }}>

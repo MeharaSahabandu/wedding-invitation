@@ -27,12 +27,28 @@ export default function Hero({
   const [duration, setDuration] = useState(0);
   const [slide, setSlide] = useState(0);
   const [mounted, setMounted] = useState(false);
+  const [depth, setDepth] = useState({ rx: 0, tz: 0 });
+  const sectionRef = useRef<HTMLElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMounted(true);
     const id = setInterval(() => setSlide((s) => (s + 1) % SLIDES.length), 3800);
     return () => clearInterval(id);
+  }, []);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    function onScroll() {
+      const rect = el!.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const progress = (vh / 2 - (rect.top + rect.height / 2)) / vh;
+      setDepth({ rx: progress * 8, tz: Math.abs(progress) * -70 });
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
@@ -60,34 +76,52 @@ export default function Hero({
 
   return (
     <section
+      ref={sectionRef}
       className="relative w-full flex flex-col items-center overflow-hidden"
       style={{ background: "#0d0d0d" }}
     >
       <style>{`
         @keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
         @keyframes fadeUp  { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes slideL  { from { opacity: 0; transform: translateX(-60px); } to { opacity: 1; transform: translateX(0); } }
-        @keyframes slideR  { from { opacity: 0; transform: translateX(60px); }  to { opacity: 1; transform: translateX(0); } }
+        @keyframes heroNameL {
+          0%   { opacity: 0; transform: perspective(900px) rotateY(-70deg) translateX(-40px); filter: blur(6px); }
+          50%  { opacity: 1; filter: blur(0); }
+          100% { opacity: 1; transform: perspective(900px) rotateY(0deg) translateX(0); }
+        }
+        @keyframes heroNameR {
+          0%   { opacity: 0; transform: perspective(900px) rotateY(70deg) translateX(40px); filter: blur(6px); }
+          50%  { opacity: 1; filter: blur(0); }
+          100% { opacity: 1; transform: perspective(900px) rotateY(0deg) translateX(0); }
+        }
+        @keyframes heroAndDrop {
+          0%   { opacity: 0; transform: perspective(600px) rotateX(70deg); }
+          50%  { opacity: 1; }
+          100% { opacity: 1; transform: perspective(600px) rotateX(0deg); }
+        }
         @keyframes lineExpand {
           from { width: 0; opacity: 0; }
           to   { width: 100%; opacity: 1; }
         }
         @keyframes dateNumIn {
-          from { opacity: 0; transform: scale(0.7); }
-          to   { opacity: 1; transform: scale(1); }
+          0%   { opacity: 0; transform: perspective(500px) rotateX(-60deg) scale(0.6); }
+          50%  { opacity: 1; }
+          100% { opacity: 1; transform: perspective(500px) rotateX(0deg) scale(1); }
         }
-        @keyframes spBar1 {
-          0%,100% { height: 4px; } 25% { height: 16px; } 50% { height: 8px; } 75% { height: 20px; }
+        @keyframes dateFloat {
+          0%,100% { transform: translateY(0px); }
+          50%      { transform: translateY(-5px); }
         }
-        @keyframes spBar2 {
-          0%,100% { height: 16px; } 25% { height: 6px; } 50% { height: 20px; } 75% { height: 4px; }
-        }
-        @keyframes spBar3 {
-          0%,100% { height: 10px; } 25% { height: 20px; } 50% { height: 4px; } 75% { height: 14px; }
+        @keyframes goldShimmer {
+          0%   { background-position: -200% center; }
+          100% { background-position: 200% center; }
         }
         @keyframes playerFadeIn {
           from { opacity: 0; transform: translateY(14px); }
           to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes playPulse {
+          0%,100% { box-shadow: 0 2px 12px rgba(201,169,110,0.25); }
+          50%     { box-shadow: 0 2px 24px rgba(201,169,110,0.55); }
         }
         .prog-bar:hover .prog-thumb { opacity: 1 !important; }
         .prog-bar:hover .prog-fill  { background: #e8c87a !important; }
@@ -132,7 +166,11 @@ export default function Hero({
       {/* Content */}
       <div
         className="relative z-10 flex flex-col items-center text-center px-8 pt-14 pb-6 w-full"
-        style={{ maxWidth: "min(420px, 100vw)" }}
+        style={{
+          maxWidth: "min(420px, 100vw)",
+          transform: `perspective(1100px) rotateX(${depth.rx}deg) translateZ(${depth.tz}px)`,
+          willChange: "transform",
+        }}
       >
         <p
           style={{
@@ -159,7 +197,7 @@ export default function Hero({
             margin: 0,
             opacity: animate ? undefined : 0,
             animation: animate
-              ? "slideL 0.95s cubic-bezier(0.25,0,0.35,1) 0.2s both"
+              ? "heroNameL 2.8s cubic-bezier(0.16,1,0.3,1) 0.2s both"
               : "none",
           }}
         >
@@ -173,7 +211,7 @@ export default function Hero({
             color: "#c9a96e",
             margin: "0.1rem 0",
             opacity: animate ? undefined : 0,
-            animation: animate ? "fadeIn 1s ease 0.3s both" : "none",
+            animation: animate ? "heroAndDrop 1.6s cubic-bezier(0.16,1,0.3,1) 0.55s both" : "none",
           }}
         >
           and
@@ -189,7 +227,7 @@ export default function Hero({
             margin: 0,
             opacity: animate ? undefined : 0,
             animation: animate
-              ? "slideR 0.95s cubic-bezier(0.25,0,0.35,1) 0.28s both"
+              ? "heroNameR 2.8s cubic-bezier(0.16,1,0.3,1) 0.35s both"
               : "none",
           }}
         >
@@ -310,7 +348,7 @@ export default function Hero({
                 lineHeight: 1,
                 opacity: animate ? undefined : 0,
                 animation: animate
-                  ? "dateNumIn 0.7s cubic-bezier(0.25,0,0.35,1) 0.78s both"
+                  ? "dateNumIn 1.6s cubic-bezier(0.16,1,0.3,1) 0.78s both, dateFloat 4s ease-in-out 3s infinite"
                   : "none",
                 flexShrink: 0,
               }}
@@ -446,6 +484,7 @@ export default function Hero({
                   justifyContent: "center",
                   flexShrink: 0,
                   boxShadow: "0 2px 12px rgba(201,169,110,0.2)",
+                  animation: "playPulse 2.5s ease-in-out infinite",
                 }}
               >
                 {playing ? (
