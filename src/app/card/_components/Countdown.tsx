@@ -136,6 +136,20 @@ export default function Countdown() {
           >
             +94 76 880 2041
           </a>
+          <a
+            href="tel:+94769409786"
+            style={{
+              fontFamily: "var(--font-oranienbaum), serif",
+              fontSize: "0.9rem",
+              letterSpacing: "0.18em",
+              color: GOLD,
+              textDecoration: "none",
+              display: "block",
+              marginTop: "0.4rem",
+            }}
+          >
+            +94 76 940 9786
+          </a>
         </div>
 
         {/* "the" */}
