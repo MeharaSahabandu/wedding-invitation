@@ -120,50 +120,53 @@ export default async function Dashboard() {
         {/* ── Right panel ── */}
         <div className="flex-1 space-y-4 min-w-0">
           {/* Stats card */}
-          <div className="bg-white rounded-2xl shadow-sm px-4 sm:px-6 py-6 flex flex-col sm:flex-row items-start sm:items-center gap-4 overflow-hidden">
-            {/* 4 stat blocks */}
-            <div className="grid grid-cols-4 sm:flex sm:items-end gap-3 sm:gap-6 flex-1 w-full min-w-0">
-              <StatBlock
-                value={confirmed}
-                label="Confirmed"
-                badgeClass="text-green-600 bg-green-50"
-              />
-              <StatBlock
-                value={pending}
-                label="Pending"
-                badgeClass="text-yellow-600 bg-yellow-50"
-              />
-              <StatBlock
-                value={notComing}
-                label="Not Coming"
-                badgeClass="text-red-500 bg-red-50"
-              />
-              <StatBlock
-                value={total}
-                label="Invitees"
-                badgeClass="text-gray-500 bg-gray-100"
-              />
-            </div>
+          <div className="bg-white rounded-2xl shadow-sm px-4 sm:px-6 py-6 flex flex-col gap-5 overflow-hidden">
+            {/* Top row: stats + reminder side-by-side on sm+, stacked on mobile */}
+            <div className="flex flex-col sm:flex-row sm:items-center gap-5">
+              {/* 4 stat blocks: 2×2 on mobile, row on sm+ */}
+              <div className="grid grid-cols-2 sm:flex sm:items-end gap-4 sm:gap-6 flex-1">
+                <StatBlock
+                  value={confirmed}
+                  label="Confirmed"
+                  badgeClass="text-green-600 bg-green-50"
+                />
+                <StatBlock
+                  value={pending}
+                  label="Pending"
+                  badgeClass="text-yellow-600 bg-yellow-50"
+                />
+                <StatBlock
+                  value={notComing}
+                  label="Not Coming"
+                  badgeClass="text-red-500 bg-red-50"
+                />
+                <StatBlock
+                  value={total}
+                  label="Invitees"
+                  badgeClass="text-gray-500 bg-gray-100"
+                />
+              </div>
 
-            {/* Send Reminder section */}
-            <div
-              className="border rounded-xl p-4 w-full sm:w-[200px] sm:shrink-0"
-              style={{ borderColor: "#e8e8e8" }}
-            >
-              <button className="flex items-center gap-2 text-sm font-semibold text-gray-700 hover:text-gray-900 transition-colors mb-3 border border-gray-200 rounded-full px-4 py-2 w-full justify-center">
-                <BellIcon />
-                Send Reminder
-              </button>
-              <p className="text-[11px] text-gray-400 leading-snug mb-1.5">
-                Automatic reminder set to send:
-              </p>
-              <div className="flex items-center gap-1">
-                <span className="text-[11px] text-gray-600 underline cursor-pointer hover:text-gray-900 transition-colors">
-                  24 Hours before event
-                </span>
-                <button className="text-gray-400 hover:text-gray-600 transition-colors">
-                  <PencilIcon size={10} />
+              {/* Send Reminder section */}
+              <div
+                className="border rounded-xl p-4 w-full sm:w-[200px] sm:shrink-0"
+                style={{ borderColor: "#e8e8e8" }}
+              >
+                <button className="flex items-center gap-2 text-sm font-semibold text-gray-700 hover:text-gray-900 transition-colors mb-3 border border-gray-200 rounded-full px-4 py-2 w-full justify-center">
+                  <BellIcon />
+                  Send Reminder
                 </button>
+                <p className="text-[11px] text-gray-400 leading-snug mb-1.5">
+                  Automatic reminder set to send:
+                </p>
+                <div className="flex items-center gap-1">
+                  <span className="text-[11px] text-gray-600 underline cursor-pointer hover:text-gray-900 transition-colors">
+                    24 Hours before event
+                  </span>
+                  <button className="text-gray-400 hover:text-gray-600 transition-colors">
+                    <PencilIcon size={10} />
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -202,7 +205,7 @@ function StatBlock({
 }) {
   return (
     <div className="flex flex-col items-center gap-2">
-      <p className="text-[36px] sm:text-[56px] font-bold text-gray-900 tabular-nums leading-none">
+      <p className="text-[40px] sm:text-[52px] font-bold text-gray-900 tabular-nums leading-none">
         {String(value).padStart(2, "0")}
       </p>
       <span
