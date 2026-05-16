@@ -22,7 +22,7 @@ export default async function Dashboard() {
   }/rsvp`;
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-gray-100 overflow-x-hidden">
       {/* ── Navbar ── */}
       <nav className="bg-white border-b border-gray-100 px-4 sm:px-8 py-3.5 flex items-center justify-between relative">
         {/* Left: logo + nav links */}
@@ -52,9 +52,9 @@ export default async function Dashboard() {
       </nav>
 
       {/* ── Page body ── */}
-      <div className="flex flex-col lg:flex-row gap-5 p-4 sm:p-6 max-w-screen-xl mx-auto items-start">
+      <div className="w-full flex flex-col lg:flex-row gap-5 p-4 sm:p-6 max-w-screen-xl mx-auto lg:items-start overflow-x-hidden">
         {/* ── Left panel ── */}
-        <div className="w-full lg:w-[450px] shrink-0">
+        <div className="w-full lg:w-[450px] lg:shrink-0">
           <div className="bg-white rounded-2xl overflow-hidden shadow-sm">
             {/* Poster image */}
             <div className="relative">
@@ -118,7 +118,7 @@ export default async function Dashboard() {
         </div>
 
         {/* ── Right panel ── */}
-        <div className="flex-1 space-y-4 min-w-0">
+        <div className="w-full lg:flex-1 space-y-4 min-w-0">
           {/* Stats card */}
           <div className="bg-white rounded-2xl shadow-sm px-4 sm:px-6 py-6 flex flex-col gap-5 overflow-hidden">
             {/* Top row: stats + reminder side-by-side on sm+, stacked on mobile */}
